@@ -16,8 +16,8 @@ Six rules. A schema or update rule that violates one is wrong, however convenien
    Course names appear only as *values*, never as keys or folders.
 2. **No trait labels, ever.** Not clinical ("dyslexic"), not pedagogical ("visual learner"). The
    model holds observed working conditions and measured effects, both revisable.
-3. **Two axes, not one.** Every adaptive attribute carries **confidence** (does he hold this?) and
-   **efficacy** (does acting on it measurably help him?). They are independent and both required.
+3. **Two axes, not one.** Every adaptive attribute carries **confidence** (does the learner hold this?)
+   and **efficacy** (does acting on it measurably help them?). They are independent and both required.
 4. **No attribute without provenance.** At least one observation, a timestamp, and a confidence
    value, or the attribute must not be created.
 5. **Everything is due.** Every attribute carries a next-due date and a decay rule. Nothing sits
@@ -34,10 +34,10 @@ Six object types. The first four are the learner model proper; `Session` is the 
 
 | Object | Path | Keyed by | Answers |
 |---|---|---|---|
-| **Concept** | `model/concepts/<domain>/<concept>.md` | domain + concept id | What does he know, how durably, what's damaging it, when to re-check |
-| **Misconception** | `model/misconceptions/<domain>/M### - <name>.md` | permanent global id | What wrong rule does he hold, how confident, what repair was tried, did it hold |
-| **Preference** | `model/preferences/<scope>/<name>.md` | dimension + scope | What working condition suits him here, is it confirmed, does it actually help |
-| **Goal** | `model/goals/<name>.md` | id | What is he working toward, by when |
+| **Concept** | `model/concepts/<domain>/<concept>.md` | domain + concept id | What does the learner know, how durably, what's damaging it, when to re-check |
+| **Misconception** | `model/misconceptions/<domain>/M### - <name>.md` | permanent global id | What wrong rule the learner holds, how confident, what repair was tried, did it hold |
+| **Preference** | `model/preferences/<scope>/<name>.md` | dimension + scope | What working condition suits the learner here, is it confirmed, does it actually help |
+| **Goal** | `model/goals/<name>.md` | id | What the learner is working toward, by when |
 | **Session** | `model/sessions/<year>/YYYY-MM-DD - <mode> - <topic>.md` | date | What happened, in which domains, at what capability |
 | **Provenance** | `model/provenance/<year>/<month>.jsonl` | append-only | Every observation, forever |
 
@@ -121,7 +121,7 @@ domain: Algebra                 # the most primitive domain the wrong rule is st
 origin: provisional             # course-defined | provisional
 status: repairing               # candidate | active | repairing | resolved | durable
 severity: high                  # high | medium | low
-confidence: 0.8                 # posterior that he actually holds this rule
+confidence: 0.8                 # posterior that the learner actually holds this rule
 reproduced_under_variation: true
 surfaced_in:                    # courses where actually observed — values, not keys
   - Differential Equations
@@ -158,7 +158,7 @@ Additivity holds only for linear f. Boundary: f(x) = cx.
 - 2026-01-12 — wrote ln(x+1) = ln x + ln 1 unprompted mid-solution.
 
 ## Why the wrong rule felt right
-Every f he had met before was a scaling. Distributivity of × over + generalises silently.
+Every f the learner had met before was a scaling. Distributivity of × over + generalises silently.
 ```
 
 **Catalogue is the prior, ledger is the posterior.** `catalog_id` links to the generic bug students in
@@ -191,8 +191,8 @@ dimension: chunk_length         # one of the adapted dimensions (§4)
 scope: Mathematics              # domain name, or `global` for accessibility-class preferences
 condition: "~120-word sections with increased spacing"   # observed working condition
 value: 120
-confidence: 0.7                 # does he hold this preference
-efficacy: 0.18                  # does acting on it improve HIS measured performance; null = unmeasured
+confidence: 0.7                 # does the learner hold this preference
+efficacy: 0.18                  # does acting on it improve the learner's measured performance; null = unmeasured
 efficacy_n: 6                   # artifact pairs the efficacy estimate rests on
 learner_confirmed: true
 proposed_at: 2026-01-15
@@ -204,9 +204,10 @@ provenance: [obs-4402, obs-4455, obs-4501]
 ```
 
 **Two axes, and they come apart.** Confidence moves on what the learner says, accepts, and declines.
-Efficacy moves only on measured performance against his own prior history. Learners routinely prefer
-the format that feels fluent over the one that works; an attribute with high confidence and neutral
-efficacy is a **cosmetic adaptation**, and this is the only instrument that can detect it.
+Efficacy moves only on measured performance against the learner's own prior history. Learners
+routinely prefer the format that feels fluent over the one that works; an attribute with high
+confidence and neutral efficacy is a **cosmetic adaptation**, and this is the only instrument that
+can detect it.
 
 **`scope` is domain-level, not global**, except for accessibility-class preferences (reduced motion,
 sign/operator colour coding, contrast) which are genuinely person-level and carry everywhere. A
@@ -565,8 +566,8 @@ The signal this model exists to capture, end to end:
 10. **Mar.** Meanwhile `P021` (`modality_framing: visual-first`, scope `Mathematics`) shows
     confidence 0.7 and efficacy 0.22 over 6 pairs — it is helping. `P011`
     (`progressive_disclosure: collapsed`, scope `Mathematics`) shows confidence 0.8 but efficacy
-    −0.04 over 7 pairs: he likes it and it is not working. The inspector surfaces exactly that, in
-    those words, and offers to drop it.
+    −0.04 over 7 pairs: the learner likes it and it is not working. The inspector surfaces exactly
+    that, in those words, and offers to drop it.
 
 Step 10 is the test: the learner can point at something and say *"it did that because of something I
 actually did"* — and be right.

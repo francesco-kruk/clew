@@ -61,6 +61,24 @@ class MarkdownArtifactFormatter:
         lines.append("\n")
         return "\n".join(lines)
 
+    def format_exercise_as_image(
+        self,
+        title: str,
+        image_path: str,
+        text_summary: Optional[str] = None,
+    ) -> str:
+        """Format an exercise section with its visual image crop as an interactive Obsidian callout."""
+        lines = [f"> [!exercise] {title}"]
+        if text_summary:
+            lines.append(f"> *{text_summary[:180]}...*")
+            lines.append(">")
+        lines.append(f"> ![{title}]({image_path})")
+        lines.append(">")
+        lines.append("> - [ ] **Your Answer / Solution:**")
+        lines.append(">   ")
+        lines.append("\n")
+        return "\n".join(lines)
+
     def format_chart(
         self,
         caption: str,

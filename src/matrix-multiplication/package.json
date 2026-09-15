@@ -1,0 +1,17 @@
+{
+  "name": "matrix-multiplication-learning-map",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Portable learning graph, lessons, and validation for matrix multiplication.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "validate": "node validate.mjs",
+    "test": "node --test validate.test.mjs"
+  },
+  "devDependencies": {
+    "ajv": "8.17.1"
+  }
+}

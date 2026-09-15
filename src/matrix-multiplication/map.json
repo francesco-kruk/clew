@@ -1,0 +1,1464 @@
+{
+  "$schema": "./map.schema.json",
+  "schemaVersion": 1,
+  "id": "matrix-multiplication",
+  "title": "Matrix multiplication",
+  "description": "A progressive concept map and textbook, from single-entry products to rectangular products, special matrices, and deeper connections.",
+  "startNode": "one",
+  "readingOrder": [
+    "one",
+    "dot",
+    "shapes",
+    "vector",
+    "rectangle",
+    "order",
+    "identity",
+    "diagonal",
+    "permutation",
+    "geometry",
+    "transpose",
+    "inverse",
+    "laws",
+    "outer"
+  ],
+  "categories": [
+    {
+      "id": "the-rule",
+      "title": "The rule",
+      "description": "Understand row-by-column multiplication and when a product exists.",
+      "order": 1,
+      "layout": {
+        "x": 18,
+        "y": 9
+      }
+    },
+    {
+      "id": "building-the-product",
+      "title": "Building the product",
+      "description": "Build matrix-vector and rectangular products, then examine why multiplication order matters.",
+      "order": 2,
+      "layout": {
+        "x": 18,
+        "y": 276
+      }
+    },
+    {
+      "id": "special-matrices",
+      "title": "Special matrices",
+      "description": "Explore matrices that preserve, zero, scale, or rearrange data.",
+      "order": 3,
+      "layout": {
+        "x": 18,
+        "y": 548
+      }
+    },
+    {
+      "id": "connections",
+      "title": "Connections",
+      "description": "Connect multiplication to geometry, transposes, inverses, algebraic laws, and outer products.",
+      "order": 4,
+      "layout": {
+        "x": 18,
+        "y": 753
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "one",
+      "title": "One number at a time",
+      "shortTitle": "1 × 1",
+      "categoryId": "the-rule",
+      "summary": "A matrix is a rectangular array of numbers. Its shape is written rows × columns. A 1 × 1 matrix has just one entry, so multiplying two of them is ordinary multiplication in brackets.",
+      "content": "lessons/one.md",
+      "example": {
+        "operation": "matrix-multiplication",
+        "A": [
+          [
+            3
+          ]
+        ],
+        "B": [
+          [
+            4
+          ]
+        ],
+        "expectedProduct": [
+          [
+            12
+          ]
+        ]
+      },
+      "presets": [],
+      "checkpoint": {
+        "id": "one-checkpoint",
+        "type": "numeric",
+        "prompt": "What is the only entry of [−2][5]?",
+        "answer": -10,
+        "tolerance": 1e-9,
+        "hint": "Multiply the two entries. A negative times a positive is negative.",
+        "explanation": "(−2) × 5 = −10, so the product is [−10]."
+      },
+      "interactions": [
+        "edit-matrices",
+        "trace-dot-product"
+      ],
+      "layout": {
+        "x": 135,
+        "y": 52
+      }
+    },
+    {
+      "id": "dot",
+      "title": "A row meets a column",
+      "shortTitle": "Dot product",
+      "categoryId": "the-rule",
+      "summary": "Multiply matching entries, then add the products. This row-by-column calculation is a dot product: it is the single operation behind every entry of a matrix product.",
+      "content": "lessons/dot.md",
+      "example": {
+        "operation": "matrix-multiplication",
+        "A": [
+          [
+            2,
+            3,
+            -1
+          ]
+        ],
+        "B": [
+          [
+            4
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ]
+        ],
+        "expectedProduct": [
+          [
+            9
+          ]
+        ]
+      },
+      "presets": [],
+      "checkpoint": {
+        "id": "dot-checkpoint",
+        "type": "numeric",
+        "prompt": "Compute [1  −2  3] [4  5  2]ᵀ. What is the result's single entry?",
+        "answer": 0,
+        "tolerance": 1e-9,
+        "hint": "The three terms are 4, −10, and 6.",
+        "explanation": "1·4 + (−2)·5 + 3·2 = 4 − 10 + 6 = 0. Nonzero vectors can have zero dot product."
+      },
+      "interactions": [
+        "edit-matrices",
+        "trace-dot-product"
+      ],
+      "layout": {
+        "x": 135,
+        "y": 137
+      }
+    },
+    {
+      "id": "shapes",
+      "title": "When a product exists",
+      "shortTitle": "Shapes",
+      "categoryId": "the-rule",
+      "summary": "A row of A must have exactly as many entries as a column of B. That is why A's column count must match B's row count.",
+      "content": "lessons/shapes.md",
+      "example": {
+        "operation": "matrix-multiplication",
+        "A": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ]
+        ],
+        "B": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "expectedProduct": [
+          [
+            4,
+            5
+          ],
+          [
+            10,
+            11
+          ]
+        ]
+      },
+      "presets": [
+        {
+          "id": "small",
+          "title": "2 × 3 by 3 × 2",
+          "operation": "matrix-multiplication",
+          "A": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              0,
+              -1,
+              2
+            ]
+          ],
+          "B": [
+            [
+              1,
+              2
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              3,
+              0
+            ]
+          ],
+          "expectedProduct": [
+            [
+              10,
+              4
+            ],
+            [
+              6,
+              -1
+            ]
+          ]
+        },
+        {
+          "id": "large",
+          "title": "3 × 2 by 2 × 4",
+          "operation": "matrix-multiplication",
+          "A": [
+            [
+              1,
+              2
+            ],
+            [
+              0,
+              -1
+            ],
+            [
+              3,
+              1
+            ]
+          ],
+          "B": [
+            [
+              1,
+              0,
+              2,
+              -1
+            ],
+            [
+              3,
+              1,
+              0,
+              2
+            ]
+          ],
+          "expectedProduct": [
+            [
+              7,
+              2,
+              2,
+              3
+            ],
+            [
+              -3,
+              -1,
+              0,
+              -2
+            ],
+            [
+              6,
+              1,
+              6,
+              -1
+            ]
+          ]
+        },
+        {
+          "id": "invalid",
+          "title": "Incompatible inner dimensions",
+          "operation": "matrix-multiplication",
+          "A": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6
+            ]
+          ],
+          "B": [
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "expectedProduct": null
+        }
+      ],
+      "checkpoint": {
+        "id": "shapes-checkpoint",
+        "type": "single-choice",
+        "prompt": "A has shape 3 × 2 and B has shape 2 × 4. What is the shape of AB?",
+        "options": [
+          "3 × 4",
+          "2 × 2",
+          "4 × 3",
+          "Undefined"
+        ],
+        "answer": "3 × 4",
+        "hint": "Match the two inner dimensions, then keep the outside pair.",
+        "explanation": "(3 × 2)(2 × 4) → 3 × 4. There is one output for each of A's three rows and B's four columns."
+      },
+      "interactions": [
+        "edit-matrices",
+        "trace-dot-product",
+        "resize-matrices"
+      ],
+      "layout": {
+        "x": 135,
+        "y": 222
+      }
+    },
+    {
+      "id": "vector",
+      "title": "A matrix acts on a vector",
+      "shortTitle": "Matrix × vector",
+      "categoryId": "building-the-product",
+      "summary": "A column vector is a matrix with one column. Multiplying A by a vector computes one dot product for every row of A.",
+      "content": "lessons/vector.md",
+      "example": {
+        "operation": "matrix-multiplication",
+        "A": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            1
+          ]
+        ],
+        "B": [
+          [
+            2
+          ],
+          [
+            1
+          ]
+        ],
+        "expectedProduct": [
+          [
+            4
+          ],
+          [
+            7
+          ]
+        ]
+      },
+      "presets": [],
+      "checkpoint": {
+        "id": "vector-checkpoint",
+        "type": "single-choice",
+        "prompt": "For A = [[1, 2], [3, 1]] and x = [0, 1]ᵀ, what is Ax?",
+        "options": [
+          "[2, 1]ᵀ",
+          "[1, 3]ᵀ",
+          "[0, 1]ᵀ",
+          "[3, 3]ᵀ"
+        ],
+        "answer": "[2, 1]ᵀ",
+        "hint": "The weights are 0 and 1, so only the second column survives.",
+        "explanation": "Ax = 0·[1, 3]ᵀ + 1·[2, 1]ᵀ = [2, 1]ᵀ."
+      },
+      "interactions": [
+        "edit-matrices",
+        "trace-dot-product",
+        "coordinate-view"
+      ],
+      "layout": {
+        "x": 135,
+        "y": 326
+      }
+    },
+    {
+      "id": "rectangle",
+      "title": "Every output is a dot product",
+      "shortTitle": "Rectangular products",
+      "categoryId": "building-the-product",
+      "summary": "For AB, entry (i, j) is row i of A dotted with column j of B. Repeat this rule for each output position. Here we number rows and columns starting at 1.",
+      "content": "lessons/rectangle.md",
+      "example": {
+        "operation": "matrix-multiplication",
+        "A": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            0,
+            -1,
+            2
+          ]
+        ],
+        "B": [
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "expectedProduct": [
+          [
+            10,
+            4
+          ],
+          [
+            6,
+            -1
+          ]
+        ]
+      },
+      "presets": [
+        {
+          "id": "small",
+          "title": "2 × 3 by 3 × 2",
+          "operation": "matrix-multiplication",
+          "A": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              0,
+              -1,
+              2
+            ]
+          ],
+          "B": [
+            [
+              1,
+              2
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              3,
+              0
+            ]
+          ],
+          "expectedProduct": [
+            [
+              10,
+              4
+            ],
+            [
+              6,
+              -1
+            ]
+          ]
+        },
+        {
+          "id": "large",
+          "title": "3 × 2 by 2 × 4",
+          "operation": "matrix-multiplication",
+          "A": [
+            [
+              1,
+              2
+            ],
+            [
+              0,
+              -1
+            ],
+            [
+              3,
+              1
+            ]
+          ],
+          "B": [
+            [
+              1,
+              0,
+              2,
+              -1
+            ],
+            [
+              3,
+              1,
+              0,
+              2
+            ]
+          ],
+          "expectedProduct": [
+            [
+              7,
+              2,
+              2,
+              3
+            ],
+            [
+              -3,
+              -1,
+              0,
+              -2
+            ],
+            [
+              6,
+              1,
+              6,
+              -1
+            ]
+          ]
+        },
+        {
+          "id": "invalid",
+          "title": "Incompatible inner dimensions",
+          "operation": "matrix-multiplication",
+          "A": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6
+            ]
+          ],
+          "B": [
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "expectedProduct": null
+        }
+      ],
+      "checkpoint": {
+        "id": "rectangle-checkpoint",
+        "type": "numeric",
+        "prompt": "Using the original example above, what is entry (2, 2) of AB?",
+        "answer": -1,
+        "tolerance": 1e-9,
+        "hint": "Use row [0, −1, 2] and column [2, 1, 0]ᵀ.",
+        "explanation": "0·2 + (−1)·1 + 2·0 = −1. The full product is [[10, 4], [6, −1]]."
+      },
+      "interactions": [
+        "edit-matrices",
+        "trace-dot-product",
+        "resize-matrices"
+      ],
+      "layout": {
+        "x": 135,
+        "y": 411
+      }
+    },
+    {
+      "id": "order",
+      "title": "Order matters",
+      "shortTitle": "AB ≠ BA",
+      "categoryId": "building-the-product",
+      "summary": "In general, AB and BA are different. Sometimes only one is defined. Even when both exist and have the same shape, their entries need not agree.",
+      "content": "lessons/order.md",
+      "example": {
+        "operation": "matrix-multiplication",
+        "A": [
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "B": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "expectedProduct": [
+          [
+            2,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "presets": [],
+      "checkpoint": {
+        "id": "order-checkpoint",
+        "type": "single-choice",
+        "prompt": "A is 2 × 3 and B is 3 × 4. Which statement is true?",
+        "options": [
+          "Only AB exists",
+          "Both AB and BA exist",
+          "Only BA exists",
+          "Neither exists"
+        ],
+        "answer": "Only AB exists",
+        "hint": "AB matches 3 with 3. For BA, compare 4 with 2.",
+        "explanation": "AB exists and is 2 × 4. BA would require 4 = 2, so BA is undefined."
+      },
+      "interactions": [
+        "edit-matrices",
+        "trace-dot-product",
+        "reverse-order"
+      ],
+      "layout": {
+        "x": 135,
+        "y": 496
+      }
+    },
+    {
+      "id": "identity",
+      "title": "Identity and zero",
+      "shortTitle": "Identity · zero",
+      "categoryId": "special-matrices",
+      "summary": "The identity matrix has ones on its main diagonal and zeros elsewhere. It preserves every vector and matrix of compatible size. A zero matrix has only zero entries.",
+      "content": "lessons/identity.md",
+      "example": {
+        "operation": "matrix-multiplication",
+        "A": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "B": [
+          [
+            2,
+            -1,
+            4
+          ],
+          [
+            3,
+            5,
+            0
+          ]
+        ],
+        "expectedProduct": [
+          [
+            2,
+            -1,
+            4
+          ],
+          [
+            3,
+            5,
+            0
+          ]
+        ]
+      },
+      "presets": [
+        {
+          "id": "zero",
+          "title": "Zero matrix on the left",
+          "operation": "matrix-multiplication",
+          "A": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "B": [
+            [
+              2,
+              -1,
+              4
+            ],
+            [
+              3,
+              5,
+              0
+            ]
+          ],
+          "expectedProduct": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ]
+        }
+      ],
+      "checkpoint": {
+        "id": "identity-checkpoint",
+        "type": "single-choice",
+        "prompt": "If A is 2 × 3, which identity can multiply A on the right without changing it?",
+        "options": [
+          "I₃ (3 × 3)",
+          "I₂ (2 × 2)",
+          "I₁ (1 × 1)"
+        ],
+        "answer": "I₃ (3 × 3)",
+        "hint": "The number of columns of A must equal the number of rows of the right factor.",
+        "explanation": "AI₃ = A. On the left, I₂A = A. Both products have shape 2 × 3."
+      },
+      "interactions": [
+        "edit-matrices",
+        "trace-dot-product",
+        "zero-matrix-preset"
+      ],
+      "layout": {
+        "x": 70,
+        "y": 604
+      }
+    },
+    {
+      "id": "diagonal",
+      "title": "Diagonal matrices scale",
+      "shortTitle": "Diagonal scaling",
+      "categoryId": "special-matrices",
+      "summary": "A diagonal matrix has zeros away from the main diagonal. Multiplication by it scales rows or columns, depending on which side it is on.",
+      "content": "lessons/diagonal.md",
+      "example": {
+        "operation": "matrix-multiplication",
+        "A": [
+          [
+            2,
+            0
+          ],
+          [
+            0,
+            -1
+          ]
+        ],
+        "B": [
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        "expectedProduct": [
+          [
+            2,
+            6
+          ],
+          [
+            -2,
+            -4
+          ]
+        ]
+      },
+      "presets": [],
+      "checkpoint": {
+        "id": "diagonal-checkpoint",
+        "type": "numeric",
+        "prompt": "Let D = diag(2, 3) and M = [[1, 4], [2, 5]]. What is entry (1, 2) of MD?",
+        "answer": 12,
+        "tolerance": 1e-9,
+        "hint": "Multiplying on the right scales columns. The second column is scaled by 3.",
+        "explanation": "(MD)₁₂ = 4·3 = 12. In contrast, (DM)₁₂ = 2·4 = 8."
+      },
+      "interactions": [
+        "edit-matrices",
+        "trace-dot-product",
+        "reverse-order"
+      ],
+      "layout": {
+        "x": 200,
+        "y": 604
+      }
+    },
+    {
+      "id": "permutation",
+      "title": "Permutations rearrange",
+      "shortTitle": "Row swaps",
+      "categoryId": "special-matrices",
+      "summary": "A permutation matrix has exactly one 1 in every row and every column, and zeros elsewhere. It rearranges data rather than blending it.",
+      "content": "lessons/permutation.md",
+      "example": {
+        "operation": "matrix-multiplication",
+        "A": [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "B": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "expectedProduct": [
+          [
+            3,
+            4
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            5,
+            6
+          ]
+        ]
+      },
+      "presets": [],
+      "checkpoint": {
+        "id": "permutation-checkpoint",
+        "type": "single-choice",
+        "prompt": "If P = [[0, 1], [1, 0]], what is P²?",
+        "options": [
+          "I₂",
+          "P",
+          "The zero matrix",
+          "2P"
+        ],
+        "answer": "I₂",
+        "hint": "Swap twice. Where does each row end up?",
+        "explanation": "P² = [[1, 0], [0, 1]] = I₂. This particular permutation is its own inverse."
+      },
+      "interactions": [
+        "edit-matrices",
+        "trace-dot-product"
+      ],
+      "layout": {
+        "x": 70,
+        "y": 699
+      }
+    },
+    {
+      "id": "geometry",
+      "title": "Multiplication is composition",
+      "shortTitle": "Transformations",
+      "categoryId": "connections",
+      "summary": "A 2 × 2 matrix describes a linear transformation of the plane. Its columns are the images of the basis vectors e₁ = [1, 0]ᵀ and e₂ = [0, 1]ᵀ.",
+      "content": "lessons/geometry.md",
+      "example": {
+        "operation": "matrix-multiplication",
+        "A": [
+          [
+            0,
+            -1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "B": [
+          [
+            2
+          ],
+          [
+            1
+          ]
+        ],
+        "expectedProduct": [
+          [
+            -1
+          ],
+          [
+            2
+          ]
+        ]
+      },
+      "presets": [
+        {
+          "id": "rotation",
+          "title": "90-degree counterclockwise rotation",
+          "operation": "matrix-multiplication",
+          "A": [
+            [
+              0,
+              -1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "B": [
+            [
+              2
+            ],
+            [
+              1
+            ]
+          ],
+          "expectedProduct": [
+            [
+              -1
+            ],
+            [
+              2
+            ]
+          ]
+        },
+        {
+          "id": "stretch",
+          "title": "Stretch horizontally by 2",
+          "operation": "matrix-multiplication",
+          "A": [
+            [
+              2,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "B": [
+            [
+              2
+            ],
+            [
+              1
+            ]
+          ],
+          "expectedProduct": [
+            [
+              4
+            ],
+            [
+              1
+            ]
+          ]
+        },
+        {
+          "id": "shear",
+          "title": "Horizontal shear",
+          "operation": "matrix-multiplication",
+          "A": [
+            [
+              1,
+              1
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "B": [
+            [
+              2
+            ],
+            [
+              1
+            ]
+          ],
+          "expectedProduct": [
+            [
+              3
+            ],
+            [
+              1
+            ]
+          ]
+        },
+        {
+          "id": "reflection",
+          "title": "Reflection across the horizontal axis",
+          "operation": "matrix-multiplication",
+          "A": [
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              -1
+            ]
+          ],
+          "B": [
+            [
+              2
+            ],
+            [
+              1
+            ]
+          ],
+          "expectedProduct": [
+            [
+              2
+            ],
+            [
+              -1
+            ]
+          ]
+        },
+        {
+          "id": "projection",
+          "title": "Projection onto the horizontal axis",
+          "operation": "matrix-multiplication",
+          "A": [
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "B": [
+            [
+              2
+            ],
+            [
+              1
+            ]
+          ],
+          "expectedProduct": [
+            [
+              2
+            ],
+            [
+              0
+            ]
+          ]
+        }
+      ],
+      "checkpoint": {
+        "id": "geometry-checkpoint",
+        "type": "single-choice",
+        "prompt": "R rotates 90° counterclockwise and D = diag(2, 1). What is RD[1, 0]ᵀ?",
+        "options": [
+          "[0, 2]ᵀ",
+          "[0, 1]ᵀ",
+          "[2, 0]ᵀ",
+          "[−2, 0]ᵀ"
+        ],
+        "answer": "[0, 2]ᵀ",
+        "hint": "Apply D first: [1, 0]ᵀ becomes [2, 0]ᵀ. Then rotate.",
+        "explanation": "RD[1, 0]ᵀ = R[2, 0]ᵀ = [0, 2]ᵀ. Reversing the order gives DR[1, 0]ᵀ = [0, 1]ᵀ."
+      },
+      "interactions": [
+        "edit-matrices",
+        "trace-dot-product",
+        "coordinate-view",
+        "transformation-presets"
+      ],
+      "layout": {
+        "x": 135,
+        "y": 805
+      }
+    },
+    {
+      "id": "transpose",
+      "title": "Transposing reverses the order",
+      "shortTitle": "Transpose",
+      "categoryId": "connections",
+      "summary": "The transpose exchanges rows and columns. It turns an m × n matrix into an n × m matrix. A product's transpose reverses the factors as well as transposing them.",
+      "content": "lessons/transpose.md",
+      "example": {
+        "operation": "matrix-multiplication",
+        "A": [
+          [
+            1,
+            2,
+            0
+          ],
+          [
+            0,
+            -1,
+            3
+          ]
+        ],
+        "B": [
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            4
+          ]
+        ],
+        "expectedProduct": [
+          [
+            4
+          ],
+          [
+            11
+          ]
+        ]
+      },
+      "presets": [],
+      "checkpoint": {
+        "id": "transpose-checkpoint",
+        "type": "single-choice",
+        "prompt": "Which expression always equals (ABC)ᵀ when ABC is defined?",
+        "options": [
+          "CᵀBᵀAᵀ",
+          "AᵀBᵀCᵀ",
+          "BᵀAᵀCᵀ"
+        ],
+        "answer": "CᵀBᵀAᵀ",
+        "hint": "Reverse the entire order, not just a neighboring pair.",
+        "explanation": "(ABC)ᵀ = Cᵀ(AB)ᵀ = CᵀBᵀAᵀ."
+      },
+      "interactions": [
+        "edit-matrices",
+        "trace-dot-product",
+        "transpose-product"
+      ],
+      "layout": {
+        "x": 70,
+        "y": 911
+      }
+    },
+    {
+      "id": "inverse",
+      "title": "Undoing a transformation",
+      "shortTitle": "Inverse",
+      "categoryId": "connections",
+      "summary": "An inverse undoes a square matrix: A⁻¹A = AA⁻¹ = I. Not every square matrix has one. A transformation that collapses distinct inputs cannot be undone uniquely.",
+      "content": "lessons/inverse.md",
+      "example": {
+        "operation": "matrix-multiplication",
+        "A": [
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "B": [
+          [
+            1,
+            -1
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "expectedProduct": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      },
+      "presets": [],
+      "checkpoint": {
+        "id": "inverse-checkpoint",
+        "type": "single-choice",
+        "prompt": "Does [[1, 2], [2, 4]] have an inverse?",
+        "options": [
+          "No",
+          "Yes"
+        ],
+        "answer": "No",
+        "hint": "Compute the determinant 1·4 − 2·2.",
+        "explanation": "The determinant is 0. The second row is twice the first, so the transformation loses information."
+      },
+      "interactions": [
+        "edit-matrices",
+        "trace-dot-product"
+      ],
+      "layout": {
+        "x": 200,
+        "y": 911
+      }
+    },
+    {
+      "id": "laws",
+      "title": "Regroup, but do not reorder",
+      "shortTitle": "Algebraic laws",
+      "categoryId": "connections",
+      "summary": "Matrix multiplication is associative and distributes over addition when the dimensions fit. Associativity changes parentheses, not the order of the factors.",
+      "content": "lessons/laws.md",
+      "example": {
+        "operation": "matrix-multiplication",
+        "A": [
+          [
+            1,
+            2
+          ]
+        ],
+        "B": [
+          [
+            3
+          ],
+          [
+            4
+          ]
+        ],
+        "expectedProduct": [
+          [
+            11
+          ]
+        ]
+      },
+      "presets": [],
+      "checkpoint": {
+        "id": "laws-checkpoint",
+        "type": "single-choice",
+        "prompt": "Which rewrite is always valid for compatible matrices?",
+        "options": [
+          "(AB)C = A(BC)",
+          "(AB)C = (BA)C",
+          "AB = BA"
+        ],
+        "answer": "(AB)C = A(BC)",
+        "hint": "Parentheses may move; factors may not swap.",
+        "explanation": "Associativity preserves the sequence A, B, C. Neither commutativity nor swapping A and B is a general matrix law."
+      },
+      "interactions": [
+        "edit-matrices",
+        "trace-dot-product"
+      ],
+      "layout": {
+        "x": 135,
+        "y": 1017
+      }
+    },
+    {
+      "id": "outer",
+      "title": "A column meets a row",
+      "shortTitle": "Outer products",
+      "categoryId": "connections",
+      "summary": "A column times a row gives an outer product, not a dot product. It expands two vectors into a matrix. This is a useful bridge to rank, factorizations, and large-scale computation.",
+      "content": "lessons/outer.md",
+      "example": {
+        "operation": "matrix-multiplication",
+        "A": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            -1
+          ]
+        ],
+        "B": [
+          [
+            3,
+            4
+          ]
+        ],
+        "expectedProduct": [
+          [
+            3,
+            4
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            -3,
+            -4
+          ]
+        ]
+      },
+      "presets": [],
+      "checkpoint": {
+        "id": "outer-checkpoint",
+        "type": "single-choice",
+        "prompt": "For u of shape 4 × 1 and vᵀ of shape 1 × 3, what shape is uvᵀ?",
+        "options": [
+          "4 × 3",
+          "1 × 1",
+          "3 × 4",
+          "Undefined"
+        ],
+        "answer": "4 × 3",
+        "hint": "The inner dimensions are both 1. Keep the outer dimensions.",
+        "explanation": "uvᵀ is 4 × 3. This outer product has rank at most 1 (rank 0 if either factor is zero)."
+      },
+      "interactions": [
+        "edit-matrices",
+        "trace-dot-product",
+        "reverse-order"
+      ],
+      "layout": {
+        "x": 135,
+        "y": 1102
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": "one",
+      "to": "dot",
+      "type": "suggested-next"
+    },
+    {
+      "from": "dot",
+      "to": "shapes",
+      "type": "suggested-next"
+    },
+    {
+      "from": "shapes",
+      "to": "vector",
+      "type": "suggested-next"
+    },
+    {
+      "from": "vector",
+      "to": "rectangle",
+      "type": "suggested-next"
+    },
+    {
+      "from": "rectangle",
+      "to": "order",
+      "type": "suggested-next"
+    },
+    {
+      "from": "order",
+      "to": "identity",
+      "type": "suggested-next"
+    },
+    {
+      "from": "order",
+      "to": "diagonal",
+      "type": "suggested-next"
+    },
+    {
+      "from": "identity",
+      "to": "permutation",
+      "type": "suggested-next"
+    },
+    {
+      "from": "diagonal",
+      "to": "geometry",
+      "type": "suggested-next"
+    },
+    {
+      "from": "permutation",
+      "to": "geometry",
+      "type": "suggested-next"
+    },
+    {
+      "from": "geometry",
+      "to": "transpose",
+      "type": "suggested-next"
+    },
+    {
+      "from": "geometry",
+      "to": "inverse",
+      "type": "suggested-next"
+    },
+    {
+      "from": "transpose",
+      "to": "laws",
+      "type": "suggested-next"
+    },
+    {
+      "from": "inverse",
+      "to": "laws",
+      "type": "suggested-next"
+    },
+    {
+      "from": "laws",
+      "to": "outer",
+      "type": "suggested-next"
+    }
+  ],
+  "layout": {
+    "width": 270,
+    "height": 1170
+  }
+}

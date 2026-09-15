@@ -1,7 +1,6 @@
 ---
 name: content-ingest
 description: Ingest PDF course materials, extracting text, structure, mathematical notation, editable graphs/charts, and interactive exercise callouts into Markdown files in the content/ folder. Use whenever asked to ingest, parse, convert, or import PDF files, lecture notes, textbooks, or worksheets.
-compatibility: Requires Python environment with the Clew ingestion engine dependencies installed.
 ---
 
 # Content Ingestion Skill

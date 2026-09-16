@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "katex": "0.16.22",
+    "marked": "15.0.12",
+    "sanitize-html": "2.17.0"
+  }
+}

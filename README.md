@@ -6,6 +6,13 @@ Every challenge is its own labyrinth. Clew takes its name from the ball of threa
 
 But the thread is not the hero. You are. Clew helps you see a way forward; it doesn’t walk the path for you. The choices, the effort, and the discoveries remain yours.
 
+## Markdown canvas
+
+The optional [Red-bordered Markdown extension](.github/extensions/red-markdown/README.md)
+previews local Markdown files with equations and images in a canvas-capable
+Copilot host. Its code lives in `.github/extensions/red-markdown/`; restore its
+npm dependencies and reload extensions as described in its installation guide.
+
 ## Architecture decisions
 
 [Architecture Decision Records](docs/adr/README.md) capture significant decisions,

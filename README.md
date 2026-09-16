@@ -67,3 +67,12 @@ This skill is maintained here, not generated from an APM dependency. Its
 `evals/evals.json` contains three synthetic dry-run scenarios that do not access
 real learner data. The skill provides operational instructions, not a model
 storage engine or structural enforcement of the specification.
+
+[`brute-force-pdf-to-obsidian`](.agents/skills/brute-force-pdf-to-obsidian/SKILL.md)
+guides source-faithful PDF conversion into linked Obsidian notes, preserving
+equations, diagrams, exercises, and answers through page-by-page verification.
+Its bundled [quality and linking reference](.agents/skills/brute-force-pdf-to-obsidian/references/quality-and-linking.md)
+covers source coverage, link validation, Canvas portability, and packaging.
+This skill is maintained here, not generated from an APM dependency. It provides
+workflow instructions rather than a bundled converter; local extraction and OCR
+tools must be available or installed separately when needed.

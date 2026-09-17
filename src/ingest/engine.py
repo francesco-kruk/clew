@@ -30,16 +30,16 @@ def _normalize(text: str) -> str:
     return re.sub(r"[^a-z0-9]", "", text.lower())
 
 
-def _extract_prose(page: pymupdf.Page) -> Tuple[str, bool]:
-    """Return clean prose text for a page and whether any formula-like fragments were dropped.
+def _extract_prose(page: pymupdf.Page) -> Tuple[List[Tuple[float, str]], List[pymupdf.Rect]]:
+    """Split a page's text blocks into prose (kept, with its vertical position) and formula fragments.
 
     Equations are typically laid out as individual text spans (numbers, Greek letters, fraction
     bars) rather than real sentences, so PyMuPDF's reading-order extraction turns them into
     garbled text. Blocks with too few real words are treated as formula fragments and dropped;
-    they remain visible only in the page photo.
+    their region is cropped as a photo instead, placed back where it occurred on the page.
     """
-    kept: List[str] = []
-    had_formula_fragment = False
+    kept: List[Tuple[float, str]] = []
+    dropped_rects: List[pymupdf.Rect] = []
     for block in page.get_text("blocks"):
         block_text = block[4]
         if not block_text.strip():
@@ -47,11 +47,25 @@ def _extract_prose(page: pymupdf.Page) -> Tuple[str, bool]:
         word_count = len(re.findall(r"[A-Za-z]{3,}", block_text))
         formula_like = any(ch in block_text for ch in _FORMULA_OPERATORS)
         if word_count >= 8 or (word_count >= 2 and not formula_like):
-            kept.append(block_text)
+            kept.append((block[1], block_text.strip()))
         else:
-            had_formula_fragment = True
-    prose = re.sub(r"\n{3,}", "\n\n", "".join(kept)).strip()
-    return prose, had_formula_fragment
+            dropped_rects.append(pymupdf.Rect(*block[:4]))
+    return kept, dropped_rects
+
+
+def _cluster_rects(rects: List[pymupdf.Rect], margin: float = 10.0) -> List[pymupdf.Rect]:
+    """Merge overlapping or neighboring rectangles into cohesive visual regions to crop."""
+    clusters: List[pymupdf.Rect] = []
+    for r in rects:
+        expanded = pymupdf.Rect(r.x0 - margin, r.y0 - margin, r.x1 + margin, r.y1 + margin)
+        for i, c in enumerate(clusters):
+            c_expanded = pymupdf.Rect(c.x0 - margin, c.y0 - margin, c.x1 + margin, c.y1 + margin)
+            if c_expanded.intersects(expanded):
+                clusters[i] = c | r
+                break
+        else:
+            clusters.append(pymupdf.Rect(r))
+    return [c for c in clusters if c.width > 10 and c.height > 8]
 
 
 def _extract_chapters(doc: pymupdf.Document) -> List[Tuple[str, int, int]]:
@@ -189,14 +203,13 @@ class IngestionEngine:
         is_exercise_chapter: bool,
     ) -> Tuple[str, Dict[str, int]]:
         """Render a page range to Markdown, embedding formulas/diagrams/exercises as plain photos."""
-        stats = {"exercises": 0, "images": 0, "pages": end_idx - start_idx + 1}
+        stats = {"exercises": 0, "diagrams": 0, "images": 0, "pages": end_idx - start_idx + 1}
         page_blocks: List[str] = []
 
         for page_idx in range(start_idx, end_idx + 1):
             page = doc[page_idx]
             page_num = page_idx + 1
             raw_text = page.get_text("text").strip()
-            has_drawings = len(page.get_drawings()) > 0
             is_exercise_page = is_exercise_chapter or bool(_EXERCISE_PATTERN.search(raw_text))
 
             lines = [f"<!-- Page {page_num} -->"]
@@ -206,12 +219,20 @@ class IngestionEngine:
                 image_path = self._save_page_photo(page, doc_assets_dir, doc_slug, page_num, "exercise")
                 lines.append(self.formatter.format_image(f"Exercise - Page {page_num}", image_path))
             else:
-                prose, had_formula_fragment = _extract_prose(page)
-                if prose:
-                    lines.append(prose)
-                if has_drawings or had_formula_fragment:
-                    image_path = self._save_page_photo(page, doc_assets_dir, doc_slug, page_num, "diagram")
-                    lines.append(self.formatter.format_image(f"Diagram / Formula - Page {page_num}", image_path))
+                prose_blocks, dropped_rects = _extract_prose(page)
+                drawing_rects = [d["rect"] for d in page.get_drawings()]
+                regions = _cluster_rects(drawing_rects + dropped_rects)
+
+                # Interleave prose paragraphs and diagram/formula photos by their vertical position,
+                # so each image appears where it actually occurred on the page.
+                positioned: List[Tuple[float, str]] = list(prose_blocks)
+                for region_idx, rect in enumerate(regions, start=1):
+                    image_path = self._save_region_photo(page, rect, doc_assets_dir, doc_slug, page_num, region_idx)
+                    positioned.append((rect.y0, self.formatter.format_image(f"Diagram / Formula - Page {page_num}", image_path)))
+                    stats["diagrams"] += 1
+                positioned.sort(key=lambda item: item[0])
+                lines.extend(text for _, text in positioned)
+
                 for img_idx, img in enumerate(page.get_images(), start=1):
                     image_path = self._save_embedded_image(doc, page_idx, img, doc_assets_dir, doc_slug, page_num, img_idx)
                     lines.append(self.formatter.format_image(f"Figure - Page {page_num}", image_path))
@@ -220,6 +241,22 @@ class IngestionEngine:
             page_blocks.append("\n\n".join(lines))
 
         return "\n\n---\n\n".join(page_blocks), stats
+
+    def _save_region_photo(
+        self,
+        page: pymupdf.Page,
+        rect: pymupdf.Rect,
+        doc_assets_dir: Path,
+        doc_slug: str,
+        page_num: int,
+        region_idx: int,
+    ) -> str:
+        """Crop a single diagram/formula region and save it as its own photo."""
+        padded = pymupdf.Rect(rect.x0 - 6, rect.y0 - 6, rect.x1 + 6, rect.y1 + 6) & page.rect
+        filename = f"page-{page_num}-fig-{region_idx}.png"
+        page.get_pixmap(clip=padded, dpi=self.dpi).save(str(doc_assets_dir / filename))
+        # Chapter files live in content/<slug>/, so assets are one level up.
+        return f"../assets/{doc_slug}/{filename}"
 
     def _save_page_photo(
         self,

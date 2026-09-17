@@ -1,6 +1,21 @@
 # Quality, linking, and portability reference
 
-## Bundle structure
+## Select the structure owner
+
+For Clew course exports, use the
+[`course-content` structure contract](../../course-content/references/structure.md).
+It owns the hub, metadata, one-complete-file-per-chapter rule, supporting-note
+roles, and course link/destination conventions. The standalone layout below is
+not a second course format. Apply this reference's PDF coverage, fidelity,
+verification-report, and packaging gates in addition to the shared course
+structural checks.
+
+In course-mode checks below, "index" means the canonical course `hub.md`. Its
+backlinks must be course-qualified; unique-basename guidance never permits
+`[[hub]]`. Multiple source sections may map to headings in the same chapter
+file in the conversion manifest.
+
+## Standalone non-course bundle structure
 
 ```text
 Book-Obsidian\
@@ -144,7 +159,10 @@ images. A page assigned to a note is not proof that its content survived.
 - Validate PDF page fragments against the PDF's page count; check every embed exists.
 - Ensure every study note is reachable from the index. Each concept needs a source
   chapter link and a meaningful inbound link, with concept-to-concept relationships
-  where supported. Do not manufacture edges to satisfy an arbitrary minimum.
+  where supported. For course exports, check the hub's ordered chapter inventory,
+  required metadata, and chapter backlinks using `course-content`; optional concept
+  notes need checking only when authored. Do not manufacture edges to satisfy an
+  arbitrary minimum.
 - Validate Canvas JSON, unique IDs, finite geometry with positive dimensions,
   edge endpoints, file-node targets, and fragments using the declared vault root.
 - Exclude machine-readable reports and supporting documentation from orphan-note
@@ -157,6 +175,11 @@ images. A page assigned to a note is not proof that its content survived.
 - Verify chapter-content preservation beyond byte comparison: links and metadata
   legitimately change bytes. Compare normalized prose and mathematical content,
   exercise identifiers, section coverage, and source-error annotations.
+- For a course export, verify the archive/import root preserves the declared
+  `courses\<course>\` prefix and that source chapter IDs map to exactly one
+  complete chapter file each. Section-batch output is intermediate, not a
+  delivered substitute for a chapter. Keep the generic standalone-root advice
+  separate from course installation instructions.
 - Validate ZIP members use safe relative paths without traversal or absolute paths.
   Compare archive contents and file hashes with the finalized importable folder.
 - Test validators using small fixtures containing both valid links and deliberate

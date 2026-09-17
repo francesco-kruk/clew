@@ -44,7 +44,9 @@ enough context:
 
 1. Due attributes: `next_review` or `next_probe` at or before today.
 2. The connected course's read-only `courses/<course>/hub.md`, including
-   `primary_domains`, `prerequisite_domains`, and concept index.
+   `primary_domains`, `prerequisite_domains`, and concept index. Use
+   [`course-content`](../course-content/SKILL.md) for this metadata-only lookup
+   and any later grounded chapter excerpt; it does not read learner records.
 3. Open misconceptions in those domains.
 4. Concept levels in those domains and concepts reached via `required_by`.
 5. Preferences in those domains plus `global` preferences.

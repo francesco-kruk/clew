@@ -44,6 +44,8 @@ Six object types. The first four are the learner model proper; `Session` is the 
 Course hubs (`courses/<course>/hub.md`) are **not** part of the learner model. They are read-only
 course metadata supplying `primary_domains`, `prerequisite_domains`, and the concept index. The model
 joins to them by course name.
+The [course-content skill](../.agents/skills/course-content/SKILL.md) defines the shared course
+structure and read-only lookup contract; course chapters and concept summaries are not learner records.
 
 **Why domain and not course.** A learner's connected course changes; the model must survive that.
 If knowledge state is keyed to course-scoped identifiers, swapping courses orphans the model — a

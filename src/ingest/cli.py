@@ -50,9 +50,10 @@ def ingest(
 
     for pdf in pdf_files:
         try:
-            output_file, stats = engine.ingest_pdf(pdf)
-            console.print(f"[green]✓ Ingested:[/green] {pdf.name} -> [bold]{output_file}[/bold]")
-            console.print(f"  [dim]Artifacts: {stats}[/dim]")
+            chapters = engine.ingest_pdf(pdf)
+            console.print(f"[green]✓ Ingested:[/green] {pdf.name} -> [bold]{len(chapters)}[/bold] chapter file(s)")
+            for chapter_file, stats in chapters:
+                console.print(f"  [bold]{chapter_file}[/bold]  [dim]{stats}[/dim]")
         except Exception as e:
             console.print(f"[red]✗ Failed {pdf.name}:[/red] {e}")
 

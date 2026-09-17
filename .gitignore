@@ -1,3 +1,10 @@
 
 # APM dependencies
 apm_modules/
+content/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+

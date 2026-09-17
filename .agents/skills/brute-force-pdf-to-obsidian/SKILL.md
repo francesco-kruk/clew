@@ -1,8 +1,8 @@
 ---
 name: brute-force-pdf-to-obsidian
-description: Convert PDFs into faithful, interconnected Obsidian vaults using page-by-page verification. Use for PDF-to-Markdown conversion, splitting textbooks or manuals into chapters and sections, preserving equations and diagrams, repairing messy PDF extraction, and building linked concept notes, maps, and Obsidian Canvas overviews. Brute force means checking source pages and using local visual recovery when extraction fails, not blindly trusting converter output.
+description: Convert PDFs into faithful, interconnected Obsidian content using page-by-page verification. Use for PDF-to-Markdown conversion, preserving equations, diagrams, exercises and answers, or repairing messy extraction. For Clew course exports, use course-content for the hub, one-file-per-chapter structure, and navigation contract; this skill owns PDF recovery, source fidelity, conversion reports, and packaging. It also supports standalone non-course document bundles. Brute force means checking source pages and using local visual recovery, not blindly trusting converter output.
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   argument-hint: <source.pdf> [output-directory] [existing-vault-subfolder]
 ---
 
@@ -11,6 +11,27 @@ metadata:
 Deliver a readable, editable, source-faithful knowledge collection, not a text dump.
 Split by the document's actual structure, recover mathematical notation, preserve
 artwork, and connect concepts with native Obsidian links. No Obsidian plugins required.
+
+## Compose with course-content
+
+For a named Clew course, a `courses\<course>` destination, or an explicit request
+for reuse by course-reading skills, load
+[`course-content`](../course-content/SKILL.md) and its structure reference before
+planning the output. It owns the course format and reading interface; this skill
+owns source inventory, extraction, recovery, fidelity, and packaging.
+
+Course exports use the canonical `courses\<course>\hub.md` and complete chapter
+notes defined there. Do not also emit the standalone `00 - Index.md` or substitute
+section shards and a chapter index for a chapter. Processing sections separately
+does not change the delivery unit. Populate the hub's chapter and concept
+navigation from verified source content; do not invent domain metadata, canonical
+concept IDs, plans, dashboards, or learner state.
+
+For explicitly non-course documents, retain the standalone bundle conventions
+below and in the quality reference. If the intended course/non-course mode is
+unclear, ask before choosing a layout. A standalone document is not automatically
+a compliant Clew course. Ordinary course reading belongs to `course-content` and
+does not require re-extraction or rerunning PDF verification.
 
 ## Defaults and boundaries
 
@@ -65,9 +86,11 @@ authoring the bundle. Use its acceptance gates before reporting completion.
 
 ## 3. Reconstruct chapters, math, and artwork
 
-- Create one note per meaningful chapter or major numbered section. Preserve finer
-  subsections as stable headings. For long chapters, split into useful subsections
-  with a chapter index; for short papers, use actual headings instead of inventing chapters.
+- For course exports, follow `course-content` chapter granularity: accumulate
+  bounded section batches into one complete note per chapter, with stable
+  subsection headings. For standalone non-course documents, create one note per
+  meaningful chapter or major section; long chapters may use subsection notes
+  with a chapter index. For short papers, use actual headings, not invented chapters.
 - Repair line wrapping, column ordering, discretionary hyphenation, headers/footers,
   bullet glyphs, spurious converter tables, and duplicated contents pages. Preserve
   semantic emphasis, meaningful numbering, references, units, and assumptions.
@@ -90,20 +113,23 @@ authoring the bundle. Use its acceptance gates before reporting completion.
 
 ## 4. Build a real Obsidian concept graph
 
-1. Create `00 - Index.md`, chapter notes, a `Concepts` folder, `Attachments`, and
-   `Concept Map.md`. Prefix note names with a short document identifier when importing
-   into an existing vault could cause ambiguous filenames.
+1. For course exports, populate the shared hub, chapter notes, and needed assets
+   using `course-content`; concept notes/maps are optional supports, not another
+   schema or main file. For standalone non-course bundles, create `00 - Index.md`,
+   chapter notes, `Concepts`, `Attachments`, and `Concept Map.md`. Apply the naming
+   policy for the selected mode before creating links.
 2. Identify the document's major reusable concepts. Let its complexity determine
    the count; do not manufacture a fixed quota of concept notes.
-3. Write concise concept notes with a definition, source chapter/heading link,
+3. When authoring concept notes, give them a definition, source chapter/heading link,
    explained relationships, and relevant worked-example or exercise links.
    Distinguish source-derived material from any added explanatory synthesis.
-4. Link concepts inline at their first meaningful discussion in each section.
+4. Link authored concept notes inline at their first meaningful discussion in each section.
    Connect chapters where one actually uses another's result. Avoid linking every
    repeated term or adding irrelevant relationships just to increase graph density.
-5. Link exercises to the concepts they practice and to their corresponding supplied
-   answers. Link answers back to the exact exercises; preserve identifiers.
-6. Give the map thematic groups and learning paths. Explain relationships such as
+5. Link exercises to the concept locations they practice (chapter anchors suffice
+   without concept notes) and to their corresponding supplied answers. Link answers
+   back to the exact exercises; preserve identifiers.
+6. If a map is authored, give it thematic groups and learning paths. Explain relationships such as
    "requires," "generalizes," "special case of," "used to solve," or "contrasts with."
    Native wikilinks, not tags or a Mermaid diagram alone, must form the graph.
 7. Add `Concept Overview.canvas` when a visual overview is useful. Use a manageable
@@ -120,9 +146,12 @@ extraction alone cannot establish fidelity. Reconcile source sections, examples,
 exercises, subparts, answers, and figures with the manifest.
 
 Run a local validator covering file targets, actual heading/block anchors, image
-embeds, ambiguity, graph reachability, Canvas paths, and packaging. Scan for extraction
-artifacts and suspicious math; visual comparison remains necessary even if syntax passes.
-Use the detailed reference for exact gates. Correct failures and re-run affected checks.
+embeds, ambiguity, graph reachability, Canvas paths, and packaging. For course exports,
+also apply `course-content` structural checks, using its hub as the graph root and
+reconciling exactly one complete file per source chapter against the manifest.
+Scan for extraction artifacts and suspicious math; visual comparison remains necessary
+even if syntax passes. Use the detailed reference for fidelity gates. Correct failures
+and re-run affected checks.
 
 If anything remains unreadable, preserve that source region, enumerate the limitation
 by page and note, and label the output accordingly. Do not claim fully editable math
@@ -130,9 +159,12 @@ or live Obsidian testing unless that is true.
 
 ## 6. Package and hand off
 
-- Include the index, map, chapter/concept notes, required assets, original PDF when
-  appropriate, and optional Canvas. Keep environments, scripts, raw extracts, and
-  bulky debug renders outside the importable folder.
+- Include the selected mode's main file, chapter notes, authored supporting notes,
+  required assets, original PDF when appropriate, and optional Canvas. For course
+  exports, preserve the `courses\<course>\` tree under the declared vault root;
+  do not tell the user to open the inner course folder as a vault when its links
+  assume that prefix. Keep environments, scripts, raw extracts, and bulky debug
+  renders outside the importable folder.
 - Provide short import instructions matching the actual link strategy. If adding
   to a named existing-vault subfolder, validate using that exact vault-relative prefix.
 - Store detailed machine-readable coverage/verification reports alongside the bundle,
@@ -142,3 +174,7 @@ or live Obsidian testing unless that is true.
 - Give the user the final path/link, what was split and interconnected, exact import
   location, and important remaining image-only regions or fidelity limitations.
   Mention validation detail only when requested.
+- For a course-consuming skill, identify the final hub and course destination,
+  and pass source limitations plus the conversion-report location. Let
+  `course-content` perform subsequent bounded content lookups; do not require
+  tutoring skills to understand the extraction manifest to read a chapter.

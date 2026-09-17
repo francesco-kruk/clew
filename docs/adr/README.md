@@ -73,14 +73,11 @@ decision and rationale.
 
 ## Decision index
 
-No decisions have been recorded yet. This initial setup establishes the process
-only; it does not retrospectively approve the existing design.
-
 | ID | Title | Status | Date |
 | --- | --- | --- | --- |
+| ADR-0001 | [Shared Obsidian course content contract](adr-0001-shared-obsidian-course-content-contract.md) | Accepted | 2026-09-16 |
 
-Add a row with the title linked to its record for each new ADR. Remove the
-"No decisions have been recorded yet" paragraph when adding the first record.
+Add a row with the title linked to its record for each new ADR.
 Maintain the index manually alongside record changes; no generator is required.
 
 ## Skill management and references

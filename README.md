@@ -55,6 +55,21 @@ When updating the ADR skill, compare its embedded template with
 
 ### First-party skills
 
+[`course-content`](.agents/skills/course-content/SKILL.md) defines the shared
+[Obsidian course structure and reading contract](.agents/skills/course-content/references/structure.md):
+one `courses/<course>/hub.md` connecting the course and one complete Markdown
+file per chapter, with finer sections kept as headings. Other skills use it
+to resolve course metadata, concepts, examples, exercises, and bounded,
+source-grounded excerpts without reading learner records or modifying the
+course. Supporting concept notes, maps, supplements, and assets are linked
+from the hub rather than replacing chapters.
+
+This is a first-party instructional skill, not a generated APM dependency or
+a bundled reader/converter backend. Its `evals/evals.json` contains synthetic
+dry-run scenarios for bounded reading, PDF-course handoff, and safe legacy
+lookup. The shared contract is recorded in
+[ADR-0001 (Accepted)](docs/adr/adr-0001-shared-obsidian-course-content-contract.md).
+
 [`learner-model`](.agents/skills/learner-model/SKILL.md) guides agents operating on
 Clew's local learner records: recording evidence, maintaining concepts,
 misconceptions, preferences and goals, scheduling reviews, resolving adaptation
@@ -71,6 +86,9 @@ storage engine or structural enforcement of the specification.
 [`brute-force-pdf-to-obsidian`](.agents/skills/brute-force-pdf-to-obsidian/SKILL.md)
 guides source-faithful PDF conversion into linked Obsidian notes, preserving
 equations, diagrams, exercises, and answers through page-by-page verification.
+For course exports it delegates layout, chapter granularity, and navigation
+to `course-content`; it owns PDF recovery, fidelity, conversion reports, and
+packaging. Explicitly non-course documents retain their standalone layout.
 Its bundled [quality and linking reference](.agents/skills/brute-force-pdf-to-obsidian/references/quality-and-linking.md)
 covers source coverage, link validation, Canvas portability, and packaging.
 This skill is maintained here, not generated from an APM dependency. It provides

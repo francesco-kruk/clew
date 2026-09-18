@@ -76,6 +76,8 @@ decision and rationale.
 | ID | Title | Status | Date |
 | --- | --- | --- | --- |
 | ADR-0001 | [Shared Obsidian course content contract](adr-0001-shared-obsidian-course-content-contract.md) | Accepted | 2026-09-16 |
+| ADR-0002 | [Repository and package ownership](adr-0002-repository-and-package-ownership.md) | Proposed | 2026-09-18 |
+| ADR-0003 | [Local learner storage and hosted Copilot processing](adr-0003-local-learner-storage-and-hosted-copilot-processing.md) | Proposed | 2026-09-18 |
 
 Add a row with the title linked to its record for each new ADR.
 Maintain the index manually alongside record changes; no generator is required.
@@ -83,7 +85,8 @@ Maintain the index manually alongside record changes; no generator is required.
 ## Skill management and references
 
 The skill is pinned in [apm.yml](../../apm.yml), with its resolution and deployed
-hashes in [apm.lock.yaml](../../apm.lock.yaml). Restore it using `apm install --frozen`
+hashes in [apm.lock.yaml](../../apm.lock.yaml). Use APM **0.28.0** to restore it
+with `apm install --frozen`
 from the repository root. Do not edit the deployed skill; keep local workflow
 rules here. For a dependency update, follow the
 [repository's APM instructions](../../README.md#agent-skills) and compare the new

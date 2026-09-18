@@ -1,21 +1,20 @@
 name: clew
 version: 1.0.0
-description: Agent skills for developing Clew, a personalized learning assistant.
+description: Student workspace skills and pinned contributor tools for Clew.
 author: Dominique Broeglin
 # Which agent platforms to deploy to.
 # Resolution order: --target flag > this field > auto-detect from filesystem.
 # Accepted values: agent-skills, antigravity, claude, codex, copilot, cursor, gemini, grok-build, kiro, opencode, windsurf
 targets:
   - copilot
+  - agent-skills
 dependencies:
   apm:
-    - anthropics/skills/skills/skill-creator#34040c9c568585f6929bedeaad110ad08f079624
-    - kepano/obsidian-skills/skills/defuddle#8ccef29ae8624eccc734e77ced4a6e54baf5d83a
-    - kepano/obsidian-skills/skills/json-canvas#8ccef29ae8624eccc734e77ced4a6e54baf5d83a
-    - kepano/obsidian-skills/skills/obsidian-bases#8ccef29ae8624eccc734e77ced4a6e54baf5d83a
-    - kepano/obsidian-skills/skills/obsidian-cli#8ccef29ae8624eccc734e77ced4a6e54baf5d83a
-    - kepano/obsidian-skills/skills/obsidian-markdown#8ccef29ae8624eccc734e77ced4a6e54baf5d83a
-    - github/awesome-copilot/skills/create-architectural-decision-record#fb4eb04fcbd30de50052b1155d81167393dfb5aa
+    - francesco-kruk/clew-skills/skills/course-content#5ed0f288a6c5c0c0f891939385ddf38fa5b32504
+    - francesco-kruk/clew-skills/skills/learner-model#5ed0f288a6c5c0c0f891939385ddf38fa5b32504
+    - francesco-kruk/clew-skills/skills/content-ingest#5ed0f288a6c5c0c0f891939385ddf38fa5b32504
+    - francesco-kruk/clew-skills/skills/digest#5ed0f288a6c5c0c0f891939385ddf38fa5b32504
+    - francesco-kruk/clew-skills/packages/development#5ed0f288a6c5c0c0f891939385ddf38fa5b32504
   mcp: []
 includes: auto
 scripts: {}

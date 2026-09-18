@@ -191,10 +191,14 @@ source supplies one separately.
   image-only/unverified transcription labels next to the affected material.
   An attachment resolves a missing transcription only as a source image, not
   as verified editable text.
-- Learner records live outside the course, indexed by domain under the
-  [learner-model contract](../../../../docs/LEARNER_MODEL.md). Course concepts
+- Learner records live outside the course in the explicitly selected external
+  vault, indexed by domain under the separately installed `learner-model`
+  contract (`references/learner-model-spec.md` in that skill). Teacher course
+  authoring and validation do not require that package. Course concepts
   describe subject matter; learner concepts describe a person's evidence and
   state. Do not copy one into the other or put personal progress in the hub.
+  Local storage does not imply local-only inference: relevant content used
+  during a task enters hosted GitHub Copilot processing.
 
 ## Links, names, and destination
 

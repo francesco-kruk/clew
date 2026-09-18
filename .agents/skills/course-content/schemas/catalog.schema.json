@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/francesco-kruk/clew-skills/catalog-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "courses"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "courses": {"type": "array", "items": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "title", "path"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+        "title": {"type": "string", "minLength": 1},
+        "path": {"type": "string", "pattern": "^courses/[^/]+$"}
+      }
+    }}
+  }
+}

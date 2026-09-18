@@ -28,14 +28,15 @@ vault root, not this repository or the skill directory.
 | Owner | Responsibility |
 | --- | --- |
 | `course-content` | Course layout, hub metadata, chapter granularity, navigation and linking conventions, content lookup, and grounded handoffs to other skills. |
-| `brute-force-pdf-to-obsidian` | PDF inventory, extraction/OCR, transcription, equation and figure recovery, page-by-page fidelity, conversion reports, and packaging. It uses this contract for course exports. |
+| `digest` | Local PDF extraction, transcription, equation and figure recovery, page-by-page fidelity, conversion reports, and packaging. It uses this contract for course exports. |
+| `content-ingest` | Preserved image-first Python extraction. Assemble its output into this contract before publication; extraction alone is not a course package. |
 | Other authoring/import skills | Recover or author their source material, then apply this same course contract. Reading a course does not depend on its original source format. |
 | `obsidian-markdown`, `obsidian-cli`, `json-canvas` | Note syntax, authorized app/file operations, and optional Canvas syntax respectively; none defines the course schema. |
 | `learner-model` and teaching/adaptation skills | Learner evidence, mastery, preferences, review scheduling, adaptation decisions, and generated learning artifacts. These are not authoritative course content. |
 
 The dependency is directional: an importer loads `course-content` to publish a
 course; a reader does not run an importer to read that course. Refer an actual
-PDF recovery request to `brute-force-pdf-to-obsidian`, rather than silently
+PDF recovery request to `digest` (or explicitly selected `content-ingest`), rather than silently
 starting conversion during lookup. Do not create plans, dashboards, personal
 progress records, or a learner model merely to make a course readable.
 
@@ -53,8 +54,11 @@ progress records, or a learner model merely to make a course readable.
 4. Stay within authorized course content. Do not traverse `model\`, learner
    dashboards, sessions, private evidence, or generated personal artifacts.
    A course concept describes knowledge; it is not evidence that a learner knows
-   it. The learner-model specification's local-processing boundary still applies
-   to other skills; this skill grants no access to private records.
+   it. Files persist in the configured external local vault, but relevant
+   content used in a task enters hosted GitHub Copilot processing. This skill
+   grants no access to private learner records. The separately installed
+   learner-model skill permits bounded task-relevant record use, not bulk
+   uploads, passive telemetry, or teacher access.
 5. Reading is read-only. A broken link, missing field, or older layout is a
    reported limitation, not permission to rename, repair, migrate, or regenerate
    the course. Use `obsidian-cli` for live vault operations when appropriate;
@@ -160,7 +164,16 @@ writing notes.
   This is structural verification, not proof of source fidelity or live
   Obsidian rendering; those claims require the corresponding work.
 
+## Distribution validation
+
+Read [package contract v1](references/package-contract.md) for catalog and
+inventory metadata. Install this skill's `requirements.txt`, then run the
+bundled `scripts/validate_course.py` with explicit `--package` or `--catalog`
+paths. Default publication validation requires confirmed rights; `--mode draft`
+allows pending rights for local drafts only. Structural validation is not
+source-fidelity review or a legal rights determination.
+
 If chapter grouping or required metadata cannot be grounded, ask for the
 affected decision instead of inventing a curriculum or silently shipping a
-different structure. No converter, parser, or enforcement backend is bundled
-with this instructional skill.
+different structure. The bundled validator checks distribution structure,
+not learner-model storage or inference enforcement.

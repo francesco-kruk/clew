@@ -1,0 +1,15 @@
+name: learner-model
+version: 1.0.0
+description: Evidence-backed learner-model operations in an external local vault.
+author: Clew contributors
+license: MIT
+type: hybrid
+targets:
+  - agent-skills
+dependencies:
+  apm:
+    - git: parent
+      path: skills/course-content
+  mcp: []
+includes: auto
+scripts: {}

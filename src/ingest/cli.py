@@ -1,68 +1,42 @@
-"""
-Command Line Interface for Clew PDF Ingestion.
-"""
+"""Compatibility entry point for Alexandra's APM-installed image-first engine."""
 
 from __future__ import annotations
 
+import runpy
 import sys
 from pathlib import Path
-from typing import Optional
-import typer
-from rich.console import Console
 
-from .engine import IngestionEngine
-
-app = typer.Typer(help="Clew PDF Ingestion CLI")
-console = Console()
+SCRIPT = (Path(__file__).resolve().parents[2] / ".agents" / "skills" /
+          "content-ingest" / "scripts" / "ingest.py")
 
 
-@app.command()
-def ingest(
-    path: Path = typer.Argument(..., help="Path to a PDF file or a directory containing PDFs"),
-    output_dir: Path = typer.Option(Path("content"), "--output", "-o", help="Target directory for generated Markdown"),
-    assets_dir: Path = typer.Option(Path("content/assets"), "--assets", "-a", help="Target directory for image assets"),
-    course: Optional[str] = typer.Option(None, "--course", "-c", help="Course name for metadata"),
-    domain: Optional[str] = typer.Option(None, "--domain", "-d", help="Default domain for concepts"),
-):
-    """Ingest PDF course materials and generate modifiable Markdown artifacts in content/."""
-    engine = IngestionEngine(
-        output_dir=str(output_dir),
-        assets_dir=str(assets_dir),
-        course_name=course,
-        default_domain=domain,
-    )
-
-    if path.is_file():
-        if path.suffix.lower() != ".pdf":
-            console.print(f"[red]Error:[/red] {path} is not a PDF file.")
-            raise typer.Exit(code=1)
-        pdf_files = [path]
-    elif path.is_dir():
-        pdf_files = list(path.glob("*.pdf")) + list(path.glob("*.PDF"))
-        if not pdf_files:
-            console.print(f"[yellow]Warning:[/yellow] No PDF files found in {path}")
-            raise typer.Exit(code=0)
-    else:
-        console.print(f"[red]Error:[/red] Path {path} does not exist.")
-        raise typer.Exit(code=1)
-
-    console.print(f"[bold green]Starting ingestion for {len(pdf_files)} document(s)...[/bold green]")
-
-    for pdf in pdf_files:
-        try:
-            chapters = engine.ingest_pdf(pdf)
-            console.print(f"[green]✓ Ingested:[/green] {pdf.name} -> [bold]{len(chapters)}[/bold] chapter file(s)")
-            for chapter_file, stats in chapters:
-                console.print(f"  [bold]{chapter_file}[/bold]  [dim]{stats}[/dim]")
-        except Exception as e:
-            console.print(f"[red]✗ Failed {pdf.name}:[/red] {e}")
-
-    console.print("[bold green]Ingestion complete![/bold green]")
-
-
-def main():
-    app()
+def main() -> int:
+    if not SCRIPT.is_file():
+        print(
+            "Clew content-ingest is not restored. From the Clew clone run "
+            "APM 0.28.0: apm install --frozen",
+            file=sys.stderr,
+        )
+        return 1
+    previous_argv = sys.argv[:]
+    previous_path = sys.path[:]
+    try:
+        sys.argv[0] = str(SCRIPT)
+        sys.path.insert(0, str(SCRIPT.parent))
+        runpy.run_path(str(SCRIPT), run_name="__main__")
+    except ModuleNotFoundError as exc:
+        print(
+            f"Missing PDF ingestion dependency ({exc.name}). Run "
+            'python -m pip install -r ".agents\\skills\\content-ingest\\requirements.txt". '
+            "Normal student course imports do not need PDF dependencies.",
+            file=sys.stderr,
+        )
+        return 1
+    finally:
+        sys.argv[:] = previous_argv
+        sys.path[:] = previous_path
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

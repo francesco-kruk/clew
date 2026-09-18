@@ -1,16 +1,15 @@
-"""
-Markdown formatting for Clew content: frontmatter and plain image embeds.
-"""
+"""Markdown frontmatter and plain image embeds; originally authored by Alexandra Pletea."""
 
 from __future__ import annotations
 
 from datetime import date
 from typing import Any, Dict, List, Optional
+
 import yaml
 
 
 class MarkdownArtifactFormatter:
-    """Formats parsed document elements into Markdown. Formulas/exercises are embedded as photos, not transcribed."""
+    """Format extraction artifacts. Formulas/exercises are photos, not transcriptions."""
 
     def __init__(self, course_name: Optional[str] = None, default_domain: Optional[str] = None):
         self.course_name = course_name or "General"
@@ -26,7 +25,7 @@ class MarkdownArtifactFormatter:
         chapter_index: Optional[int] = None,
         chapter_count: Optional[int] = None,
     ) -> str:
-        """Generate YAML frontmatter for an ingested chapter markdown file."""
+        """Generate legacy extraction metadata, not a validated course contract."""
         frontmatter_dict: Dict[str, Any] = {
             "type": "course-content",
             "title": title,
@@ -41,10 +40,9 @@ class MarkdownArtifactFormatter:
             frontmatter_dict["chapter_index"] = chapter_index
         if chapter_count is not None:
             frontmatter_dict["chapter_count"] = chapter_count
-        yaml_content = yaml.dump(frontmatter_dict, sort_keys=False, default_flow_style=False)
+        yaml_content = yaml.safe_dump(frontmatter_dict, sort_keys=False, default_flow_style=False)
         return f"---\n{yaml_content}---\n\n"
 
     def format_image(self, caption: str, image_path: str) -> str:
-        """Embed a page/region photo as a plain Markdown image, with no attempt to transcribe its content."""
+        """Embed a page/region photo without attempting to transcribe its content."""
         return f"![{caption}]({image_path})\n"
-

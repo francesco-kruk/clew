@@ -1,7 +1,2 @@
-docling>=2.0.0
-pymupdf4llm>=0.0.17
-pymupdf>=1.24.0
-pyyaml>=6.0.1
-typer>=0.12.0
-rich>=13.7.0
-pillow>=10.0.0
+# Student course validation only; PDF extraction dependencies are optional.
+PyYAML>=6.0.2,<7

@@ -15,6 +15,12 @@ backlinks must be course-qualified; unique-basename guidance never permits
 `[[hub]]`. Multiple source sections may map to headings in the same chapter
 file in the conversion manifest.
 
+Digest is the editable conversion/recovery route. The separate optional
+`content-ingest` skill retains the image-first workflow. Do not apply digest's
+editable-prose requirements to erase that route or call an image-first result a
+verified editable transcription. If the requested image-first skill is not
+installed, report that limitation instead of silently changing routes.
+
 ## Standalone non-course bundle structure
 
 ```text
@@ -188,6 +194,17 @@ images. A page assigned to a note is not proof that its content survived.
 - Save actual outcomes, counts, unresolved regions, and validation limitations.
   Do not claim OCR was verified visually, formulas were checked, or Obsidian was
   launched unless those actions occurred.
+
+### Storage and processing
+
+- Keep output and working files under explicitly authorized external roots, not
+  the skill clone. Do not infer or access a learner-model root for PDF conversion.
+- Use bounded page/section reads for hosted GitHub Copilot task processing. Local
+  storage is not a local-inference promise; no additional processing opt-in is
+  required. Never bulk-upload a vault or unrelated learner records.
+- Do not add separate cloud OCR/vision uploads, passive telemetry, teacher access,
+  or provider retention/training guarantees. Report actual tool capabilities and
+  any source regions left untranscribed.
 
 ## Efficiency and recovery
 

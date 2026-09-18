@@ -1,7 +1,7 @@
 ---
 name: learner-model
-description: Operate on Clew's local, evidence-based learner model. Use whenever an agent records learning evidence or supplied work, updates concepts, misconceptions, preferences or goals, handles a recurring error, schedules reviews, resolves adaptation decisions, measures adaptation efficacy, or inspects, corrects, merges or tombstones learner records. Also use when a learner asks what Clew knows about them, why material was adapted, or asks to change or forget that knowledge. This is an operational skill, not a guide to implementing Clew.
-compatibility: Requires the Clew learner-model specification and authorized local file access. Private learner records require a verified local processing path; a hosted agent must not ingest them.
+description: Operate on Clew's evidence-based learner model stored in an external local vault. Use whenever an agent records learning evidence or supplied work, updates concepts, misconceptions, preferences or goals, handles a recurring error, schedules reviews, resolves adaptation decisions, measures adaptation efficacy, or inspects, corrects, merges or tombstones learner records. Also use when a learner asks what Clew knows about them, why material was adapted, or asks to change or forget that knowledge. This is an operational skill, not a guide to implementing Clew.
+compatibility: Requires authorized file access to an explicitly identified external learner vault. GitHub Copilot may process relevant bounded learner records during ordinary task use; local storage does not imply local-only inference. No additional processing opt-in is required.
 ---
 
 # Learner model
@@ -13,29 +13,35 @@ effect of operating the model.
 
 ## Establish the operating context
 
-1. Read [the authoritative specification](../../../docs/LEARNER_MODEL.md).
-   Paths below are relative to the learner's vault, not this skill or repository.
-   If the specification is unavailable, ask for it rather than reconstructing it.
-2. Establish the authorized vault root, learner, requested operation, current
-   date/time, connected course (if any), and actual capability tier. Do not assume
-   this repository is the learner's vault or create a sample model there.
-3. Before reading private files, verify that model processing stays on the
-   learner's machine. A local filesystem tool attached to a hosted model is not
-   a local inference boundary. If that guarantee cannot be met, stop private
-   reads and writes; explain that a local processor is needed. Only resolved
-   adaptation decisions and a grounded course excerpt may leave the machine.
-   Synthetic examples can be used without accessing real learner records.
+1. Read [the authoritative specification](references/learner-model-spec.md).
+   It is bundled with this skill; no original Clew checkout is required.
+2. Establish the authorized external vault root, explicit model root and course
+   root (if used), learner, requested operation, current date/time, connected
+   course (if any), and actual capability tier. The specification's
+   `model/...` and `courses/...` paths are relative to that vault, not this skill
+   package or its clone. Resolve configured alternative roots explicitly; do
+   not infer the vault from the current directory or create a sample model here.
+3. Storage remains in the learner's local external vault. Relevant bounded notes,
+   provenance, supplied work, and task context may be read and processed by
+   hosted GitHub Copilot during ordinary authorized task use, with no additional
+   processing opt-in step. Local filesystem tools do not imply local inference.
+   Explain this distinction without claiming provider retention or training
+   guarantees. Do not bulk-upload the vault, send unrelated records, collect
+   passive telemetry, or grant teacher/institutional access.
 4. Locate existing model configuration and conventions using filenames and
    relevant local instructions. Use existing storage/validation tools when
    available; do not claim that a skill supplies an enforcement backend.
-   For Obsidian file operations or note syntax, load `obsidian-cli` or
-   `obsidian-markdown` as appropriate.
+   For Obsidian file operations or note syntax, use `obsidian-cli` or
+   `obsidian-markdown` if available; otherwise use authorized file tools without
+   claiming those optional capabilities are installed.
 5. Check [the clarification gates](references/clarification-gates.md) before
    planning a mutation. A missing rule blocks the affected write, not unrelated
    read-only inspection. Ask one focused question rather than inventing policy.
+   These are storage/semantic clarifications, not a hosted-processing consent gate.
 
 On first relevant use, tell the learner that storage is local and portable, with
-no automatic backup or cross-device sync. Do not promise either.
+no automatic backup or cross-device sync, while relevant task context is processed
+by hosted GitHub Copilot. This is disclosure, not an extra opt-in step.
 
 ## Load only the relevant context
 
@@ -55,10 +61,10 @@ enough context:
 For a course-less session, use domains explicitly established by the task; ask
 if they cannot be determined. Do not create a course to make the read path work.
 For a targeted inspection, follow the selected record's provenance and artifact
-links. For recurrence or merging, also inspect matching resolved entries and
-aliases in the relevant domain; an open-only lookup would miss their history.
-Check ID uniqueness across existing IDs and aliases before allocating an ID,
-without loading unrelated evidence content.
+links in bounded reads. For recurrence or merging, also inspect matching resolved
+entries and aliases in the relevant domain; an open-only lookup would miss their
+history. Check ID uniqueness across existing IDs and aliases before allocating an
+ID, without loading unrelated evidence content.
 
 Course names are values, never model keys or folders. File concepts in their
 home domain and misconceptions in the most primitive domain that states the
@@ -189,12 +195,18 @@ proposal per exchange. Acceptance records `proposal-response` and confirmation,
 not efficacy; confirmed adaptations do not need repeated confirmation.
 Rejection lowers confidence under the established update rule; propose again
 only on new evidence re-crossing `T_PROPOSE`. If multiple first-use adaptations
-need confirmation, pause rather than silently applying the others.
+need confirmation, pause rather than silently applying the others. Adaptation
+confirmation is distinct from ordinary hosted task processing, which needs no
+additional opt-in.
 
-Send only the serialized decision object and grounded course excerpt over the
-machine boundary. Do not include raw notes, model snapshots, ledger content,
-or private excerpts disguised as decision values. Set `sent_over_boundary`
-according to what actually happened, and retain the exact sent object.
+Use the serialized decision object and a grounded course excerpt as the compact
+generation handoff. Relevant bounded underlying records may already have been
+processed by GitHub Copilot to resolve or explain it; do not disguise raw notes
+as decision values or bulk-upload a model snapshot or ledger. Set
+`sent_over_boundary` only to record whether that exact decision object was sent
+to the generation service, and retain the exact sent object. The field is not a
+network audit, a claim that other task context stayed local, or a provider
+retention/training guarantee.
 
 ## Measure separately from agreement
 
@@ -227,7 +239,9 @@ For deletion, first explain which attribute disappears, which evidence will be
 tombstoned, and any shared-evidence consequences. Use the authorized append-only
 tombstone convention, never edit/remove an existing ledger line. Do not cascade
 into unrelated attributes or silently alter their values. Stop for clarification
-if the storage convention or shared-evidence handling is undefined.
+if the storage convention or shared-evidence handling is undefined. Tombstones
+change local model visibility and contribution; they do not erase context
+already processed by hosted Copilot or guarantee deletion from provider systems.
 
 Before writing, check section 9's invariants and all affected references. Every
 attribute needs supporting observation(s), confidence, a timestamp, and the
@@ -256,10 +270,11 @@ For each requested operation, make the handoff complete even when concise:
   confidence/confirmation; it is not performance evidence.
 - **Withheld actions:** explicitly name any unsafe or unsupported request that
   will not be done, and why. Saying "nothing was transmitted" in a dry run does
-  not explain that transmitting the raw ledger is prohibited. Likewise, explain
-  why an old ledger line cannot be rewritten, rather than only asking for a
-  tombstone format. If course-keyed storage was requested, reject that location
-  explicitly and name the correct home domain.
+  not explain that a bulk raw-ledger upload is prohibited; bounded relevant
+  provenance is permitted task context. Likewise, explain why an old ledger
+  line cannot be rewritten, rather than only asking for a tombstone format.
+  If course-keyed storage was requested, reject that location explicitly and
+  name the correct home domain.
 - **Next step or blocker:** give the relevant probe or one focused clarification.
   Only offer options compatible with the invariants; deletion of shared evidence
   cannot be offered as permission to cascade into unrelated attributes.

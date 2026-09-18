@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/francesco-kruk/clew-skills/course-package-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "course", "course_root", "hub", "files", "attribution", "rights", "reports"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "course": {"type": "string", "minLength": 1},
+    "course_root": {"type": "string", "pattern": "^courses/[^/]+$"},
+    "hub": {"const": "hub.md"},
+    "files": {"type": "array", "minItems": 1, "items": {
+      "type": "object", "additionalProperties": false, "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    }},
+    "attribution": {"type": "string", "minLength": 1},
+    "rights": {
+      "type": "object", "additionalProperties": false, "required": ["status", "evidence"],
+      "properties": {
+        "status": {"enum": ["pending", "confirmed"]},
+        "evidence": {"type": "string", "minLength": 1}
+      }
+    },
+    "reports": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+  }
+}

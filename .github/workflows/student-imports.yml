@@ -1,0 +1,50 @@
+name: Student imports
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  student:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install student-only dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Restore with isolated APM 0.28.0
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          $tools = Join-Path $env:RUNNER_TEMP "clew-apm-0.28.0"
+          New-Item -ItemType Directory -Path $tools | Out-Null
+          gh release download v0.28.0 --repo microsoft/apm --pattern "apm-windows-x86_64.zip*" --dir $tools
+          if ($LASTEXITCODE) { throw "APM release download failed" }
+          $archive = Join-Path $tools "apm-windows-x86_64.zip"
+          $expected = (Get-Content "$archive.sha256").Split(" ")[0].ToLowerInvariant()
+          $actual = (Get-FileHash $archive -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($actual -ne $expected) { throw "APM checksum mismatch" }
+          Expand-Archive $archive -DestinationPath (Join-Path $tools "tool")
+          $apm = Join-Path $tools "tool\apm-windows-x86_64\apm.exe"
+          & $apm --version
+          & $apm install --frozen
+          if ($LASTEXITCODE) { throw "Frozen APM restore failed" }
+          git diff --exit-code -- apm.lock.yaml .agents
+          if ($LASTEXITCODE) { throw "Frozen restore changed committed deployments" }
+      - name: Exercise external-vault imports and legacy wrapper
+        run: python -m unittest discover -s tests -v
+      - name: Exercise optional image-first PDF compatibility
+        shell: pwsh
+        run: |
+          python -m pip install -r .agents\skills\content-ingest\requirements.txt
+          if ($LASTEXITCODE) { throw "Optional PDF dependency installation failed" }
+          python -m unittest discover -s tests -p test_pdf_wrapper_smoke.py -v
+          if ($LASTEXITCODE) { throw "Optional PDF compatibility smoke failed" }

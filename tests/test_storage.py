@@ -1,3 +1,5 @@
+import ctypes
+import os
 import subprocess
 import tempfile
 import unittest
@@ -35,7 +37,7 @@ class StorageTests(unittest.TestCase):
             (vault / name).mkdir(parents=True)
             (vault / name / "sentinel").write_bytes(b"private-original")
         storage.configure(vault)
-        self.assertEqual(storage.vault_path(), vault)
+        self.assertEqual(storage.vault_path(), vault.resolve())
         for name in ["model", "artifacts"]:
             self.assertEqual((vault / name / "sentinel").read_bytes(), b"private-original")
         self.assertFalse((vault / ".git").exists())
@@ -69,6 +71,45 @@ class StorageTests(unittest.TestCase):
         subprocess.run(["git", "-C", str(vault), "add", "Model"], check=True)
         with self.assertRaisesRegex(storage.CourseError, "already tracked"):
             storage.configure(vault)
+
+    def short_path(self, path):
+        from ctypes import wintypes
+
+        get_short_path = ctypes.WinDLL("kernel32", use_last_error=True).GetShortPathNameW
+        get_short_path.argtypes = [wintypes.LPCWSTR, wintypes.LPWSTR, wintypes.DWORD]
+        get_short_path.restype = wintypes.DWORD
+        buffer = ctypes.create_unicode_buffer(32768)
+        length = get_short_path(str(path.resolve()), buffer, len(buffer))
+        if not length:
+            raise ctypes.WinError(ctypes.get_last_error())
+        self.assertLess(length, len(buffer))
+        result = Path(buffer.value)
+        if result == path.resolve():
+            self.skipTest("This volume does not provide Windows short-path aliases.")
+        return result
+
+    @unittest.skipUnless(os.name == "nt", "Windows short-path aliases")
+    def test_short_paths_cannot_bypass_clone_boundary(self):
+        clone = self.short_path(self.config.parent)
+        for invalid in (clone, clone / "new-vault", clone.parent):
+            with self.subTest(invalid=invalid), self.assertRaisesRegex(storage.CourseError, "outside this clone"):
+                storage.vault_path(invalid)
+
+    @unittest.skipUnless(os.name == "nt", "Windows short-path aliases")
+    def test_short_path_vault_preserves_git_privacy_checks(self):
+        vault = self.root / "versioned external vault"
+        vault.mkdir()
+        subprocess.run(["git", "init", "--quiet", str(vault)], check=True)
+        alias = self.short_path(vault)
+        self.assertEqual(storage.configure(alias), vault.resolve())
+        self.assertEqual(storage.vault_path(), vault.resolve())
+        self.assertIn("/model/", (vault / ".gitignore").read_text())
+        (vault / "model").mkdir()
+        (vault / "model" / "private.md").write_text("original")
+        subprocess.run(["git", "-C", str(vault), "add", "-f", "model"], check=True)
+        with self.assertRaisesRegex(storage.CourseError, "already tracked"):
+            storage.protect_private_paths(alias)
+        self.assertEqual((vault / "model" / "private.md").read_text(), "original")
 
 
 if __name__ == "__main__":

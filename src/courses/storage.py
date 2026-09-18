@@ -77,7 +77,8 @@ def vault_path(explicit: str | Path | None = None) -> Path:
     path = Path(explicit).expanduser()
     if not path.is_absolute():
         raise CourseError("The vault must be an explicit absolute path.")
-    path = plain_path(path)
+    # Reject links before canonicalizing Windows short-name aliases.
+    path = plain_path(path).resolve()
     root = ROOT.resolve()
     if path == root or root in path.parents or path in root.parents:
         raise CourseError("The vault must be outside this clone and cannot contain it.")
@@ -88,6 +89,7 @@ def vault_path(explicit: str | Path | None = None) -> Path:
 
 def protect_private_paths(vault: Path) -> None:
     """Inspect Git's index only, never learner files or their content."""
+    vault = plain_path(vault).resolve()
     command = ["git", "-C", str(vault), "rev-parse", "--show-toplevel"]
     result = subprocess.run(command, capture_output=True, text=True, encoding="utf-8", check=False)
     if result.returncode:

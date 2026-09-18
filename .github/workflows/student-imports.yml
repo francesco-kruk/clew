@@ -39,6 +39,8 @@ jobs:
           if ($LASTEXITCODE) { throw "Frozen APM restore failed" }
           git diff --exit-code -- apm.lock.yaml .agents
           if ($LASTEXITCODE) { throw "Frozen restore changed committed deployments" }
+          $changes = git status --porcelain -- apm.lock.yaml .agents
+          if ($LASTEXITCODE -or $changes) { throw "Frozen restore left dirty deployments: $changes" }
       - name: Exercise external-vault imports and legacy wrapper
         run: python -m unittest discover -s tests -v
       - name: Exercise optional image-first PDF compatibility

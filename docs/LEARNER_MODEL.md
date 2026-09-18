@@ -11,12 +11,11 @@ from the clone root), read:
 - [Operational skill](../.agents/skills/learner-model/SKILL.md)
 - [Clarification gates](../.agents/skills/learner-model/references/clarification-gates.md)
 
-**Migration status:** installation of the new immutable first-party package pin
-is pending. The specification link is the deployment target, not a claim that
-the file has already been installed. If it is missing or the deployed skill
-still describes local-only inference, finish the pinned package restoration
-before learner-model operations. Do not hand-edit generated files or improvise
-missing schema/update rules.
+The deployed package is restored from immutable `clew-skills` revision
+`5ed0f288a6c5c0c0f891939385ddf38fa5b32504`. The links above identify its canonical
+specification and operating guidance. If these files are missing or stale,
+restore the pinned package before learner-model operations. Do not hand-edit
+generated files or improvise missing schema/update rules.
 
 For student setup and the local-storage/hosted-processing disclosure, see the
 [README](../README.md#local-files-hosted-copilot). Relevant records can enter

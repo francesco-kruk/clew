@@ -56,7 +56,7 @@ export async function readAsset(path) {
     return null;
 }
 
-export async function renderDocument(path) {
+export async function renderDocument(path, { quizToken = "", quizEnabled = false } = {}) {
     const formulas = [];
     const warnings = [];
     const marker = randomUUID();
@@ -128,6 +128,7 @@ export async function renderDocument(path) {
     return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="quiz-token" content="${escapeHtml(quizToken)}">
 <title>${escapeHtml(basename(path, extname(path)))}</title>
 <link rel="stylesheet" href="katex.min.css">
 <style>
@@ -140,7 +141,20 @@ img { max-width: 100%; height: auto; background: white; }
 blockquote { margin: 1em 0; padding-left: 16px; border-left: 3px solid var(--border-color-default, #ccc); color: var(--text-color-muted, #59636e); }
 .katex-display { overflow-x: auto; overflow-y: hidden; padding: 8px 0; }
 footer { color: var(--text-color-muted, #59636e); font-size: 12px; margin-top: 24px; }
-</style></head><body><main>${body}
+#quiz-button { position: fixed; top: 12px; right: 12px; z-index: 10; display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--border-color-default, #8c959f); border-radius: 50%; background: var(--background-color-default, #fff); color: var(--text-color-default, #1f2328); box-shadow: 0 2px 8px #0002; cursor: pointer; }
+#quiz-button:hover:not(:disabled) { border-color: red; }
+#quiz-button:focus-visible { outline: 3px solid var(--color-focus-outline, #0969da); outline-offset: 3px; }
+#quiz-button:disabled { cursor: default; opacity: 0.65; }
+#quiz-button svg { width: 24px; height: 24px; }
+#quiz-status { position: fixed; top: 64px; right: 12px; z-index: 10; max-width: min(320px, calc(100vw - 24px)); margin: 0; padding: 10px 14px; border: 1px solid var(--border-color-default, #8c959f); border-radius: 8px; background: var(--background-color-default, #fff); color: var(--text-color-default, #1f2328); box-shadow: 0 2px 8px #0002; }
+#quiz-status.error { color: var(--true-color-red, #b42318); }
+</style></head><body>
+<button id="quiz-button" type="button" aria-label="Quiz me on this content" title="Quiz me on this content"${quizEnabled ? "" : " disabled"}>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3H4v18h16V3h-3M9 2h6v4H9z"/><path d="M9.5 11a2.5 2.5 0 0 1 5 0c0 1.5-2.5 1.5-2.5 3"/><path d="M12 17h.01"/></svg>
+</button>
+<p id="quiz-status" role="status" aria-live="polite" hidden></p>
+<main>${body}
 ${warnings.length ? `<aside aria-label="Image warnings"><h2>Image warnings</h2><ul>${warnings.map((warning) => `<li>${escapeHtml(warning)}</li>`).join("")}</ul></aside>` : ""}
-<footer>Read-only preview of ${escapeHtml(path)}. Obsidian links are shown as text; the original file is unchanged.</footer></main></body></html>`;
+<footer>Read-only preview of ${escapeHtml(path)}. Obsidian links are shown as text; the original file is unchanged.</footer></main>
+<script src="quiz-button.mjs" type="module"></script></body></html>`;
 }

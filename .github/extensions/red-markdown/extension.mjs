@@ -2,10 +2,12 @@ import { basename, extname } from "node:path";
 import { joinSession, createCanvas, CanvasError } from "@github/copilot-sdk/extension";
 import { DOCUMENT_BORDER, readDocument, resolveDocument } from "./renderer.mjs";
 import { startServer } from "./server.mjs";
+import { createQuizRequester } from "./quiz-request.mjs";
 
 const servers = new Map();
 
-await joinSession({
+let session;
+session = await joinSession({
     canvases: [createCanvas({
         id: "red-markdown",
         displayName: "Red-bordered Markdown",
@@ -41,7 +43,9 @@ await joinSession({
             }
             // Cache startup too, so concurrent opens cannot leak a second server.
             if (!servers.has(ctx.instanceId)) {
-                const pending = startServer(path).catch((error) => {
+                const pending = startServer(path, {
+                    onQuizRequested: createQuizRequester(() => session, ctx),
+                }).catch((error) => {
                     servers.delete(ctx.instanceId);
                     throw error;
                 });

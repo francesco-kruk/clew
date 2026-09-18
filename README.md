@@ -13,6 +13,17 @@ previews local Markdown files with equations and images in a canvas-capable
 Copilot host. Its code lives in `.github/extensions/red-markdown/`; restore its
 npm dependencies and reload extensions as described in its installation guide.
 
+The [canvas-quiz skill](.github/skills/canvas-quiz/SKILL.md) and
+[Obsidian note quiz extension](.github/extensions/vault-quiz/README.md) add
+on-demand, three-question quizzes based on the displayed note. Ask "Quiz me
+on this note", answer in the quiz canvas, then submit to save an ungraded
+Markdown attempt under `Quizzes` in the source vault and reveal suggested
+answers. Submission also appends one linked `supplied-work` observation to
+that vault's learner-model provenance ledger. Source paths and vault roots
+are resolved at runtime. The extension requires no npm dependencies or local
+AI model; it records evidence without scoring answers or updating concept
+knowledge. Partial saves are reported explicitly and can be retried locally.
+
 ## Architecture decisions
 
 [Architecture Decision Records](docs/adr/README.md) capture significant decisions,

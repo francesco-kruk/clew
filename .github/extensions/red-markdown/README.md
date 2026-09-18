@@ -2,7 +2,8 @@
 
 A read-only preview of a local `.md` or `.markdown` file in a custom Copilot
 canvas. It supports Markdown, KaTeX equations, document-relative raster images,
-Obsidian image embeds, and a red border. It does not convert PDFs or modify the
+Obsidian image embeds, a red border, and a fixed quiz button in the upper-right
+corner. It does not convert PDFs or modify the
 source document.
 
 ## Requirements and installation
@@ -55,6 +56,29 @@ a different document; reopening an existing panel focuses and reloads it.
 The `get_document` action returns the file path, current Markdown, and border
 setting. To refresh a preview after editing its file, reopen the panel.
 
+## Requesting a quiz
+
+Press the upper-right **Quiz me on this content** icon to send a request to the
+current Copilot session using the `canvas-quiz` skill. It selects this reader's
+instance and runtime source path, even when another panel is active. The agent
+reads the selected document and opens the existing three-question `vault-quiz`
+canvas; the button itself does not generate questions, submit answers, or
+write learner evidence.
+
+The button supports keyboard focus, Enter/Space activation, and a live status
+message. It stays fixed while you scroll. A successful dispatch is labeled
+**Quiz requested**, not quiz completed. Repeat clicks and HTTP retries from the
+same page reuse that request; refresh the reader to request another quiz.
+Failures are shown next to the button and can be retried. If the reader's
+document changed, refresh before requesting a quiz.
+
+The quiz skill and `vault-quiz` extension must be available to the session.
+Cross-repository installations also need those companions; a missing skill or
+provider must be reported by the agent rather than replaced with a fake quiz.
+The request sends only panel identity and the source path, not document text,
+quiz answers, or learner records. The agent reads source content through the
+normal document action. No machine-specific paths are embedded in the code.
+
 Files must exist and be readable on the machine running the extension.
 No session ID, home directory, sample document, or repository path is embedded
 in the code. The original prototype's `documentId`-only input is intentionally
@@ -69,7 +93,8 @@ panels owned by the original session-scoped provider.
   symlink resolution; parent-directory and remote images are not loaded.
   Supported raster data URLs are also accepted.
 - `[[note|Label]]` links are displayed as text, not navigable vault links.
-- Raw HTML is sanitized; scripts are disabled. Missing or unsupported Markdown
+- Raw HTML is sanitized; document-provided scripts are removed. Only the
+  extension's allowlisted local quiz-button module runs. Missing or unsupported Markdown
   images produce visible warnings. Invalid equations show KaTeX error output.
 - Rendering is a snapshot on each page request, not a live file watcher.
 
@@ -80,5 +105,9 @@ personal documents. Keep the lockfile committed and `node_modules` excluded.
 The dependency packages retain their upstream license files when installed.
 
 `extension.mjs` registers the canvas and manages panel lifetimes, `server.mjs`
-serves the read-only preview and allowlisted assets, and `renderer.mjs` handles
-Markdown, math, image loading, and sanitization.
+serves the preview, allowlisted assets, and token-protected quiz-request endpoint,
+and `renderer.mjs` handles Markdown, math, image loading, and sanitization.
+`quiz-button.mjs` handles the fixed control; `quiz-request.mjs` routes its
+explicitly selected reader to `session.send`, without changing the session's
+system prompt. The endpoint enforces Host/Origin checks and per-render request
+tokens; it never accepts a client-supplied file path or arbitrary prompt.

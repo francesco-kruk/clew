@@ -76,6 +76,7 @@ decision and rationale.
 | ID | Title | Status | Date |
 | --- | --- | --- | --- |
 | ADR-0001 | [Shared Obsidian course content contract](adr-0001-shared-obsidian-course-content-contract.md) | Accepted | 2026-09-16 |
+| ADR-0002 | [Vault-backed canvas quizzes](adr-0002-vault-backed-canvas-quizzes.md) | Proposed | 2026-09-18 |
 
 Add a row with the title linked to its record for each new ADR.
 Maintain the index manually alongside record changes; no generator is required.

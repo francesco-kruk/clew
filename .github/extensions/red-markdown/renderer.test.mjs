@@ -20,7 +20,15 @@ test("opens arbitrary paths, resolves each document's images, and reports failur
         assert.match(html, /katex-display/);
         assert.equal((html.match(/src="data:image\/png;base64,/g) ?? []).length, 2);
         assert.match(html, /!\[\[literal\]\]/);
-        assert.doesNotMatch(html, /<script|Image warnings/);
+        assert.doesNotMatch(html, /alert\(1\)|Image warnings/);
+        assert.equal((html.match(/<script/g) ?? []).length, 1);
+        assert.match(html, /<script src="quiz-button.mjs" type="module"><\/script>/);
+        assert.match(html, /id="quiz-button"[^>]*aria-label="Quiz me on this content"/);
+        assert.match(html, /#quiz-button \{ position: fixed; top: 12px; right: 12px/);
+        assert.match(html, /id="quiz-status" role="status" aria-live="polite" hidden/);
+        const interactive = await renderDocument(first, { quizToken: 'quote"test', quizEnabled: true });
+        assert.match(interactive, /content="quote&quot;test"/);
+        assert.doesNotMatch(interactive, /id="quiz-button"[^>]* disabled/);
 
         const second = join(root, "Second.MARKDOWN");
         await writeFile(second, "# Second\n\n![Missing](absent.png)\n\n![Remote](https://example.com/image.png)\n\n$\\notACommand$\n");

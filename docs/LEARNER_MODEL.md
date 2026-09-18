@@ -309,6 +309,46 @@ instrumentation — no passive telemetry is involved.
 Entries are never edited or removed, only tombstoned. Tombstoning hides the entry from the learner's
 view and removes its contribution to attribute values; the line stays in the ledger.
 
+#### 3.6.1 Basic quiz intake
+
+The local quiz extension can record a deliberate submission without assessing
+it. Each newly saved quiz appends one `supplied-work` observation to
+`model/provenance/<year>/<month>.jsonl`, using the saved submission timestamp
+in UTC, not the date of a later retry. The quiz's immutable attempt ID yields
+`obs-quiz-<quizId>`; matching IDs are checked locally across monthly ledgers
+before append. A conflicting or tombstoned entry is never overwritten or
+re-created.
+
+`context.artifact` links `[[Quizzes/quiz-<quizId>]]`, which holds the topic,
+questions, exact responses, source references, and suggested answers. The
+ledger's `content` records the fact of an ungraded submission, not the answers
+again, a correctness claim, or a learner characterization. All defined
+provenance fields are present. Under the shared unknown-scalar rule,
+`session`, `context.concept`, and `context.item` are `null`: this basic collector
+has no model Session, no resolved canonical concept, and covers the whole
+quiz rather than one item. `informs` is `[]` because no attributes change.
+`tombstoned` is `false` and `tombstone_reason` is `null`.
+
+The observation has `tier: 1`: this collection step has no local inference and
+has not verified the work. That describes the evidence collection capability,
+not the hosted model that may have generated the questions. It must not be
+reported as an assessment, mastery update, or misconception diagnosis.
+
+The extension writes and verifies the quiz artifact before appending evidence.
+Identical retries verify the existing observation rather than adding one.
+If recording fails after the quiz save, the UI reports partial completion and
+offers a local retry with the original ID and timestamp. It never rewrites a
+ledger to recover from an error. The quiz writer serializes cooperating
+processes with `model/provenance/.quiz-evidence.lock`; stale locks and damaged
+ledgers require manual investigation, not automatic deletion. This is a
+bounded evidence writer, not a general transactional learner-model engine.
+
+Opening a quiz, saving no answers, inspecting status, and reopening an older
+version-1 attempt produce no observation. Existing attempts are not
+automatically backfilled. These operations use deterministic local code:
+neither private answers nor ledger contents are returned to the hosted agent.
+Recording supplied work does not authorize any later inference.
+
 ---
 
 ## 4. Adaptation decisions

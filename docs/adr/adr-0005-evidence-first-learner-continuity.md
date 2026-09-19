@@ -114,7 +114,7 @@ alternative. No actual learner vault migration is part of this decision.
   `docs/LEARNER_MODEL.md` remains a pointer, not a second specification.
 - **IMP-002**: Restore the matching 3.0.0 package before memory operations.
   Both runtime skills are pinned to `clew-skills` revision
-  `9c8fb3b3754716c4cbf7c961c4a5f269cd003c15`. Update instructions and evaluations
+  `79c3aefa1817b2e3215df8f070815ef470b1ebdb`. Update instructions and evaluations
   together; never hand-edit generated deployments or guess a release SHA.
 - **IMP-003**: Use synthetic checks for meaningful-write gating, bare continue,
   inspection, original-attempt reuse, filename collisions, ambiguous forget,

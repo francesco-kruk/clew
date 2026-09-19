@@ -75,8 +75,7 @@ Local correction/deletion cannot erase already-sent hosted context.
 
 Runtime dependencies remain only `course-content` and `learner-model`.
 Both are pinned to `clew-skills` revision
-`9c8fb3b3754716c4cbf7c961c4a5f269cd003c15`; restore the matching deployment.
-Until PR #9 merges, student setup requires its checkout rather than older `main`.
+`79c3aefa1817b2e3215df8f070815ef470b1ebdb`; restore the matching deployment.
 Contributor/Obsidian tooling uses direct
 original upstream pins, not a development package. Restore with **APM 0.28.0**
 and `apm install --frozen`, keeping both `copilot` and `agent-skills` targets.

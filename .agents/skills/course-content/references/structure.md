@@ -56,7 +56,7 @@ Required frontmatter:
 | Property | Meaning |
 | --- | --- |
 | `type` | `course`. |
-| `course` | Stable course name used to join course metadata to the learner model's course-name values. |
+| `course` | Stable course name shared by this hub and its chapter metadata; preserve it as source context, not a required learner-model join key. |
 | `primary_domains` | List of home knowledge domains taught by the course. |
 | `prerequisite_domains` | List of prerequisite knowledge domains, not a list of learner weaknesses. |
 | `sources` | List of original-source wikilinks or external source URLs; `[]` for explicitly original authored material. |
@@ -131,7 +131,7 @@ Required frontmatter:
 
 | Property | Meaning |
 | --- | --- |
-| `type` | `course-chapter`, distinct from a learner-model concept or session. |
+| `type` | `course-chapter`, distinct from personal learner memory or a session note. |
 | `course` | The hub's exact course-name value. |
 | `chapter` | Stable source chapter identifier as a string, such as `"1"` or `"A"`; preserve an established identifier for an unnumbered chapter. |
 | `hub` | Quoted, vault-qualified wikilink to this course's `hub.md`. |
@@ -197,8 +197,10 @@ source supplies one separately.
   vault, as separate personal memory under the installed `learner-model`
   contract (`references/learner-model-spec.md` in that skill). Teacher course
   authoring and validation do not require that package. Course concepts
-  describe subject matter; learner concepts describe a person's evidence and
-  state. Do not copy one into the other or put personal progress in the hub.
+  describe subject matter; the compact learner summary and meaningful session
+  notes describe actual learning evidence. No learner-concept records or
+  domain taxonomy are required. Do not turn course concepts into learner
+  evidence or put personal progress in the hub.
   Local storage does not imply local-only inference: relevant content used
   during a task enters hosted GitHub Copilot processing.
 

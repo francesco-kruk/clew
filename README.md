@@ -30,18 +30,15 @@ only Python's standard library and the Git executable to inspect private-trackin
 metadata; no pip install or requirements file is needed. Obsidian is optional
 for viewing notes.
 
-**Availability:** this setup is part of
-[PR #9](https://github.com/francesco-kruk/clew/pull/9), not yet merged into `main`.
-To test it before merge, clone the repository and check out the PR head:
+Student setup is available on `main`. Clone the repository:
 
 ```powershell
 git clone https://github.com/francesco-kruk/clew.git
 Set-Location clew
-git fetch origin pull/9/head
-git switch --detach FETCH_HEAD
 ```
 
-After PR #9 merges, a current default-branch clone can omit the last two commands.
+For an existing clone, update your `main` checkout before continuing, preserving
+any local work.
 
 1. Create your own external vault folder, outside the Clew clone.
 2. Manually copy the **entire portable notes/assets bundle as-is** into a folder
@@ -169,9 +166,8 @@ recorded in `apm.yml` and `apm.lock.yaml` with `apm install --frozen`. Keep both
 The student runtime consists of **`course-content`** and **`learner-model`**.
 Course-content v2 supports portable bounded reading; learner-model 3.0.0 supplies
 compact learning memory. Both runtime skills are pinned to `clew-skills`
-revision `9c8fb3b3754716c4cbf7c961c4a5f269cd003c15`.
-Restore this matching release before memory operations. Student CLI availability
-remains subject to the PR #9 checkout/merge guidance above.
+revision `79c3aefa1817b2e3215df8f070815ef470b1ebdb`.
+Restore this matching release before memory operations.
 
 Contributor and Obsidian tools are direct upstream dependencies at their
 existing immutable pins, not a development package:

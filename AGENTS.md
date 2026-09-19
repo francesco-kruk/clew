@@ -37,7 +37,7 @@ Never initialize or push vault Git. Ignore rules do not untrack or encrypt;
 stop and give actionable guidance for already tracked private paths.
 
 Reserved names can collide with copied notes. Ask before writing if ownership,
-profile, or destination is uncertain. Never infer that an existing `model` or
+format, or destination is uncertain. Never infer that an existing `model` or
 `artifacts` directory belongs to Clew from its name or a status report.
 
 ## Read, tutor, and retain genuine evidence
@@ -48,28 +48,34 @@ or missing context; do not automatically rename, migrate, reorganize, or infer
 domains. Teacher notes are read-only except for an explicit user request.
 
 Create tutoring artifacts in the agreed `artifacts` destination. Use
-`learner-model` v2 for continuity grounded in actual goals, supplied work,
+`learner-model` 3.0.0 for continuity grounded in actual goals, supplied work,
 observed errors, and confirmed preferences—not the presence of course files
 or an explanation the agent generated.
 
-The default profile is `evidence-first-v1`. Its `model/profile.md` marker and
-`model/index.md` guide bounded access to readable records. It does not introduce
-numerical confidence/mastery scores or schedules. Consult the installed
-specification for exact record semantics; do not invent fields or algorithms.
-Its schema version is 1. Configure/status must not read or create the marker.
-For a path-only exchange, ask the learner's goal rather than initializing records.
-The skill initializes at the first genuine intake once ownership and intent
-are clear.
-An existing unmarked model requires asking, not migration or replacement.
-Keep the separate `advanced-v1` profile's rules and unresolved gates separate;
-do not apply advanced numerical/scheduling rules to default records.
+Keep one compact `model/learner.md` summary with exactly one
+`<!-- clew-learning-memory: v1 -->` marker and dated ordinary source/evidence
+links. Goals, Confirmed preferences, and Learning notes are recommended optional
+headings, not mandatory schema sections. Meaningful dated sessions
+use `model/sessions/YYYY-MM-DD-topic.md`, with `-2` and subsequent suffixes for
+collisions. Store original attempts once and link them; artifacts are optional
+when useful. Do not create profile/index files, typed objects, UUID/evidence-ID
+graphs, overlays, tombstone machinery, scores, schedules, or domain taxonomy.
 
-Preserve provenance, no-trait-label rules, learner ownership, and the selected
-profile's correction/history safeguards. Stop affected writes when the contract
-is missing or unclear. An agent skill is not a storage backend or enforcement
-sandbox. Both runtime skills are pinned to `clew-skills` revision
-`16f727da7bbffbb9f905eb9a9ac40fa6d12ca27f`; restore that matching deployment rather
-than editing generated files. Until PR #9 merges, use its checkout as described
+Bare continue and inspection are read-only: no session/evidence/artifact writes.
+Only meaningful learning input, decisions, or results justify memory updates.
+Configure/status never read or create memory; a path-only exchange asks the
+learner's goal. Apply corrections directly, noting them concisely if useful.
+Clarify ambiguous forget, stop-use, or explicitly scoped local deletion requests.
+Unknown existing models, including earlier evidence-first and advanced records,
+require an explicit migration decision. The advanced material is archived
+outside the installed package, not a supported runtime alternative.
+
+Preserve attributable evidence, no trait labels, and learner ownership. Stop
+writes when ownership or contract semantics are unclear. Skills are not a
+storage backend or sandbox. Both runtime skills are pinned to `clew-skills`
+revision `9c8fb3b3754716c4cbf7c961c4a5f269cd003c15`; restore the matching package
+rather than editing generated files to simulate it.
+Until PR #9 merges, use its checkout as described
 in [student setup](README.md#student-setup), not an older `main` checkout.
 
 ## Hosted Copilot
@@ -82,9 +88,9 @@ vaults, introduce passive telemetry, publish private records, or grant teacher/
 institutional access. Normal tool permissions still apply.
 
 Local storage does not imply local-only inference. Local corrections or
-tombstones do not erase previously sent hosted context. Make no provider
-retention, training, deletion, or encryption promises. Advanced adaptation
-objects and `sent_over_boundary` do not constitute complete network audits.
+deletions do not erase previously sent hosted context. Make no provider
+retention, training, deletion, or encryption promises or claims of complete
+network auditing.
 
 ## Architecture and dependencies
 

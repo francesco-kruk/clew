@@ -19,7 +19,9 @@ Implementation was requested through the reorganization plan; this is not
 lifecycle acceptance, and no other contributor's approval is inferred.
 
 Revised on 2026-09-19 at Francesco Kruk's request for manual notes handoff and
-the evidence-first default profile. The original proposal date and Proposed
+evidence-first continuity, subsequently simplified that day to compact learning
+memory rather than typed records or an operational advanced profile.
+The original proposal date and Proposed
 status are retained; this revision records no lifecycle approval.
 
 ## Context
@@ -34,8 +36,8 @@ The maintainer requested ordinary hosted student use without a new
 per-workspace opt-in gate, while retaining bounded access, learner ownership,
 and evidence-based model safeguards. The skills guide operations; they do not
 implement a model storage engine, transport audit, or local inference backend.
-The evidence-first default and separate advanced profile must share an honest
-hosted-processing disclosure without imposing advanced machinery on beginners.
+Compact learning memory needs an honest hosted-processing disclosure without
+imposing numerical or record-graph machinery on ordinary tutoring.
 ADR-0004 separately proposes a portable-reading default; ADR-0001 is unchanged.
 
 ## Decision
@@ -54,24 +56,22 @@ remains independent of learner records. Vault configure/status commands never
 read course or learner-file contents. Copying a bundle or setting a path creates
 no learner records and is not evidence of learning.
 
-In the advanced profile, retain adaptation-decision objects and their provenance
-for two-way tracing.
-`sent_over_boundary` concerns that decision object only; it is not a network
-audit and does not establish that no other task context crossed the boundary.
-Local correction/tombstoning cannot erase context already transmitted to a
+Local memory is not a network audit and does not enumerate all context
+transmitted to hosted processing. Local correction/deletion cannot erase context already transmitted to a
 host. Make no promises about hosted retention, training, deletion, or encryption.
 
-Use `evidence-first-v1` as the default: readable goals, supplied work, observed
-errors, and confirmed preferences, without numerical scores or schedules.
-The profile marker and index guide bounded continuity. Existing unmarked models
-require asking, not migration. Preserve provenance, no-trait-label rules, learner
-ownership, and the selected profile's correction/history safeguards.
+Use one compact summary and meaningful dated session notes under learner-model
+3.0.0. Preserve ordinary evidence links, dates, no trait labels, and learner
+ownership. Bare continue/inspection is read-only; updates require meaningful
+learning input, decisions, or results. No numeric scores, schedules, typed graph,
+or domain taxonomy is required.
 
-Retain the advanced profile's domain indexing, distinct confidence and efficacy,
-scheduling, permanent IDs, and append-only/tombstone safeguards separately.
-Undefined statistical, tombstone, storage, and transaction semantics remain
-clarification gates in that profile. Do not apply them as mandatory default
-machinery or claim an inference/storage enforcement engine exists.
+Unknown existing models, including earlier evidence-first and advanced formats,
+require an explicit migration decision. Advanced documentation is archived
+outside the runtime, not an alternate operational contract. Correct memory
+directly, noting changes concisely when useful; clarify ambiguous forget,
+stop-use, or explicitly scoped local deletion. Do not invent an enforcement
+engine or promise hosted erasure.
 
 ## Consequences
 
@@ -81,15 +81,14 @@ machinery or claim an inference/storage enforcement engine exists.
   rather than presenting local storage as local-only inference.
 - **POS-002**: Task-scoped retrieval enables learner-driven adaptation while
   preserving course/model separation and restrictions on unrelated access.
-- **POS-003**: Evidence-first continuity remains understandable, while advanced
-  provenance and adaptation objects retain explanatory value without claims
-  of complete transport auditing.
+- **POS-003**: Compact summaries and ordinary evidence links support
+  understandable continuity without claims of complete transport auditing.
 
 ### Negative
 
 - **NEG-001**: Relevant learner content leaves the machine during hosted use;
   this design does not offer machine-boundary isolation.
-- **NEG-002**: Local tombstones cannot recall prior hosted context. This project
+- **NEG-002**: Local deletion cannot recall prior hosted context. This project
   cannot establish provider retention/deletion behavior through file operations.
 - **NEG-003**: Instructional safeguards and unresolved model semantics limit
   operations; this change does not deliver a fully enforced storage backend.
@@ -144,7 +143,7 @@ machinery or claim an inference/storage enforcement engine exists.
   dashboard, teacher override, or statistical/tombstone algorithm.
 - **IMP-006**: Presence of `model` or `artifacts` does not establish ownership.
   Commands report presence only. The agent must ask before writing where
-  collisions or an existing unmarked model leave intent uncertain.
+  collisions or an unfamiliar existing model leave intent uncertain.
 
 ## References
 

@@ -194,7 +194,7 @@ source supplies one separately.
   An attachment resolves a missing transcription only as a source image, not
   as verified editable text.
 - Learner records live outside the course in the explicitly selected external
-  vault, indexed by domain under the separately installed `learner-model`
+  vault, as separate personal memory under the installed `learner-model`
   contract (`references/learner-model-spec.md` in that skill). Teacher course
   authoring and validation do not require that package. Course concepts
   describe subject matter; learner concepts describe a person's evidence and

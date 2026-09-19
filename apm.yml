@@ -10,8 +10,8 @@ targets:
   - agent-skills
 dependencies:
   apm:
-    - francesco-kruk/clew-skills/skills/course-content#16f727da7bbffbb9f905eb9a9ac40fa6d12ca27f
-    - francesco-kruk/clew-skills/skills/learner-model#16f727da7bbffbb9f905eb9a9ac40fa6d12ca27f
+    - francesco-kruk/clew-skills/skills/course-content#9c8fb3b3754716c4cbf7c961c4a5f269cd003c15
+    - francesco-kruk/clew-skills/skills/learner-model#9c8fb3b3754716c4cbf7c961c4a5f269cd003c15
     - anthropics/skills/skills/skill-creator#34040c9c568585f6929bedeaad110ad08f079624
     - kepano/obsidian-skills/skills/defuddle#8ccef29ae8624eccc734e77ced4a6e54baf5d83a
     - kepano/obsidian-skills/skills/json-canvas#8ccef29ae8624eccc734e77ced4a6e54baf5d83a

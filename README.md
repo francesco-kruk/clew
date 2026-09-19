@@ -116,16 +116,28 @@ The learner-model skill can retain genuine evidence from the interaction:
 goals, supplied work, observed errors, and confirmed preferences. Copying notes,
 configuring a path, or generating practice is not evidence of learning.
 
-The default **`evidence-first-v1`** profile (`schema_version: 1`) uses readable records with
-`model/profile.md` identifying the profile and `model/index.md` supporting bounded
-lookup. It does not assign numerical confidence/mastery scores or schedules.
-Configure/status never read or create the profile marker. A path-only exchange
-asks what you want to learn; the skill initializes records at the first genuine
-intake, once ownership and intent are clear.
-An existing unmarked model requires clarification, not automatic initialization,
-conversion, or migration. The advanced profile remains separate; do not mix its
-rules into the default. See the [canonical contract pointer](docs/LEARNER_MODEL.md).
-Skills provide operating instructions, not an enforced learner-model backend.
+Learner-model **3.0.0** keeps one compact summary, `model/learner.md`, with exactly
+one `<!-- clew-learning-memory: v1 -->` marker, dates, and ordinary source/evidence
+links. Goals, Confirmed preferences, and Learning notes are recommended optional
+headings, not mandatory schema sections. Meaningful
+sessions go in `model/sessions/YYYY-MM-DD-topic.md` (use `-2`, and so on, for
+name collisions). Store an original attempt once and link to it; create separate
+artifacts only when useful.
+
+A bare “continue” or inspection is read-only: no new session, evidence, or
+artifact files. Only meaningful learning input, decisions, or results justify
+updates. A path-only exchange asks what you want to learn; configure/status
+never read or create learning memory. Corrections are direct, with a concise
+note when useful. Clarify whether “forget” means stop using something or
+explicitly scoped local deletion before acting.
+
+There are no profile/index files, typed record graphs, numerical scores,
+automatic schedules, domain taxonomy, or tombstone engine. Existing unfamiliar
+models—including earlier evidence-first and advanced formats—require an explicit
+migration decision, never silent conversion. Advanced documentation is historical
+source material, not an installed runtime alternative. See the
+[canonical contract pointer](docs/LEARNER_MODEL.md). Skills are instructions,
+not an enforced learner-model backend.
 
 ## Local files, hosted Copilot
 
@@ -140,12 +152,12 @@ Never bulk-upload the model, inspect another learner's vault, introduce passive
 telemetry, publish learner records, or grant teachers/institutions access.
 Keep evidence attributable, distinguish observed errors from unsupported
 conclusions, avoid trait labels, and honor learner inspection and correction
-under the selected profile.
+without manufacturing learning claims.
 
-Local correction, deletion, or tombstoning cannot erase context already sent
+Local correction or deletion cannot erase context already sent
 to a host. Clew makes no provider retention, training, deletion, or encryption
-promises. Advanced-profile adaptation-decision records are not complete
-network audits. Undefined operations remain clarification gates, not permission
+promises. Local memory is not a complete network audit.
+Undefined operations remain clarification gates, not permission
 to invent storage or statistical rules.
 
 ## Agent skills
@@ -155,12 +167,11 @@ recorded in `apm.yml` and `apm.lock.yaml` with `apm install --frozen`. Keep both
 `copilot` and `agent-skills` targets and preserve the deployment's LF line endings.
 
 The student runtime consists of **`course-content`** and **`learner-model`**.
-Course-content v2 supports portable bounded reading; learner-model v2 supplies
-the evidence-first default and a separate advanced profile. Both are pinned to
-`clew-skills` revision `16f727da7bbffbb9f905eb9a9ac40fa6d12ca27f`.
-Restore that matching pin before using these profiles; an older deployment is
-not the redesigned contract. Student CLI availability remains subject to the
-PR #9 checkout/merge guidance above.
+Course-content v2 supports portable bounded reading; learner-model 3.0.0 supplies
+compact learning memory. Both runtime skills are pinned to `clew-skills`
+revision `9c8fb3b3754716c4cbf7c961c4a5f269cd003c15`.
+Restore this matching release before memory operations. Student CLI availability
+remains subject to the PR #9 checkout/merge guidance above.
 
 Contributor and Obsidian tools are direct upstream dependencies at their
 existing immutable pins, not a development package:

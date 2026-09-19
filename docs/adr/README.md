@@ -6,10 +6,8 @@ rationale behind the design; they do not replace specifications or task plans.
 
 Use an ADR for decisions with meaningful trade-offs affecting system structure,
 data models, interfaces, dependencies, operations, or cross-cutting constraints.
-Routine implementation details do not need one. Learner-specific "adaptation
-decisions" in the [learner model's advanced profile](../LEARNER_MODEL.md) are
-runtime domain objects, not ADRs; they are not required by the evidence-first
-default.
+Routine implementation details do not need one. Learner-specific observations
+and decisions in [learning memory](../LEARNER_MODEL.md) are not ADRs.
 
 ## Create and review a record
 
@@ -86,6 +84,8 @@ ADR-0002 and ADR-0003 were revised on 2026-09-19 while still Proposed; their
 original proposal dates remain unchanged. ADR-0004 is the intended replacement
 default for ADR-0001, not an accepted supersession. ADR-0001 remains Accepted
 and unchanged; relationship fields stay empty pending explicit lifecycle approval.
+ADR-0005 was further revised on 2026-09-19 to use a compact summary and meaningful
+session notes instead of a typed-record graph or supported advanced profile.
 
 Add a row with the title linked to its record for each new ADR.
 Maintain the index manually alongside record changes; no generator is required.

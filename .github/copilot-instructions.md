@@ -28,7 +28,7 @@ Existing reserved root names trigger warnings even for files or case variants,
 without reading inside them. Resolve ownership through the skill, not the tool.
 Never initialize/push vault Git. `.gitignore` does not untrack or encrypt;
 stop for already tracked private paths and give actionable guidance.
-Ask before writing when reserved names, profile, or destination ownership is
+Ask before writing when reserved names, format, or destination ownership is
 uncertain. Configuration is not a permission bypass or sandbox.
 
 ## Bounded tutoring and continuity
@@ -41,19 +41,26 @@ remain read-only unless the user explicitly requests a change.
 Tutoring produces personal `artifacts` at an agreed destination; genuine goals,
 supplied work, observed errors, and confirmed preferences can become readable
 learner evidence. Configuring a path or copying notes is not evidence.
-Use `learner-model` v2's default `evidence-first-v1`, its `model/profile.md`
-marker, and `model/index.md`. No default numerical scores or schedules.
-The default schema version is 1. Configure/status do not read or create the
-marker; a path-only exchange asks the learner's goal. Initialization belongs to
-the skill at first genuine intake, once ownership and intent are clear.
-Ask about existing unmarked models; never migrate them automatically.
-Keep `advanced-v1` separate and preserve its unresolved clarification gates.
-Use the installed canonical contract rather than inventing record details.
-Missing or incompatible packages require restoration, not generated-file edits.
+Use `learner-model` 3.0.0: one compact `model/learner.md` summary with exactly one
+`<!-- clew-learning-memory: v1 -->` marker, dates, and ordinary evidence links.
+Goals, Confirmed preferences, and Learning notes are recommended optional
+headings, not mandatory schema sections. Meaningful sessions use
+`model/sessions/YYYY-MM-DD-topic.md` with collision suffixes `-2`, and so on.
+Store each original attempt once and link it; artifacts are optional when useful.
+No profile/index files, typed-record/UUID graphs, overlays/tombstone engine,
+numerical scores, automatic schedules, or domain taxonomy.
 
-Preserve provenance, no trait labels, learner inspection/correction, and the
-selected profile's history rules. Skills guide behavior; they are not an
-enforced storage backend.
+Bare continue/inspection is read-only: no session/evidence/artifact writes.
+Only meaningful learning input, decisions, or results justify updates.
+Configure/status do not read or create memory; path-only input asks the goal.
+Correct directly with a concise note if useful; clarify ambiguous forget versus
+stop-use versus explicitly scoped local deletion. Existing unknown models,
+including prior evidence-first/advanced formats, need an explicit migration
+decision. Archived advanced documentation is not an operational alternative.
+
+Use the canonical contract and clarification gates, not invented record rules.
+Preserve evidence attribution, no trait labels, and learner inspection/correction.
+Skills are not an enforced storage backend.
 
 ## Hosted processing and dependencies
 
@@ -64,10 +71,11 @@ Never bulk-upload the model, read another learner's vault, add passive telemetry
 publish private records, or provide teacher/institutional access. Tool
 permissions remain applicable. Do not promise local-only inference, hosted
 retention/training/deletion/encryption behavior, or a complete network audit.
-Local correction/tombstoning cannot erase already-sent hosted context.
+Local correction/deletion cannot erase already-sent hosted context.
 
-Runtime dependencies are only `course-content` and `learner-model`, both pinned
-to `clew-skills` revision `16f727da7bbffbb9f905eb9a9ac40fa6d12ca27f`.
+Runtime dependencies remain only `course-content` and `learner-model`.
+Both are pinned to `clew-skills` revision
+`9c8fb3b3754716c4cbf7c961c4a5f269cd003c15`; restore the matching deployment.
 Until PR #9 merges, student setup requires its checkout rather than older `main`.
 Contributor/Obsidian tooling uses direct
 original upstream pins, not a development package. Restore with **APM 0.28.0**

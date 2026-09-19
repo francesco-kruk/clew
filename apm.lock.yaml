@@ -1,5 +1,5 @@
 lockfile_version: '1'
-generated_at: '2026-09-19T08:37:17.845633+00:00'
+generated_at: '2026-09-19T08:58:26.640394+00:00'
 apm_version: 0.28.0
 dependencies:
 - repo_url: anthropics/skills
@@ -54,8 +54,8 @@ dependencies:
 - repo_url: francesco-kruk/clew-skills
   name: course-content
   host: github.com
-  resolved_commit: 16f727da7bbffbb9f905eb9a9ac40fa6d12ca27f
-  resolved_ref: 16f727da7bbffbb9f905eb9a9ac40fa6d12ca27f
+  resolved_commit: 9c8fb3b3754716c4cbf7c961c4a5f269cd003c15
+  resolved_ref: 9c8fb3b3754716c4cbf7c961c4a5f269cd003c15
   version: 2.0.0
   virtual_path: skills/course-content
   is_virtual: true
@@ -78,19 +78,19 @@ dependencies:
     .agents/skills/course-content/apm.yml: sha256:d6853a7c4b28fa830b8568d453ff6212253d249f795219bbbe51baa5fc49fc4b
     .agents/skills/course-content/references/package-contract.md: sha256:5479d407424df4752e5a5ea108afe41bdc460af617df7d5d6f6c527aac246df9
     .agents/skills/course-content/references/reading.md: sha256:efcf7ffb071cf4dddce4de41140ad18f019a7a6734689a9b8e1130bd7793ef1b
-    .agents/skills/course-content/references/structure.md: sha256:720600177766bd9aa98abc363095d08ef9b1cbc13bdc914b83c7ff0b44929f7c
+    .agents/skills/course-content/references/structure.md: sha256:33298a5ab10ce4029c2de75eed92d0b7df857fe602aebc73ae5e4ef94a8a10b4
     .agents/skills/course-content/requirements.txt: sha256:195d92b82f91999cc32a0a29cf4f1969d11a2d4dac95317dd6cad57b61e1add0
     .agents/skills/course-content/schemas/catalog.schema.json: sha256:db0cf09df25fe97c5d75d9efecba12b75e091cce76b4d236963a0a173660a1f8
     .agents/skills/course-content/schemas/course-package.schema.json: sha256:2f2bba9c4096d3794587f7feb23088cb445ad46afbed709fdd3f0c14821856db
     .agents/skills/course-content/scripts/validate_course.py: sha256:46e0decd2b2e59b92db09f9010631867f7e8bcd90af73b62460223c1da8ecc00
-  content_hash: sha256:e3f31d0ab0aeed7f21cd0ffe33f5272b19bdbc729b0eb2c377b8ca2066b76227
+  content_hash: sha256:5cf9f20d49b243f16906f697c8279ea01cdca0a28fb03c7a74a3671c78371493
   declared_license: MIT
 - repo_url: francesco-kruk/clew-skills
   name: learner-model
   host: github.com
-  resolved_commit: 16f727da7bbffbb9f905eb9a9ac40fa6d12ca27f
-  resolved_ref: 16f727da7bbffbb9f905eb9a9ac40fa6d12ca27f
-  version: 2.0.0
+  resolved_commit: 9c8fb3b3754716c4cbf7c961c4a5f269cd003c15
+  resolved_ref: 9c8fb3b3754716c4cbf7c961c4a5f269cd003c15
+  version: 3.0.0
   virtual_path: skills/learner-model
   is_virtual: true
   package_type: hybrid
@@ -99,21 +99,15 @@ dependencies:
   - .agents/skills/learner-model/LICENSE
   - .agents/skills/learner-model/SKILL.md
   - .agents/skills/learner-model/apm.yml
-  - .agents/skills/learner-model/references/advanced-clarification-gates.md
-  - .agents/skills/learner-model/references/advanced-model-spec.md
-  - .agents/skills/learner-model/references/advanced-operations.md
   - .agents/skills/learner-model/references/clarification-gates.md
   - .agents/skills/learner-model/references/learner-model-spec.md
   deployed_file_hashes:
     .agents/skills/learner-model/LICENSE: sha256:b7a717ad2f8f7e75f44a020b52c4b9199f9d7dd99e2e75f533dd28f3e975ac5a
-    .agents/skills/learner-model/SKILL.md: sha256:41dbc7f84d8066ae1bc0927fbc91c97f54d7e6899c89fae870617e4b71039bb5
-    .agents/skills/learner-model/apm.yml: sha256:9170604ddfb4ab4b7bf05671311674936c3223c0d5aa50a82ba09d58c51bd4e6
-    .agents/skills/learner-model/references/advanced-clarification-gates.md: sha256:dfca6fa7f2e29109d4f2c865d0f92f9bbd0bff1b0425629d44204e5e077af3c2
-    .agents/skills/learner-model/references/advanced-model-spec.md: sha256:94b9e340868995ee38fd0626f8ab03810f24a46a6176c7975d698aa9f72389bc
-    .agents/skills/learner-model/references/advanced-operations.md: sha256:41b9f0b54cf8284d2eb462c90f63e8a2940f279e8b95c516cc81935058196345
-    .agents/skills/learner-model/references/clarification-gates.md: sha256:96b0d64074c81ef04065d98d463b90feee99c905a6b17d5fc7af93a7ca9e913d
-    .agents/skills/learner-model/references/learner-model-spec.md: sha256:dbebe287cd9e030f3080bf272c073ab488f8c40453fccc736545a294c0b36eae
-  content_hash: sha256:18f3b3f0f6188125e48ac8daa214c18e44b3564269096b2b0448a21731a6a5f3
+    .agents/skills/learner-model/SKILL.md: sha256:2a50aa2ff4f6201ec29b3fe4becb1638448b48abdbded75a7a9f5854c5123780
+    .agents/skills/learner-model/apm.yml: sha256:8f3c3e0c3cddc0cc6e2600b5581bd8e615ac2d1d5f0824c828ab1be8fd30e6ec
+    .agents/skills/learner-model/references/clarification-gates.md: sha256:1871218d83f38473165172f4c2ac41b2843d093c0a5667a9cee83db78cd10742
+    .agents/skills/learner-model/references/learner-model-spec.md: sha256:8c223b69a3e7b8612d4002cba277f140a6b61292bd117c2ddba4d75d1a33c8b5
+  content_hash: sha256:a73213f8b3b85fa3c6ebdf556b38aa3b7f39180fa491786d2ecd8240d19310b0
   declared_license: MIT
 - repo_url: github/awesome-copilot
   name: create-architectural-decision-record
@@ -278,7 +272,7 @@ deployments:
   owners:
   - francesco-kruk/clew-skills/skills/course-content
   active_owner: francesco-kruk/clew-skills/skills/course-content
-  content_hash: sha256:720600177766bd9aa98abc363095d08ef9b1cbc13bdc914b83c7ff0b44929f7c
+  content_hash: sha256:33298a5ab10ce4029c2de75eed92d0b7df857fe602aebc73ae5e4ef94a8a10b4
 - kind: project-relative
   target: agent-skills
   value: .agents/skills/course-content/requirements.txt
@@ -404,7 +398,7 @@ deployments:
   owners:
   - francesco-kruk/clew-skills/skills/learner-model
   active_owner: francesco-kruk/clew-skills/skills/learner-model
-  content_hash: sha256:41dbc7f84d8066ae1bc0927fbc91c97f54d7e6899c89fae870617e4b71039bb5
+  content_hash: sha256:2a50aa2ff4f6201ec29b3fe4becb1638448b48abdbded75a7a9f5854c5123780
 - kind: project-relative
   target: agent-skills
   value: .agents/skills/learner-model/apm.yml
@@ -413,34 +407,7 @@ deployments:
   owners:
   - francesco-kruk/clew-skills/skills/learner-model
   active_owner: francesco-kruk/clew-skills/skills/learner-model
-  content_hash: sha256:9170604ddfb4ab4b7bf05671311674936c3223c0d5aa50a82ba09d58c51bd4e6
-- kind: project-relative
-  target: agent-skills
-  value: .agents/skills/learner-model/references/advanced-clarification-gates.md
-  runtime: null
-  scope: project
-  owners:
-  - francesco-kruk/clew-skills/skills/learner-model
-  active_owner: francesco-kruk/clew-skills/skills/learner-model
-  content_hash: sha256:dfca6fa7f2e29109d4f2c865d0f92f9bbd0bff1b0425629d44204e5e077af3c2
-- kind: project-relative
-  target: agent-skills
-  value: .agents/skills/learner-model/references/advanced-model-spec.md
-  runtime: null
-  scope: project
-  owners:
-  - francesco-kruk/clew-skills/skills/learner-model
-  active_owner: francesco-kruk/clew-skills/skills/learner-model
-  content_hash: sha256:94b9e340868995ee38fd0626f8ab03810f24a46a6176c7975d698aa9f72389bc
-- kind: project-relative
-  target: agent-skills
-  value: .agents/skills/learner-model/references/advanced-operations.md
-  runtime: null
-  scope: project
-  owners:
-  - francesco-kruk/clew-skills/skills/learner-model
-  active_owner: francesco-kruk/clew-skills/skills/learner-model
-  content_hash: sha256:41b9f0b54cf8284d2eb462c90f63e8a2940f279e8b95c516cc81935058196345
+  content_hash: sha256:8f3c3e0c3cddc0cc6e2600b5581bd8e615ac2d1d5f0824c828ab1be8fd30e6ec
 - kind: project-relative
   target: agent-skills
   value: .agents/skills/learner-model/references/clarification-gates.md
@@ -449,7 +416,7 @@ deployments:
   owners:
   - francesco-kruk/clew-skills/skills/learner-model
   active_owner: francesco-kruk/clew-skills/skills/learner-model
-  content_hash: sha256:96b0d64074c81ef04065d98d463b90feee99c905a6b17d5fc7af93a7ca9e913d
+  content_hash: sha256:1871218d83f38473165172f4c2ac41b2843d093c0a5667a9cee83db78cd10742
 - kind: project-relative
   target: agent-skills
   value: .agents/skills/learner-model/references/learner-model-spec.md
@@ -458,7 +425,7 @@ deployments:
   owners:
   - francesco-kruk/clew-skills/skills/learner-model
   active_owner: francesco-kruk/clew-skills/skills/learner-model
-  content_hash: sha256:dbebe287cd9e030f3080bf272c073ab488f8c40453fccc736545a294c0b36eae
+  content_hash: sha256:8c223b69a3e7b8612d4002cba277f140a6b61292bd117c2ddba4d75d1a33c8b5
 - kind: project-relative
   target: agent-skills
   value: .agents/skills/obsidian-bases

@@ -113,7 +113,7 @@ ownership is uncertain.
 
 ## Implementation Notes
 
-- **IMP-001**: Publish the matching v2 skill sources at a reachable immutable
+- **IMP-001**: Publish the matching skill sources at a reachable immutable
   revision before pinning consumers. Restore with `apm install --frozen`, using
   both manifest targets `copilot` and `agent-skills`; narrowing to
   `--target copilot` alone silently skips hybrid skills.
@@ -127,7 +127,7 @@ ownership is uncertain.
   or learner-file content is read. Test reserved-name collisions without
   interpreting their contents as learner records.
 - **IMP-005**: Preserve the optional `red-markdown` extension. Store tutoring
-  artifacts and genuine learner evidence only under the selected profile and
+  artifacts and compact learner memory only for meaningful learning and
   after destination ownership is clear; location setup is not initialization.
 
 ## References

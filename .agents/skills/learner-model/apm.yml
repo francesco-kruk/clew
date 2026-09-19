@@ -1,6 +1,6 @@
 name: learner-model
-version: 2.0.0
-description: Versioned evidence-first Markdown learner records in an external local vault.
+version: 3.0.0
+description: Small evidence-grounded learner summary and meaningful session notes in an external vault.
 author: Clew contributors
 license: MIT
 type: hybrid

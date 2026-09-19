@@ -3,7 +3,7 @@ title: "ADR-0005: Evidence-first learner continuity"
 status: "Proposed"
 date: "2026-09-19"
 authors: "Francesco Kruk (requesting maintainer)"
-tags: ["architecture", "decision", "learner-model", "profiles"]
+tags: ["architecture", "decision", "learner-model", "memory"]
 supersedes: ""
 superseded_by: ""
 ---
@@ -15,122 +15,120 @@ superseded_by: ""
 **Proposed** | Accepted | Rejected | Superseded | Deprecated
 
 Proposed on 2026-09-19 at requesting maintainer Francesco Kruk's direction.
-The user authorized the redesign's implementation, not ADR acceptance.
-No approval is attributed to another contributor and no accepted record's
-lifecycle is changed by this proposal.
+Revised later on 2026-09-19 to replace this proposal's typed-record/profile
+design with compact learning memory. The user authorized implementation, not
+ADR acceptance. No other contributor's agreement or lifecycle change is asserted.
 
 ## Context
 
-Useful continuity can start with what the learner actually supplies or confirms:
-goals, work, observed errors, and preferences. The former complete learner model
-includes numerical confidence/efficacy, scheduling, and unresolved statistical
-and transaction rules. Requiring all of that machinery for ordinary tutoring
-would either block basic continuity or encourage the agent to invent semantics.
+Continuity should preserve what matters from learning, not make the learner
+maintain a graph of goals, errors, preferences, mappings, and change objects.
+Even the earlier evidence-first profile retained more machinery than required.
+The maintainer requested a compact summary plus meaningful dated session notes.
 
-A copied bundle can already contain folders called `model` or `artifacts`.
-Neither a path setting nor a directory name identifies a Clew profile or
-authorizes overwriting existing records. A simpler default needs an explicit
-identity and must coexist with advanced records without automatic migration.
+Notes and ordinary links can retain an original attempt and its context without
+duplicating it into typed evidence records. Existing `model` directories may be
+unrelated, or use earlier evidence-first or advanced formats; their presence
+does not authorize initialization or conversion.
 
 ## Decision
 
-Use learner-model v2 with **`evidence-first-v1`** (schema version 1) as the default profile.
-`model/profile.md` identifies the selected profile; `model/index.md` supports
-bounded lookup of readable records for goals, supplied work, observed errors,
-and confirmed preferences. Exact fields and operations belong to the installed
-canonical contract, not this ADR.
+Use learner-model **3.0.0** with one compact `model/learner.md` summary identified
+by exactly one `<!-- clew-learning-memory: v1 -->` marker. Use dates and ordinary
+source/evidence links. Goals, Confirmed preferences, and Learning notes are
+recommended optional headings, not mandatory schema sections.
+Meaningful sessions use `model/sessions/YYYY-MM-DD-topic.md`; suffix colliding
+names with `-2`, and so on. Store an original attempt once and link it.
+Create separate artifacts only when useful.
 
-Do not assign numerical confidence/mastery scores or schedules in the default
-profile. Record genuine evidence from tutoring, with attributable sources and
-learner correction; do not manufacture facts from a configured vault, copied
-notes, or agent-generated practice. Preserve learner ownership and no-trait-label
-rules, and distinguish observations from unsupported generalizations.
+Only genuine meaningful learning input, decisions, or results justify updates.
+Bare continue and inspection are read-only: no session, evidence, or artifact
+writes. Configuring a path creates no memory, and configure/status never read
+the marker. A path-only exchange asks what the learner wants to learn.
 
-Keep the complete former specification as a separate **`advanced-v1`** profile.
-Its domain indexing, confidence/efficacy distinction, scheduling, stable IDs,
-provenance, and append-only/tombstone safeguards remain intact alongside its
-undefined-rule gates. Do not silently mix advanced fields into default records
-or treat the profile split as a new statistical or storage implementation.
+Do not create profile/index files, typed per-goal/error/preference/mapping/change
+objects, UUID/evidence-ID graphs, overlays, tombstone machinery, numerical
+scores, automatic schedules, or domain taxonomy. Preserve attributable evidence,
+no trait labels, and learner ownership without pretending an enforced backend
+exists.
 
-An existing unmarked model requires clarification, not automatic initialization,
-replacement, or migration. Ask before writes if reserved paths or ownership
-are uncertain. Configuring the vault creates neither profile files nor learner
-records, and configure/status do not read the profile marker. A path-only
-exchange asks the learner's goal. The skill initializes at first genuine intake
-only once intent and destinations are clear; tutoring then creates artifacts
-and retains genuine evidence.
+Apply corrections directly, with a concise note when useful. Clarify ambiguous
+requests to forget, stop using information, or perform explicitly scoped local
+deletion. Local changes cannot erase already-sent hosted context.
 
-Both profiles use bounded task-relevant retrieval under the hosted-processing
-disclosure in ADR-0003. A profile is an instructional contract, not an enforced
-backend, permission bypass, or sandbox.
+Unknown existing models—including prior evidence-first and advanced records—
+require an explicit migration decision. Never silently convert or overwrite
+them. The former advanced documentation is archived outside the installed
+package under source `docs/archive/learner-model`, not supported as a runtime
+alternative. No actual learner vault migration is part of this decision.
 
 ## Consequences
 
 ### Positive
 
-- **POS-001**: Learners can inspect understandable evidence without unsupported
-  precision or numerical claims of mastery.
-- **POS-002**: Explicit profile identity reduces accidental mixing of record
-  semantics and protects existing unmarked data from automatic migration.
-- **POS-003**: The advanced specification remains available rather than being
-  silently deleted or weakened to make ordinary tutoring possible.
+- **POS-001**: Learners can inspect a short useful summary and follow ordinary
+  links to meaningful sessions or original work.
+- **POS-002**: Meaningful-write gating avoids noisy records generated by bare
+  continue, inspection, or location setup.
+- **POS-003**: Historical designs remain available for reference without
+  burdening the supported runtime or silently converting existing data.
 
 ### Negative
 
-- **NEG-001**: The default does not offer numerical adaptive scheduling or
-  efficacy estimation; those capabilities cannot be implied in the interface.
-- **NEG-002**: Ambiguous ownership or profile selection requires clarification
-  before writes and can interrupt continuity.
-- **NEG-003**: Skill instructions do not enforce storage transactions or
-  guarantee correctness; unsupported operations must remain blocked.
+- **NEG-001**: Compact prose does not provide typed-graph queries, numerical
+  mastery estimation, or automatic adaptive schedules.
+- **NEG-002**: Summary maintenance requires judgment about meaningful changes;
+  unsupported conclusions must not be presented as learner facts.
+- **NEG-003**: Unknown existing formats and ambiguous deletion requests need
+  clarification before writes; the skill is not an enforcement engine.
 
 ## Alternatives Considered
 
-### Require the complete advanced model for every learner
+### Keep the typed evidence-first record graph
 
-- **ALT-001**: **Description**: Make numerical scores, scheduling, and advanced
-  lifecycle objects prerequisites for all continuity.
-- **ALT-002**: **Rejection Reason**: Adds unsupported complexity to basic tutoring
-  and risks inventing rules where the specification remains undefined.
+- **ALT-001**: **Description**: Maintain profile/index files and separately typed
+  goals, errors, preferences, mappings, and change records linked by IDs.
+- **ALT-002**: **Rejection Reason**: Overbuilt for the requested continuity;
+  a summary and meaningful session notes preserve the useful context with less
+  bookkeeping and duplication.
 
-### Remove the advanced model entirely
+### Retain advanced as a supported runtime profile
 
-- **ALT-003**: **Description**: Replace the former complete specification and
-  records with only the simple default.
-- **ALT-004**: **Rejection Reason**: Loses the preserved advanced contract and
-  encourages destructive migration of existing learner history.
+- **ALT-003**: **Description**: Ship advanced numerical, scheduling, and lifecycle
+  operations alongside a simpler default.
+- **ALT-004**: **Rejection Reason**: Preserves competing operational models and
+  ambiguity the simplification is intended to remove. Archive the documentation
+  outside the installed package instead.
 
-### Infer the profile from whatever files are present
+### Write a session on every exchange
 
-- **ALT-005**: **Description**: Treat any `model` folder as Clew-owned and
-  normalize its records into the default automatically.
-- **ALT-006**: **Rejection Reason**: Directory presence proves neither ownership
-  nor profile; existing unmarked data requires the learner's clarification.
+- **ALT-005**: **Description**: Record continue and inspection as new sessions,
+  with evidence and artifacts generated automatically.
+- **ALT-006**: **Rejection Reason**: Creates noise and implied learning facts
+  without genuine input, decisions, or results.
 
 ## Implementation Notes
 
-- **IMP-001**: The installed `references/learner-model-spec.md` becomes the
-  canonical profile entrypoint and links the separately retained advanced
-  references `advanced-model-spec.md`, `advanced-operations.md`, and
-  `advanced-clarification-gates.md` in that same directory. Keep
-  `docs/LEARNER_MODEL.md` as a concise pointer. Restore the matching package
-  pinned to `16f727da7bbffbb9f905eb9a9ac40fa6d12ca27f` before profile operations.
-- **IMP-002**: Publish and restore the matching immutable v2 package before
-  profile operations. Update skill guidance and evaluations together; never
-  hand-edit generated deployments to bridge a contract mismatch.
-- **IMP-003**: Use synthetic scenarios for source-grounded tutoring, genuine
-  evidence, bounded continuity, unmarked models, and reserved-name collisions.
-  Do not test against real learner records or report manual scenarios as an
-  implemented enforcement engine.
-- **IMP-004**: Local correction/deletion/tombstoning cannot erase hosted context
-  already sent. Retain no-bulk-upload, no-passive-telemetry, and no-teacher-access
-  restrictions and do not promise provider behavior.
+- **IMP-001**: Keep the canonical installed `references/learner-model-spec.md`
+  and `references/clarification-gates.md` entrypoints. The consumer's
+  `docs/LEARNER_MODEL.md` remains a pointer, not a second specification.
+- **IMP-002**: Restore the matching 3.0.0 package before memory operations.
+  Both runtime skills are pinned to `clew-skills` revision
+  `9c8fb3b3754716c4cbf7c961c4a5f269cd003c15`. Update instructions and evaluations
+  together; never hand-edit generated deployments or guess a release SHA.
+- **IMP-003**: Use synthetic checks for meaningful-write gating, bare continue,
+  inspection, original-attempt reuse, filename collisions, ambiguous forget,
+  and unknown prior formats. Do not access actual learner vaults.
+- **IMP-004**: Retain bounded task-relevant hosted use without a new opt-in.
+  Never bulk-upload records, introduce passive telemetry, grant teacher access,
+  or promise hosted retention/deletion behavior.
 
 ## References
 
 - **REF-001**: [Learner-model contract pointer](../LEARNER_MODEL.md).
-- **REF-002**: [Installed profile entrypoint](../../.agents/skills/learner-model/references/learner-model-spec.md).
+- **REF-002**: [Installed specification](../../.agents/skills/learner-model/references/learner-model-spec.md)
+  and [clarification gates](../../.agents/skills/learner-model/references/clarification-gates.md).
 - **REF-003**: [ADR-0003: Local learner storage and hosted Copilot processing](adr-0003-local-learner-storage-and-hosted-copilot-processing.md).
 - **REF-004**: [ADR-0004: Portable bounded course reading](adr-0004-portable-bounded-course-reading.md).
 - **REF-005**: [Student workspace session](ghapp://sessions/357f9483-e268-444b-92aa-a417df6fec4b),
-  2026-09-19 redesign direction from the requesting maintainer, not acceptance.
+  2026-09-19 redesign and simplification direction, not lifecycle acceptance.

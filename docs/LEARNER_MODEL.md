@@ -1,49 +1,46 @@
 # Learner-model contract
 
-The canonical contract is owned by the portable `learner-model` package in
-[clew-skills](https://github.com/francesco-kruk/clew-skills), not maintained as a
-second specification here.
+The authoritative learner-model 3.0.0 contract lives in the installed
+[specification](../.agents/skills/learner-model/references/learner-model-spec.md),
+[clarification gates](../.agents/skills/learner-model/references/clarification-gates.md),
+and [operational skill](../.agents/skills/learner-model/SKILL.md).
+Sources belong in [clew-skills](https://github.com/francesco-kruk/clew-skills),
+not in a second specification here.
 
-Read the installed [profile entrypoint and specification](../.agents/skills/learner-model/references/learner-model-spec.md)
-and [operational skill](../.agents/skills/learner-model/SKILL.md). Restore their
-matching immutable pin with **APM 0.28.0** and `apm install --frozen`, retaining
-both manifest targets (`copilot` and `agent-skills`).
+Both runtime skills are pinned to `clew-skills` revision
+`9c8fb3b3754716c4cbf7c961c4a5f269cd003c15`. Restore this matching release with **APM 0.28.0** and
+`apm install --frozen`, retaining both `copilot` and `agent-skills` targets.
 
-The v2 package is pinned to `clew-skills` revision
-`16f727da7bbffbb9f905eb9a9ac40fa6d12ca27f`. The stable specification path above is
-the profile entrypoint. Restore the matching pin rather than treating an older
-installed specification as the redesigned default. Student CLI availability
-follows the [PR #9 setup guidance](../README.md#student-setup).
+Memory is one compact `model/learner.md` summary with exactly one
+`<!-- clew-learning-memory: v1 -->` marker, dates, and ordinary source/evidence
+links. Goals, Confirmed preferences, and Learning notes are recommended optional
+headings, not mandatory schema sections. Meaningful sessions
+use `model/sessions/YYYY-MM-DD-topic.md` with collision suffixes `-2`, and so on.
+Store original attempts once and link them; artifacts are optional when useful.
 
-The default **`evidence-first-v1`** profile (`schema_version: 1`) uses `model/profile.md`,
-`model/index.md`, and readable evidence for goals, supplied work, observed
-errors, and confirmed preferences. It does not assign numerical scores or
-schedules. Existing unmarked models require clarification, not automatic
-migration. Configure/status never read or create the marker. A path-only
-exchange asks the learner's goal; the skill initializes at first genuine intake
-once ownership and intent are clear, not merely when a vault is configured.
+Bare continue or inspection is read-only. Only meaningful learning input,
+decisions, or results justify updates. Configure/status neither read nor create
+memory; a path-only exchange asks the learner's goal. Corrections are direct,
+with a concise note if useful. Clarify ambiguous forget, stop-use, and explicitly
+scoped local deletion requests.
 
-The complete former specification remains separately available as **`advanced-v1`**:
+No profile/index files, typed-record graph, evidence-ID machinery, overlays,
+tombstone engine, numerical scores, automatic schedules, or domain taxonomy are
+required or supported by this contract. Unknown existing models—including
+earlier evidence-first and advanced formats—require an explicit migration
+decision. The former advanced documentation is historical material archived
+outside the installed package in the
+[historical source archive](https://github.com/francesco-kruk/clew-skills/tree/9c8fb3b3754716c4cbf7c961c4a5f269cd003c15/docs/archive/learner-model),
+not a supported runtime alternative.
 
-- [Advanced specification](../.agents/skills/learner-model/references/advanced-model-spec.md)
-- [Advanced operations](../.agents/skills/learner-model/references/advanced-operations.md)
-- [Advanced clarification gates](../.agents/skills/learner-model/references/advanced-clarification-gates.md)
-
-These are the v2 deployment paths for the matching pin. Advanced domain indexing, confidence/efficacy,
-scheduling, provenance, stable-ID and append-only/tombstone safeguards and
-undefined-rule gates remain profile-specific, not mandatory default machinery.
-Neither profile constitutes an enforced storage backend.
-
-Both profiles preserve learner ownership, attributable evidence, no trait
-labels, and bounded retrieval. Reserved `model`/`artifacts` names may belong
-to copied notes; ask before writing if ownership is unclear.
+Preserve learner ownership, attributable evidence, no trait labels, and bounded
+retrieval. Ask before writing where reserved `model`/`artifacts` ownership is
+uncertain. Skills are instructions, not an enforced backend.
 See [student setup](../README.md#student-setup) and the
 [hosted-processing disclosure](../README.md#local-files-hosted-copilot).
-Ordinary task-scoped reads can enter hosted context without a new opt-in gate;
-that does not authorize bulk uploads, telemetry, or teacher access. Local
-corrections/tombstones cannot erase already-sent hosted context, and this
-project makes no provider retention, training, deletion, or encryption promises.
+Local correction/deletion cannot erase hosted context already sent; do not
+promise provider retention, training, deletion, or encryption behavior.
 
 Rationale: [hosted processing](adr/adr-0003-local-learner-storage-and-hosted-copilot-processing.md)
 and [evidence-first learner continuity](adr/adr-0005-evidence-first-learner-continuity.md)
-are Proposed ADRs, not lifecycle approvals.
+remain Proposed ADRs.

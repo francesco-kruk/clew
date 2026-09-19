@@ -27,3 +27,18 @@ class StudentSurfaceTests(unittest.TestCase):
                          {"skills/course-content", "skills/learner-model"})
         self.assertEqual(len(references), 2)
         self.assertEqual(len({revision for _, revision in references}), 1)
+
+    def test_installed_learner_contract_uses_compact_memory(self):
+        package = ROOT / ".agents" / "skills" / "learner-model"
+        self.assertRegex((package / "apm.yml").read_text(encoding="utf-8"),
+                         r"(?m)^version:\s*3\.0\.0\s*$")
+        references = package / "references"
+        specification = (references / "learner-model-spec.md").read_text(encoding="utf-8")
+        self.assertIn("<!-- clew-learning-memory: v1 -->", specification)
+        self.assertIn("model/learner.md", specification)
+        self.assertTrue((references / "clarification-gates.md").is_file())
+
+    def test_archived_advanced_profiles_are_not_deployed(self):
+        package = ROOT / ".agents" / "skills" / "learner-model"
+        self.assertEqual(list(package.rglob("advanced*.md")), [])
+        self.assertFalse((package / "docs" / "archive").exists())

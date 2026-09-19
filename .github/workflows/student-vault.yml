@@ -1,4 +1,4 @@
-name: Student imports
+name: Student vault
 
 on:
   pull_request:
@@ -16,8 +16,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
-      - name: Install student-only dependencies
-        run: python -m pip install -r requirements.txt
       - name: Restore with isolated APM 0.28.0
         shell: pwsh
         env:
@@ -41,12 +39,5 @@ jobs:
           if ($LASTEXITCODE) { throw "Frozen restore changed committed deployments" }
           $changes = git status --porcelain -- apm.lock.yaml .agents
           if ($LASTEXITCODE -or $changes) { throw "Frozen restore left dirty deployments: $changes" }
-      - name: Exercise external-vault imports and legacy wrapper
-        run: python -m unittest discover -s tests -v
-      - name: Exercise optional image-first PDF compatibility
-        shell: pwsh
-        run: |
-          python -m pip install -r .agents\skills\content-ingest\requirements.txt
-          if ($LASTEXITCODE) { throw "Optional PDF dependency installation failed" }
-          python -m unittest discover -s tests -p test_pdf_wrapper_smoke.py -v
-          if ($LASTEXITCODE) { throw "Optional PDF compatibility smoke failed" }
+      - name: Exercise standard-library vault setup and manual-copy preservation
+        run: python -S -m unittest discover -s tests -v

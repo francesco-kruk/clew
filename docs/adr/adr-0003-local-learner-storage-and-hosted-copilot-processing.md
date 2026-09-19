@@ -18,6 +18,10 @@ Proposed on 2026-09-18 at requesting maintainer Francesco Kruk's direction.
 Implementation was requested through the reorganization plan; this is not
 lifecycle acceptance, and no other contributor's approval is inferred.
 
+Revised on 2026-09-19 at Francesco Kruk's request for manual notes handoff and
+the evidence-first default profile. The original proposal date and Proposed
+status are retained; this revision records no lifecycle approval.
+
 ## Context
 
 The historical learner-model specification says that only serialized adaptation
@@ -30,7 +34,9 @@ The maintainer requested ordinary hosted student use without a new
 per-workspace opt-in gate, while retaining bounded access, learner ownership,
 and evidence-based model safeguards. The skills guide operations; they do not
 implement a model storage engine, transport audit, or local inference backend.
-ADR-0001's accepted hub/chapter organization is unaffected.
+The evidence-first default and separate advanced profile must share an honest
+hosted-processing disclosure without imposing advanced machinery on beginners.
+ADR-0004 separately proposes a portable-reading default; ADR-0001 is unchanged.
 
 ## Decision
 
@@ -44,20 +50,28 @@ or provide teacher/institutional access.
 Resolve the selected vault from explicit task/CLI configuration, not a home
 directory guess or the clone. Follow the learner-model contract's cheapest-first
 retrieval and stop when the request has enough context. Course-only lookup
-remains independent of learner records. Importing a course never reads or
-modifies private model/artifact files and never creates mastery evidence.
+remains independent of learner records. Vault configure/status commands never
+read course or learner-file contents. Copying a bundle or setting a path creates
+no learner records and is not evidence of learning.
 
-Retain adaptation-decision objects and their provenance for two-way tracing.
+In the advanced profile, retain adaptation-decision objects and their provenance
+for two-way tracing.
 `sent_over_boundary` concerns that decision object only; it is not a network
 audit and does not establish that no other task context crossed the boundary.
 Local correction/tombstoning cannot erase context already transmitted to a
 host. Make no promises about hosted retention, training, deletion, or encryption.
 
-Preserve domain indexing, no-trait-label rules, provenance, distinct confidence
-and efficacy, scheduling, learner inspection/correction, permanent IDs, and
-append-only/tombstone safeguards. Keep clarification gates for undefined
-statistical, tombstone, storage, and transaction semantics; do not invent an
-inference algorithm or claim structural enforcement that does not exist.
+Use `evidence-first-v1` as the default: readable goals, supplied work, observed
+errors, and confirmed preferences, without numerical scores or schedules.
+The profile marker and index guide bounded continuity. Existing unmarked models
+require asking, not migration. Preserve provenance, no-trait-label rules, learner
+ownership, and the selected profile's correction/history safeguards.
+
+Retain the advanced profile's domain indexing, distinct confidence and efficacy,
+scheduling, permanent IDs, and append-only/tombstone safeguards separately.
+Undefined statistical, tombstone, storage, and transaction semantics remain
+clarification gates in that profile. Do not apply them as mandatory default
+machinery or claim an inference/storage enforcement engine exists.
 
 ## Consequences
 
@@ -67,8 +81,9 @@ inference algorithm or claim structural enforcement that does not exist.
   rather than presenting local storage as local-only inference.
 - **POS-002**: Task-scoped retrieval enables learner-driven adaptation while
   preserving course/model separation and restrictions on unrelated access.
-- **POS-003**: Existing provenance and adaptation objects retain explanatory
-  value without unsupported claims of complete transport auditing.
+- **POS-003**: Evidence-first continuity remains understandable, while advanced
+  provenance and adaptation objects retain explanatory value without claims
+  of complete transport auditing.
 
 ### Negative
 
@@ -117,13 +132,19 @@ inference algorithm or claim structural enforcement that does not exist.
   refusal to publish unrelated/private records, and retained write safeguards.
   Never send real learner records to evaluation services. Report manual skill
   checks separately from executable storage or transport enforcement.
-- **IMP-004**: Configure the external vault with an explicit `--vault` or ignored
-  `.clew.local.json`. Never initialize or push vault Git. Additive ignore rules
-  do not untrack already tracked data or encrypt it; stop and give guidance
-  when private paths are already tracked.
+- **IMP-004**: Configure an absolute existing external vault with
+  `python -m src.vault.cli configure --vault PATH`; the ignored
+  `.clew.local.json` stores its canonical path and version 1.
+  Configuration does not bypass permissions. Configure/status retain Git index
+  checks without reading learner/course contents; only configure adds ignore
+  rules. Status is read-only. Never initialize or push vault Git; stop for
+  already tracked private paths. Ignore rules do not untrack or encrypt.
 - **IMP-005**: Explain that there is no automatic backup or cross-device sync.
   This proposal adds no inference backend, passive telemetry, institutional
   dashboard, teacher override, or statistical/tombstone algorithm.
+- **IMP-006**: Presence of `model` or `artifacts` does not establish ownership.
+  Commands report presence only. The agent must ask before writing where
+  collisions or an existing unmarked model leave intent uncertain.
 
 ## References
 
@@ -135,3 +156,5 @@ inference algorithm or claim structural enforcement that does not exist.
 - **REF-005**: [Student hosted-processing disclosure](../../README.md#local-files-hosted-copilot).
 - **REF-006**: [Reorganization coordination session](ghapp://sessions/7ad4168d-d57d-4678-99c3-555c5888f1a3):
   requesting maintainer's hosted-use direction; not an ADR acceptance record.
+- **REF-007**: [ADR-0005: Evidence-first learner continuity](adr-0005-evidence-first-learner-continuity.md).
+- **REF-008**: [ADR-0004: Portable bounded course reading](adr-0004-portable-bounded-course-reading.md).

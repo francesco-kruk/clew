@@ -1,6 +1,10 @@
 # Course distribution contract v1
 
-This contract belongs to `course-content`. The course structure in
+This preserved legacy API is for explicitly requested package/catalog
+distribution and validation, not ordinary student Markdown reading. No package
+manifest, catalog or validator run is required to use a manually copied bundle.
+
+This contract belongs to `course-content`. For this explicit format, the structure in
 `structure.md` remains authoritative; chapter order exists only in `hub.md`.
 JSON paths use `/`, even on Windows. Text and JSON are UTF-8.
 

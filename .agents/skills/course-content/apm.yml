@@ -1,6 +1,6 @@
 name: course-content
-version: 1.0.0
-description: Canonical course structure, bounded reading and navigation.
+version: 2.0.0
+description: Bounded portable Markdown reading with optional legacy course validation.
 author: Clew contributors
 license: MIT
 type: hybrid

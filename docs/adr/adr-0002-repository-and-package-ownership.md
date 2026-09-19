@@ -15,132 +15,128 @@ superseded_by: ""
 **Proposed** | Accepted | Rejected | Superseded | Deprecated
 
 Proposed on 2026-09-18 at requesting maintainer Francesco Kruk's direction.
-The reorganization plan authorizes implementation, not ADR acceptance. No
-acceptance or approval by another contributor is asserted.
+Revised on 2026-09-19 for the user-approved student-only redesign and manual
+notes handoff, replacing this proposal's earlier distribution-tooling plan.
+Implementation authorization is not ADR acceptance. No lifecycle approval
+or another contributor's agreement is asserted.
 
 ## Context
 
-Clew currently mixes student tools, first-party skill sources, generated
-third-party skills, PDF ingestion, and a learner-model specification. Teachers
-need a publishing workspace and students need a safe course handoff without
-copying development tools or putting private learner files in a source clone.
-Portable skills cannot depend on a consumer's documentation or sibling checkout.
+Students need to use teacher notes without running teacher conversion tools or
+conforming an existing bundle to a distribution schema. A source clone should
+not contain the learner's vault. Reusable skills should not depend on a sibling
+checkout or duplicate specifications in their consumers.
 
-ADR-0001 accepts one canonical course hub and one complete file per chapter.
-That content contract remains unchanged. The repository split concerns source
-ownership, packaging, and delivery, not a replacement course structure or a
-retroactive rewrite of ADR-0001's implementation notes.
+The previous proposal coupled student setup to packaged course distribution
+and teacher tooling. The requested redesign instead has the teacher prepare
+portable notes/assets and the student copy the entire bundle as-is into a
+self-created external vault.
 
-Both existing PDF workflows must survive: the fidelity-focused
-`brute-force-pdf-to-obsidian` workflow, renamed `digest`, and Alexandra's
-image-first `content-ingest` engine. Their capabilities must not be conflated.
+ADR-0001's accepted layout remains historical policy until an explicit lifecycle
+decision. Proposed ADR-0004 describes the intended portable-reading replacement
+default; this revision does not silently rewrite or supersede ADR-0001.
 
 ## Decision
 
-Assign first-party skill sources, executable helpers, portable contracts, and
-pinned upstream dependencies to `clew-skills`. Assign teacher authoring and
-validated published course packages to `clew-content`. Keep student Copilot
-setup, external-vault configuration/import tools, architecture records, and the
-optional Markdown canvas in `clew`.
+Keep `clew` student-only: vault-location configuration, tutoring instructions,
+architecture records, and the existing optional Markdown canvas.
+`clew-content` owns teacher authoring and `digest` conversion.
+`clew-skills` owns reusable skills and their canonical contracts.
 
-Consume independently installable skill packages through APM 0.28.0 at immutable
-commits. Generated `.agents/skills` deployments are not another source of truth.
-Keep upstream skills at their original sources with existing pins and licenses
-unless a demonstrated compatibility need requires a change. The full learner
-specification belongs in the learner-model package; `docs/LEARNER_MODEL.md` is a
-pointer to its pinned deployed copy.
+The student manually copies the entire portable notes/assets bundle into any
+chosen folder within an external vault. Preserve its internal layout; no
+`courses` prefix, hub, catalog, manifest, or schema migration is a prerequisite.
+Teacher source notes remain read-only except for an explicit user request.
+Source fidelity and distribution rights remain teacher responsibilities;
+manual copying does not confer rights.
 
-Keep `digest`'s page-by-page fidelity workflow and standalone non-course support.
-Package the `content-ingest` Python engine with its skill, retaining its
-image-first behavior and the `python -m src.ingest.cli` compatibility wrapper in
-Clew. PDF dependencies are optional, installed from the deployed skill's
-`requirements.txt`, separate from student validator dependencies. Extraction
-must be assembled into the shared course format and verified before publication.
+Student runtime skills are only `course-content` and `learner-model`, consumed
+at immutable pins through APM 0.28.0. Contributor skill-creator/ADR/Defuddle/Bases
+and Obsidian Canvas/Markdown/optional CLI tooling use direct upstream dependencies
+at existing pins, not a development package. Generated skill deployments are not
+another source of truth.
 
-Store learner vaults outside the clone. Resolve explicit `--vault` or ignored
-`.clew.local.json`, never a guessed home directory. Import validated immutable
-course snapshots preserving the `courses\<course>` prefix. An intact identical
-reimport is a no-op; changed revisions are staged, never activated automatically.
-Dirty or unrecognized destinations are conflicts. Importers never read or modify
-the model or personal artifacts and do not initialize vault Git.
+Configure an absolute, existing external vault with `python -m src.vault.cli
+configure --vault PATH`; inspect it with `python -m src.vault.cli status`.
+Ignored `.clew.local.json` stores version 1 and the canonical vault path.
+There is no home fallback, automatic vault creation, or record creation from a
+path. Configuration is a location setting, not a permissions bypass or sandbox.
+
+Both commands avoid reading course and learner-file contents. They retain Git
+index checks and report presence of reserved `model`/`artifacts` names without
+determining ownership. Configure alone adds relevant ignore rules additively;
+status is read-only. The agent asks before writes if reserved names collide or
+ownership is uncertain.
 
 ## Consequences
 
 ### Positive
 
-- **POS-001**: Teachers, students, and skill maintainers have distinct ownership
-  boundaries without duplicating the shared contract or validator.
-- **POS-002**: Immutable pins and import receipts make installed tools and course
-  revisions identifiable; staged updates protect student work.
-- **POS-003**: Both PDF approaches remain available, with honest image-first
-  limitations and a preserved legacy command.
+- **POS-001**: Students can use existing portable bundles without learning a
+  publishing protocol or installing teacher conversion tooling.
+- **POS-002**: Separate source ownership prevents student instructions from
+  becoming another maintained copy of skill contracts.
+- **POS-003**: Narrow location commands establish no learner facts and do not
+  inspect private record contents.
 
 ### Negative
 
-- **NEG-001**: Cross-repository releases require dependency ordering and clean
-  consumer-restore tests; unreleased package refs are not usable dependencies.
-- **NEG-002**: Snapshot staging deliberately leaves activation/comparison work
-  to a later authorized step rather than providing automatic synchronization.
-- **NEG-003**: A structurally valid package does not prove source fidelity or
-  distribution rights; publishing requires separate evidence and review.
+- **NEG-001**: Manual copying does not provide automatic delivery, version
+  activation, synchronization, or verification of source fidelity.
+- **NEG-002**: Broken or ambiguous bundle links need a bounded clarification
+  rather than an automatic reorganization.
+- **NEG-003**: Reserved-name collisions and existing learner records can
+  require a conversation before writes; configuration cannot prove ownership.
 
 ## Alternatives Considered
 
-### Keep all ownership and copied skills in the student repository
+### Keep teacher workflows in the student workspace
 
-- **ALT-001**: **Description**: Retain the engine, contracts, first-party skills,
-  teacher artifacts, and student workflows together.
-- **ALT-002**: **Rejection Reason**: Conflicts with the requested three-repository
-  ownership split and makes portable contracts depend on a consumer checkout.
+- **ALT-001**: **Description**: Deploy teacher conversion engines alongside
+  student runtime skills.
+- **ALT-002**: **Rejection Reason**: Contradicts the student-only boundary and
+  adds dependencies unrelated to learning from already prepared notes.
 
-### Replace one PDF workflow with the other
+### Require a standardized distribution layout
 
-- **ALT-003**: **Description**: Standardize all PDF tasks on one ingestion method.
-- **ALT-004**: **Rejection Reason**: Loses either the source-verification workflow
-  or Alexandra's image-preserving extraction and violates the explicit request
-  to preserve both.
+- **ALT-003**: **Description**: Require a catalog, manifest, canonical hub and
+  fixed course directory before the student can read a bundle.
+- **ALT-004**: **Rejection Reason**: The requested handoff is a portable bundle
+  copied as-is; a migration requirement obstructs that workflow.
 
-### Synchronize course revisions over the installed vault course
+### Create a default vault automatically
 
-- **ALT-005**: **Description**: Treat the teacher repository as an automatically
-  updated mirror inside the student vault.
-- **ALT-006**: **Rejection Reason**: Risks overwriting local work and importing
-  unrelated repository files; immutable snapshots with explicit staging are the
-  requested first-version boundary.
+- **ALT-005**: **Description**: Guess a home-directory destination and initialize
+  storage when a learner first starts the workspace.
+- **ALT-006**: **Rejection Reason**: Obscures the chosen data location and risks
+  confusing existing files with Clew-owned records.
 
 ## Implementation Notes
 
-- **IMP-001**: Publish `clew-skills` first at a reachable immutable revision,
-  then regenerate teacher/student APM deployments and lockfiles with 0.28.0.
-  Do not invent lock hashes or hand-edit generated skills. Preserve MIT
-  attribution and upstream notices; software licenses do not license textbooks.
-- **IMP-002**: Teacher consumers install `digest`, `content-ingest`, and shared
-  course/Obsidian dependencies, not learner-model. Students install course-content
-  and learner-model, with content-ingest for optional legacy use.
-- **IMP-003**: Keep a versioned package manifest, inventory/hashes, catalog, and
-  shared validator in the portable course contract. Resolve a remote ref once
-  to an immutable commit. Reject unsafe paths and validate the full staged
-  package before final installation; never execute course content.
-- **IMP-004**: Trigonometry publication remains gated on documented permission
-  scope/evidence and checks. This record grants no redistribution permission.
-  An unavailable catalog must produce actionable guidance, not a bypass.
-  Use synthetic original packages while publication is blocked.
-- **IMP-005**: Use synthetic tests for clean restores, imports, no-op reimports,
-  staged revisions, dirty conflicts, unsafe packages, and interrupted operations.
-  Verify model/artifact sentinels remain byte-identical. Do not inspect real
-  learner data for tests.
-- **IMP-006**: Keep vault ignore rules additive and stop for already tracked
-  private paths. Ignoring does not untrack or encrypt files. Never initialize or
-  push vault Git. Preserve the existing optional `red-markdown` extension.
+- **IMP-001**: Publish the matching v2 skill sources at a reachable immutable
+  revision before pinning consumers. Restore with `apm install --frozen`, using
+  both manifest targets `copilot` and `agent-skills`; narrowing to
+  `--target copilot` alone silently skips hybrid skills.
+- **IMP-002**: Keep deployed files LF-normalized, regenerate lockfiles through
+  APM, and preserve licenses/notices and original upstream pins. Do not hand-edit
+  generated skills or invent lock hashes. Software licensing does not license
+  teacher content.
+- **IMP-003**: Never initialize or push vault Git. Stop for already tracked
+  private paths; additive ignore rules do not untrack or encrypt them.
+- **IMP-004**: Keep configuration/status tests synthetic and verify no source
+  or learner-file content is read. Test reserved-name collisions without
+  interpreting their contents as learner records.
+- **IMP-005**: Preserve the optional `red-markdown` extension. Store tutoring
+  artifacts and genuine learner evidence only under the selected profile and
+  after destination ownership is clear; location setup is not initialization.
 
 ## References
 
 - **REF-001**: [ADR-0001: Shared Obsidian course content contract](adr-0001-shared-obsidian-course-content-contract.md).
 - **REF-002**: [ADR-0003: Local learner storage and hosted Copilot processing](adr-0003-local-learner-storage-and-hosted-copilot-processing.md).
-- **REF-003**: [Student setup, release order, and skill management](../../README.md).
-- **REF-004**: [Learner-model contract pointer](../LEARNER_MODEL.md).
-- **REF-005**: [Reorganization coordination session](ghapp://sessions/7ad4168d-d57d-4678-99c3-555c5888f1a3):
-  requesting maintainer's implementation plan and publication gates; not an ADR
-  acceptance record.
-- **REF-006**: [Original Clew revision](https://github.com/francesco-kruk/clew/tree/6b03b5e8fdaefc16478de179bac00e9baa188c20)
-  preserves the pre-migration sources and attribution.
+- **REF-003**: [ADR-0004: Portable bounded course reading](adr-0004-portable-bounded-course-reading.md).
+- **REF-004**: [ADR-0005: Evidence-first learner continuity](adr-0005-evidence-first-learner-continuity.md).
+- **REF-005**: [Student setup](../../README.md#student-setup).
+- **REF-006**: [Coordination session](ghapp://sessions/7ad4168d-d57d-4678-99c3-555c5888f1a3)
+  and [student workspace session](ghapp://sessions/357f9483-e268-444b-92aa-a417df6fec4b):
+  implementation direction and the 2026-09-19 redesign, not ADR acceptance.

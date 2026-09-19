@@ -1,2 +1,0 @@
-# Student course validation only; PDF extraction dependencies are optional.
-PyYAML>=6.0.2,<7

@@ -1,103 +1,107 @@
 # Working in Clew
 
-Before architectural changes, read the [ADR process and index](docs/adr/README.md),
-applicable records, and relevant specifications such as the
-[learner model](docs/LEARNER_MODEL.md).
+Read the [ADR process and index](docs/adr/README.md), applicable records, and
+[learner-model contract pointer](docs/LEARNER_MODEL.md) before architectural
+changes. This is a **student-only** Copilot workspace. Teacher conversion with
+`digest` belongs in `clew-content`; do not introduce conversion or distribution
+workflows here.
 
-## Student workspace and selected vault
+## Locate the selected vault
 
-This clone contains tools and instructions, not the learner vault. Resolve the
-external vault from an explicit task/CLI `--vault` or the ignored
-`.clew.local.json` configuration. Configure it with
-`python -m src.courses.cli configure --vault "C:\Path\To\Vault"`.
-Do not guess a home-directory vault or use the clone. Work only within the
-selected learner/task scope; do not search unrelated vaults.
+The student creates an external vault and manually copies an entire portable
+notes/assets bundle into any chosen folder, as-is. There is no required
+`courses` prefix, hub, catalog, manifest, or schema migration.
 
-Use `course-content` for hub-first, bounded, read-only course lookup. Preserve
-`courses\<course>\hub.md` and complete chapter files; cite source sections.
-Personal work and adaptations belong in external-vault `artifacts`, not the
-authoritative course snapshot. Import with `python -m src.courses.cli`, using the
-default `francesco-kruk/clew-content` source, explicit `--ref main`, or a selected
-`--source-checkout`. See [student setup](README.md#student-setup).
+Once the student supplies the absolute path of an existing external vault, use:
 
-Identical intact imports are no-ops. New revisions remain staged at
-`.clew\staging\<id>\<commit>-<hash>\courses\<course>`, preserving the course prefix.
-There is no activation command; never activate updates automatically.
-Dirty or unrecognized destinations are conflicts;
-do not overwrite them. The importer must never inspect or modify `model` or
-personal `artifacts`, or manufacture learner records from installation.
-Never initialize or push vault Git. Ignore rules are not encryption and do not
-untrack private data; stop if relevant private paths are already tracked.
+```powershell
+python -m src.vault.cli configure --vault "C:\Path\To\Existing Vault"
+python -m src.vault.cli status
+```
 
-## Hosted learner-model use
+The ignored `.clew.local.json` stores `version: 1` and the canonical `vault`
+path. Do not guess a home-directory location, create a vault, or use the clone.
+Path configuration creates no model records and establishes no learning facts.
+It is a location setting, not a permission bypass or sandbox.
+The CLI requires Python 3.11+ (standard library only) and the Git executable;
+no pip installation or requirements file is needed. Command JSON uses the stable
+`vault` field. Explicit configure with a valid supplied path can replace a
+malformed setting; status never repairs configuration or ignore rules.
 
-Learner files persist locally, but ordinary student tasks permit bounded,
-task-relevant reads into hosted GitHub Copilot/model context. Do not invent
-another per-workspace opt-in requirement or claim local-only inference.
-Use the installed `learner-model` specification and clarification gates,
-retrieving cheapest-first and stopping once the request has enough context.
-Course-only reading needs no learner data. Never bulk-upload the model, read
-another learner's records, introduce passive telemetry, publish private records,
-or provide teacher/institutional access.
+Both commands avoid reading learner/course-file contents. They check the Git
+index and report presence of reserved `model`/`artifacts` paths, not ownership.
+Warn even when those root names are files or case variants, without reading
+inside them; ownership is a skill-level clarification, not a tool finding.
+Only configure adds relevant ignore rules additively; status is read-only.
+Never initialize or push vault Git. Ignore rules do not untrack or encrypt;
+stop and give actionable guidance for already tracked private paths.
 
-Preserve domain indexing, provenance, independent confidence and efficacy,
-scheduling, no-trait-label rules, learner inspection/correction, stable IDs,
-and append-only/tombstone safeguards. Undefined inference, tombstone, storage,
-and transaction semantics still block affected writes; do not invent rules.
-Adaptation decisions retain traceability, but `sent_over_boundary` describes
-that object, not all transmitted context or a network audit. Tombstoning does
-not erase context already sent to a host. Make no provider retention, training,
-deletion, or encryption promises. Skills are instructions, not an enforced
-storage engine.
+Reserved names can collide with copied notes. Ask before writing if ownership,
+profile, or destination is uncertain. Never infer that an existing `model` or
+`artifacts` directory belongs to Clew from its name or a status report.
 
-Follow [the contract pointer](docs/LEARNER_MODEL.md) and stop learner-model operations
-if the required specification is absent or the deployed guidance still assumes
-local-only processing. Do not patch generated skills to bridge that gap.
+## Read, tutor, and retain genuine evidence
 
-## Teacher/PDF handoff is optional
+Use `course-content` v2 for bounded reading of the selected portable notes.
+Follow only relevant links and cite exact source locations. Stop at ambiguity
+or missing context; do not automatically rename, migrate, reorganize, or infer
+domains. Teacher notes are read-only except for an explicit user request.
 
-Authoritative skill sources live in `clew-skills`; course authoring/publication
-belongs in `clew-content`. Do not globally route PDF tasks through one engine:
+Create tutoring artifacts in the agreed `artifacts` destination. Use
+`learner-model` v2 for continuity grounded in actual goals, supplied work,
+observed errors, and confirmed preferences—not the presence of course files
+or an explanation the agent generated.
 
-- `digest` (formerly `brute-force-pdf-to-obsidian`) is the source-faithful,
-  page-by-page recovery workflow, with verified editable content and standalone
-  non-course support.
-- Alexandra's `content-ingest` is the image-first alternative. When explicitly
-  selected, use its bundled engine, not ad-hoc raw text extraction. The legacy
-  `python -m src.ingest.cli` wrapper delegates to the APM-restored engine.
-  Install optional PDF dependencies from
-  `.agents\skills\content-ingest\requirements.txt`, not the student dependency
-  set. Output is chapter Markdown and formula/exercise/diagram images, not a
-  promise of editable math, Mermaid diagrams, or interactive callouts.
+The default profile is `evidence-first-v1`. Its `model/profile.md` marker and
+`model/index.md` guide bounded access to readable records. It does not introduce
+numerical confidence/mastery scores or schedules. Consult the installed
+specification for exact record semantics; do not invent fields or algorithms.
+Its schema version is 1. Configure/status must not read or create the marker.
+For a path-only exchange, ask the learner's goal rather than initializing records.
+The skill initializes at the first genuine intake once ownership and intent
+are clear.
+An existing unmarked model requires asking, not migration or replacement.
+Keep the separate `advanced-v1` profile's rules and unresolved gates separate;
+do not apply advanced numerical/scheduling rules to default records.
 
-Neither extraction output nor structural validation establishes fidelity or
-redistribution rights. Before publication, assemble and validate the shared
-hub/chapter package, preserve attribution/answers/caveats, and document rights.
-The migrated Trigonometry catalog remains unpublished pending rights evidence.
-Do not bypass this gate; use original synthetic packages for integration tests.
-Publish immutable skill sources first, then pin/restore consumers, then publish
-validated courses after rights clearance. Do not auto-push content.
+Preserve provenance, no-trait-label rules, learner ownership, and the selected
+profile's correction/history safeguards. Stop affected writes when the contract
+is missing or unclear. An agent skill is not a storage backend or enforcement
+sandbox. The new immutable package pin is pending; do not edit generated files
+to simulate a matching deployment.
 
-## Architecture & Skills
+## Hosted Copilot
 
-For significant architectural decisions, use the APM-managed
-[create-architectural-decision-record skill](.agents/skills/create-architectural-decision-record/SKILL.md)
-and [ADR template](docs/adr/template.md). Ask for missing context, options,
-rationale, or stakeholders rather than inventing them. New records start
-Proposed; acceptance and other lifecycle changes require explicit human approval.
-Acceptance is not authorization to implement. Keep the index and supersession
-links consistent, and preserve historical records.
+Ordinary student tasks permit bounded task-relevant reads into hosted Copilot/
+model context without a new opt-in ritual. Retrieve both source and model
+context cheapest-first and stop when enough is available. Course-only lookup
+does not require learner records. Never bulk-upload the model, read unrelated
+vaults, introduce passive telemetry, publish private records, or grant teacher/
+institutional access. Normal tool permissions still apply.
 
-Do not edit generated files under `.agents/skills/`. Manage dependency changes
-through `apm.yml` and **APM 0.28.0**, preserving immutable pins, the regenerated
-lockfile/deployments, and license notices. Do not hand-author lock hashes.
-Restore with `apm install --frozen`, retaining both manifest targets `copilot`
-and `agent-skills`. Do not pass `--target copilot` alone: it silently skips the
-hybrid first-party packages. The root pins all four skills (`course-content`,
-`learner-model`, `content-ingest`, `digest`) and `packages/development` to
-`5ed0f288a6c5c0c0f891939385ddf38fa5b32504` in `clew-skills`.
-The development package supplies skill-creator, ADR, Defuddle, and Bases tooling
-at their original upstream pins.
-Keep Clew-specific guidance outside generated skills and preserve the optional
-`.github/extensions/red-markdown` extension. Test with synthetic original
-material and disposable external test vaults, never real learner records.
+Local storage does not imply local-only inference. Local corrections or
+tombstones do not erase previously sent hosted context. Make no provider
+retention, training, deletion, or encryption promises. Advanced adaptation
+objects and `sent_over_boundary` do not constitute complete network audits.
+
+## Architecture and dependencies
+
+Use the APM-managed
+[ADR skill](.agents/skills/create-architectural-decision-record/SKILL.md) and
+[template](docs/adr/template.md). New records start Proposed; lifecycle changes
+require explicit human approval. Do not infer others' agreement. Keep index
+and relationship links consistent. ADR-0001 remains unchanged; Proposed
+ADR-0004 is an intended replacement default, not an accepted supersession.
+
+Runtime skills are only `course-content` and `learner-model`. Skill-creator,
+ADR, Defuddle, Bases, and Obsidian Canvas/Markdown/optional CLI are direct
+upstream dependencies at existing pins, not a development package.
+Use **APM 0.28.0** and `apm install --frozen` with both manifest targets
+`copilot` and `agent-skills`. Never narrow to `--target copilot` alone, which
+silently skips hybrid skills. Preserve LF deployment line endings, immutable
+pins, regenerated lockfiles, and license notices. Do not hand-edit generated
+`.agents/skills` or lock hashes.
+
+Keep the optional `.github/extensions/red-markdown` extension unchanged.
+Use synthetic original notes and disposable test vaults, never real learner
+records, to test configuration and behavioral scenarios.

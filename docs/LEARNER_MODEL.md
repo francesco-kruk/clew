@@ -1,41 +1,48 @@
 # Learner-model contract
 
-The authoritative specification belongs to the portable `learner-model` package
-in [clew-skills](https://github.com/francesco-kruk/clew-skills), not to an
-independently maintained copy in this student repository.
+The canonical contract is owned by the portable `learner-model` package in
+[clew-skills](https://github.com/francesco-kruk/clew-skills), not maintained as a
+second specification here.
 
-After restoring the pinned package with **APM 0.28.0** (`apm install --frozen`
-from the clone root), read:
+Read the installed [profile entrypoint and specification](../.agents/skills/learner-model/references/learner-model-spec.md)
+and [operational skill](../.agents/skills/learner-model/SKILL.md). Restore their
+matching immutable pin with **APM 0.28.0** and `apm install --frozen`, retaining
+both manifest targets (`copilot` and `agent-skills`).
 
-- [Complete learner-model specification](../.agents/skills/learner-model/references/learner-model-spec.md)
-- [Operational skill](../.agents/skills/learner-model/SKILL.md)
-- [Clarification gates](../.agents/skills/learner-model/references/clarification-gates.md)
+**V2 transition:** the final package pin is forthcoming. The stable specification
+path above becomes the profile entrypoint. Do not treat an older installed
+specification as the redesigned default or invent missing contract details.
 
-The deployed package is restored from immutable `clew-skills` revision
-`5ed0f288a6c5c0c0f891939385ddf38fa5b32504`. The links above identify its canonical
-specification and operating guidance. If these files are missing or stale,
-restore the pinned package before learner-model operations. Do not hand-edit
-generated files or improvise missing schema/update rules.
+The default **`evidence-first-v1`** profile (`schema_version: 1`) uses `model/profile.md`,
+`model/index.md`, and readable evidence for goals, supplied work, observed
+errors, and confirmed preferences. It does not assign numerical scores or
+schedules. Existing unmarked models require clarification, not automatic
+migration. Configure/status never read or create the marker. A path-only
+exchange asks the learner's goal; the skill initializes at first genuine intake
+once ownership and intent are clear, not merely when a vault is configured.
 
-For student setup and the local-storage/hosted-processing disclosure, see the
-[README](../README.md#local-files-hosted-copilot). Relevant records can enter
-hosted Copilot context during ordinary bounded task use without a new opt-in
-gate. That does not authorize bulk uploads, unrelated vault access, publication,
-passive telemetry, or teacher/institutional access.
+The complete former specification remains separately available as **`advanced-v1`**:
 
-The package retains domain indexing, no trait labels, provenance, independent
-confidence and efficacy, scheduling, learner ownership, stable IDs, and
-append-only/tombstone safeguards. Undefined statistical, tombstone, storage, and
-transaction semantics remain clarification gates; an instructional skill is not
-an enforced storage engine. Local tombstoning does not remove already-sent
-hosted context, and this project makes no hosted retention or deletion promises.
+- [Advanced specification](../.agents/skills/learner-model/references/advanced-model-spec.md)
+- [Advanced operations](../.agents/skills/learner-model/references/advanced-operations.md)
+- [Advanced clarification gates](../.agents/skills/learner-model/references/advanced-clarification-gates.md)
 
-Architecture rationale:
+These are the confirmed v2 deployment paths; the matching immutable release is
+still pending. Advanced domain indexing, confidence/efficacy,
+scheduling, provenance, stable-ID and append-only/tombstone safeguards and
+undefined-rule gates remain profile-specific, not mandatory default machinery.
+Neither profile constitutes an enforced storage backend.
 
-- [ADR-0001: Shared Obsidian course content contract (Accepted)](adr/adr-0001-shared-obsidian-course-content-contract.md)
-- [ADR-0002: Repository and package ownership (Proposed)](adr/adr-0002-repository-and-package-ownership.md)
-- [ADR-0003: Local learner storage and hosted Copilot processing (Proposed)](adr/adr-0003-local-learner-storage-and-hosted-copilot-processing.md)
+Both profiles preserve learner ownership, attributable evidence, no trait
+labels, and bounded retrieval. Reserved `model`/`artifacts` names may belong
+to copied notes; ask before writing if ownership is unclear.
+See [student setup](../README.md#student-setup) and the
+[hosted-processing disclosure](../README.md#local-files-hosted-copilot).
+Ordinary task-scoped reads can enter hosted context without a new opt-in gate;
+that does not authorize bulk uploads, telemetry, or teacher access. Local
+corrections/tombstones cannot erase already-sent hosted context, and this
+project makes no provider retention, training, deletion, or encryption promises.
 
-The [pre-migration specification at the original source revision](https://github.com/francesco-kruk/clew/blob/6b03b5e8fdaefc16478de179bac00e9baa188c20/docs/LEARNER_MODEL.md)
-is retained for historical reference only. Its machine-boundary claims are not
-the hosted student workflow contract.
+Rationale: [hosted processing](adr/adr-0003-local-learner-storage-and-hosted-copilot-processing.md)
+and [evidence-first learner continuity](adr/adr-0005-evidence-first-learner-continuity.md)
+are Proposed ADRs, not lifecycle approvals.

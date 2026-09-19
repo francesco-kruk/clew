@@ -7,8 +7,9 @@ rationale behind the design; they do not replace specifications or task plans.
 Use an ADR for decisions with meaningful trade-offs affecting system structure,
 data models, interfaces, dependencies, operations, or cross-cutting constraints.
 Routine implementation details do not need one. Learner-specific "adaptation
-decisions" in the [learner model specification](../LEARNER_MODEL.md) are runtime
-domain objects, not ADRs.
+decisions" in the [learner model's advanced profile](../LEARNER_MODEL.md) are
+runtime domain objects, not ADRs; they are not required by the evidence-first
+default.
 
 ## Create and review a record
 
@@ -78,6 +79,13 @@ decision and rationale.
 | ADR-0001 | [Shared Obsidian course content contract](adr-0001-shared-obsidian-course-content-contract.md) | Accepted | 2026-09-16 |
 | ADR-0002 | [Repository and package ownership](adr-0002-repository-and-package-ownership.md) | Proposed | 2026-09-18 |
 | ADR-0003 | [Local learner storage and hosted Copilot processing](adr-0003-local-learner-storage-and-hosted-copilot-processing.md) | Proposed | 2026-09-18 |
+| ADR-0004 | [Portable bounded course reading](adr-0004-portable-bounded-course-reading.md) | Proposed | 2026-09-19 |
+| ADR-0005 | [Evidence-first learner continuity](adr-0005-evidence-first-learner-continuity.md) | Proposed | 2026-09-19 |
+
+ADR-0002 and ADR-0003 were revised on 2026-09-19 while still Proposed; their
+original proposal dates remain unchanged. ADR-0004 is the intended replacement
+default for ADR-0001, not an accepted supersession. ADR-0001 remains Accepted
+and unchanged; relationship fields stay empty pending explicit lifecycle approval.
 
 Add a row with the title linked to its record for each new ADR.
 Maintain the index manually alongside record changes; no generator is required.
@@ -86,8 +94,9 @@ Maintain the index manually alongside record changes; no generator is required.
 
 The skill is pinned in [apm.yml](../../apm.yml), with its resolution and deployed
 hashes in [apm.lock.yaml](../../apm.lock.yaml). Use APM **0.28.0** to restore it
-with `apm install --frozen`
-from the repository root. Do not edit the deployed skill; keep local workflow
+with `apm install --frozen` from the repository root, preserving both manifest
+targets (`copilot` and `agent-skills`). Do not narrow to `--target copilot`
+alone, which skips hybrid first-party skills. Do not edit the deployed skill; keep local workflow
 rules here. For a dependency update, follow the
 [repository's APM instructions](../../README.md#agent-skills) and compare the new
 embedded template with the local copy.

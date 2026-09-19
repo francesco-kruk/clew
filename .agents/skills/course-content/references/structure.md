@@ -1,9 +1,11 @@
-# Course structure contract
+# Legacy Clew course structure contract (explicit export)
 
-This is the shared format for new Clew courses. The hub is the stable interface
-for readers; source-specific importers own recovery and fidelity, not a second
-course schema. The examples are synthetic, not supplied course material or an
-established concept-ID registry.
+This preserved format applies only when the caller explicitly selects legacy
+Clew authoring/export or package validation. It is not the default student read
+contract: [portable navigation](reading.md) accepts ordinary copied Markdown
+without a hub, metadata or catalog. Within this legacy format the hub is the
+stable interface. Source-specific importers own recovery and fidelity. The
+examples are synthetic, not supplied material or a concept-ID registry.
 
 ## Layout and granularity
 

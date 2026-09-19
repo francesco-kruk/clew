@@ -120,8 +120,10 @@ standalone behavior; legacy courses can be read without automatic migration.
 - **REF-001**: [Learner-model specification](../LEARNER_MODEL.md).
 - **REF-002**: [Course-content skill](../../.agents/skills/course-content/SKILL.md)
   and [structure contract](../../.agents/skills/course-content/references/structure.md).
-- **REF-003**: [PDF conversion skill](../../.agents/skills/brute-force-pdf-to-obsidian/SKILL.md)
-  and [quality reference](../../.agents/skills/brute-force-pdf-to-obsidian/references/quality-and-linking.md).
+- **REF-003**: [PDF conversion skill](https://github.com/francesco-kruk/clew/blob/6b03b5e8fdaefc16478de179bac00e9baa188c20/.agents/skills/brute-force-pdf-to-obsidian/SKILL.md)
+  and [quality reference](https://github.com/francesco-kruk/clew/blob/6b03b5e8fdaefc16478de179bac00e9baa188c20/.agents/skills/brute-force-pdf-to-obsidian/references/quality-and-linking.md)
+  at the historical pre-migration revision; these links preserve the original
+  workflow referenced by this decision.
 - **REF-004**: User-supplied tutor-spike worktree, reviewed on 2026-09-16:
   `course-authoring`, `tutor-session`, and learner-model schema guidance.
   It provided documented hub-first patterns, not implemented course examples.

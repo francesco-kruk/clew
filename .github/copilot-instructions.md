@@ -1,46 +1,89 @@
----
-name: Content Ingestion Agent
-description: Specialized agent for ingesting PDF course materials into Clew as structured, modifiable Markdown artifacts in the content/ folder.
-tools:
-  - run_in_terminal
-  - read_file
-  - file_search
-skills:
-  - content-ingest
-  - obsidian-markdown
----
+# Clew student workspace
 
-# Content Ingestion Agent
+Follow [AGENTS.md](../AGENTS.md), [student setup](../README.md#student-setup), and
+the [learner-model contract pointer](../docs/LEARNER_MODEL.md).
 
-You are Clew's **Content Ingestion Agent**. Your role is to ingest course textbooks, lecture notes, and worksheets from PDF files, convert them into rich Markdown documents, and store them in the `content/` folder with modifiable artifacts (interactive exercises, editable Mermaid graphs/charts, and tables).
+## Manual notes handoff and vault selection
 
-## Ingestion Workflow
+The student creates an external vault, copies an entire portable notes/assets
+bundle as-is into any chosen folder, and supplies the vault path once.
+Teacher `digest` conversion belongs in `clew-content`, not this workspace.
+Do not require `courses`, a hub, catalog, manifest, or schema migration.
 
-1. **Identify Source Materials**:
-   - Ask the user for the PDF file path or target directory containing course PDFs if not already specified.
-   - Confirm or infer the course name (e.g. `Linear Algebra`, `Calculus`) and relevant domains.
+Configure with
+`python -m src.vault.cli configure --vault "C:\Path\To\Existing Vault"`;
+inspect configuration with `python -m src.vault.cli status`.
+The path must be absolute and already exist outside the clone.
+Ignored `.clew.local.json` stores `version: 1` and canonical `vault`.
+Never use a home fallback or create a vault/learner records from a path.
+Use Python 3.11+ standard library and Git; no pip/requirements installation.
+Both command outputs use the stable `vault` JSON field. Explicit configure with
+a valid supplied path can replace a malformed setting; status never updates
+configuration or ignore rules.
 
-2. **Execute Ingestion**:
-   - Run the ingestion CLI:
-     ```bash
-     python -m src.ingest.cli "<path_to_pdf>" --course "<course_name>" --domain "<domain_name>"
-     ```
-   - If processing a folder of PDFs, pass the directory path directly:
-     ```bash
-     python -m src.ingest.cli "<path_to_folder>" --course "<course_name>"
-     ```
+Configure/status do not read course or learner-file contents. They retain Git
+index checks and report reserved `model`/`artifacts` path presence only, not
+ownership. Configure alone adds ignore rules additively; status is read-only.
+Existing reserved root names trigger warnings even for files or case variants,
+without reading inside them. Resolve ownership through the skill, not the tool.
+Never initialize/push vault Git. `.gitignore` does not untrack or encrypt;
+stop for already tracked private paths and give actionable guidance.
+Ask before writing when reserved names, format, or destination ownership is
+uncertain. Configuration is not a permission bypass or sandbox.
 
-3. **Verify Generated Artifacts**:
-   - Inspect the resulting Markdown file in `content/<slug>.md`.
-   - Verify that:
-     - Frontmatter contains accurate metadata, course name, and domain.
-     - Exercises and problem sets are formatted as editable Obsidian callouts (`> [!exercise]`).
-     - Graphs, charts, and diagrams are formatted with editable Mermaid blocks, data tables, or linked image assets in `content/assets/`.
-     - Mathematical expressions retain proper LaTeX notation (`$...$` and `$$...$$`).
+## Bounded tutoring and continuity
 
-4. **Summarize and Report**:
-   - Provide a clear breakdown of the ingested material:
-     - Generated file path in `content/`
-     - Number of exercises extracted
-     - Number of charts and diagrams extracted
-     - Suggested next steps for connecting the content to learner model concepts or Obsidian canvases.
+Use `course-content` v2 to read only the relevant portable notes and linked
+context. Cite sources; surface ambiguity and missing assets. Do not infer
+domains or automatically rename, reorganize, or migrate notes. Teacher notes
+remain read-only unless the user explicitly requests a change.
+
+Tutoring produces personal `artifacts` at an agreed destination; genuine goals,
+supplied work, observed errors, and confirmed preferences can become readable
+learner evidence. Configuring a path or copying notes is not evidence.
+Use `learner-model` 3.0.0: one compact `model/learner.md` summary with exactly one
+`<!-- clew-learning-memory: v1 -->` marker, dates, and ordinary evidence links.
+Goals, Confirmed preferences, and Learning notes are recommended optional
+headings, not mandatory schema sections. Meaningful sessions use
+`model/sessions/YYYY-MM-DD-topic.md` with collision suffixes `-2`, and so on.
+Store each original attempt once and link it; artifacts are optional when useful.
+No profile/index files, typed-record/UUID graphs, overlays/tombstone engine,
+numerical scores, automatic schedules, or domain taxonomy.
+
+Bare continue/inspection is read-only: no session/evidence/artifact writes.
+Only meaningful learning input, decisions, or results justify updates.
+Configure/status do not read or create memory; path-only input asks the goal.
+Correct directly with a concise note if useful; clarify ambiguous forget versus
+stop-use versus explicitly scoped local deletion. Existing unknown models,
+including prior evidence-first/advanced formats, need an explicit migration
+decision. Archived advanced documentation is not an operational alternative.
+
+Use the canonical contract and clarification gates, not invented record rules.
+Preserve evidence attribution, no trait labels, and learner inspection/correction.
+Skills are not an enforced storage backend.
+
+## Hosted processing and dependencies
+
+Ordinary task use permits bounded relevant reads into hosted Copilot/model
+context without a new opt-in. Retrieve source/model context cheapest-first and
+stop when enough is available; course-only lookup needs no learner records.
+Never bulk-upload the model, read another learner's vault, add passive telemetry,
+publish private records, or provide teacher/institutional access. Tool
+permissions remain applicable. Do not promise local-only inference, hosted
+retention/training/deletion/encryption behavior, or a complete network audit.
+Local correction/deletion cannot erase already-sent hosted context.
+
+Runtime dependencies remain only `course-content` and `learner-model`.
+Both are pinned to `clew-skills` revision
+`9c8fb3b3754716c4cbf7c961c4a5f269cd003c15`; restore the matching deployment.
+Until PR #9 merges, student setup requires its checkout rather than older `main`.
+Contributor/Obsidian tooling uses direct
+original upstream pins, not a development package. Restore with **APM 0.28.0**
+and `apm install --frozen`, keeping both `copilot` and `agent-skills` targets.
+`--target copilot` alone silently skips hybrid skills. Preserve LF deployments,
+lockfiles, notices, and the optional `red-markdown` extension; never hand-edit
+generated skills. Test with synthetic notes, not real learner data.
+
+Read the [ADR process](../docs/adr/README.md) before architectural work.
+New records remain Proposed until explicit human lifecycle approval.
+Do not rewrite accepted ADR-0001 to reflect the new proposed default.

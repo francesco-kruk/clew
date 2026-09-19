@@ -2,9 +2,11 @@
 # APM dependencies
 apm_modules/
 content/
+.clew.local.json
+.venv/
+.venv-apm/
 
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
-

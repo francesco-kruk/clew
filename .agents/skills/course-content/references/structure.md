@@ -1,9 +1,11 @@
-# Course structure contract
+# Legacy Clew course structure contract (explicit export)
 
-This is the shared format for new Clew courses. The hub is the stable interface
-for readers; source-specific importers own recovery and fidelity, not a second
-course schema. The examples are synthetic, not supplied course material or an
-established concept-ID registry.
+This preserved format applies only when the caller explicitly selects legacy
+Clew authoring/export or package validation. It is not the default student read
+contract: [portable navigation](reading.md) accepts ordinary copied Markdown
+without a hub, metadata or catalog. Within this legacy format the hub is the
+stable interface. Source-specific importers own recovery and fidelity. The
+examples are synthetic, not supplied material or a concept-ID registry.
 
 ## Layout and granularity
 
@@ -191,10 +193,14 @@ source supplies one separately.
   image-only/unverified transcription labels next to the affected material.
   An attachment resolves a missing transcription only as a source image, not
   as verified editable text.
-- Learner records live outside the course, indexed by domain under the
-  [learner-model contract](../../../../docs/LEARNER_MODEL.md). Course concepts
+- Learner records live outside the course in the explicitly selected external
+  vault, as separate personal memory under the installed `learner-model`
+  contract (`references/learner-model-spec.md` in that skill). Teacher course
+  authoring and validation do not require that package. Course concepts
   describe subject matter; learner concepts describe a person's evidence and
   state. Do not copy one into the other or put personal progress in the hub.
+  Local storage does not imply local-only inference: relevant content used
+  during a task enters hosted GitHub Copilot processing.
 
 ## Links, names, and destination
 

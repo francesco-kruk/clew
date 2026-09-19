@@ -1,5 +1,5 @@
 lockfile_version: '1'
-generated_at: '2026-09-15T07:45:56.388277+00:00'
+generated_at: '2026-09-19T08:58:26.640394+00:00'
 apm_version: 0.28.0
 dependencies:
 - repo_url: anthropics/skills
@@ -51,6 +51,64 @@ dependencies:
     .agents/skills/skill-creator/scripts/run_loop.py: sha256:7bd6f674203168520517eec94c55f493c0d154339b061b4d7c0f0dad187d0f21
     .agents/skills/skill-creator/scripts/utils.py: sha256:3af8ae62c40c73ab712207436a0d9a981e845f25c5a7040229eb189cc8e45bb1
   content_hash: sha256:b2bfe91d69ca99994c0566baede889e7d2b9bb8791c6b6106c5d387392f717f6
+- repo_url: francesco-kruk/clew-skills
+  name: course-content
+  host: github.com
+  resolved_commit: 9c8fb3b3754716c4cbf7c961c4a5f269cd003c15
+  resolved_ref: 9c8fb3b3754716c4cbf7c961c4a5f269cd003c15
+  version: 2.0.0
+  virtual_path: skills/course-content
+  is_virtual: true
+  package_type: hybrid
+  deployed_files:
+  - .agents/skills/course-content
+  - .agents/skills/course-content/LICENSE
+  - .agents/skills/course-content/SKILL.md
+  - .agents/skills/course-content/apm.yml
+  - .agents/skills/course-content/references/package-contract.md
+  - .agents/skills/course-content/references/reading.md
+  - .agents/skills/course-content/references/structure.md
+  - .agents/skills/course-content/requirements.txt
+  - .agents/skills/course-content/schemas/catalog.schema.json
+  - .agents/skills/course-content/schemas/course-package.schema.json
+  - .agents/skills/course-content/scripts/validate_course.py
+  deployed_file_hashes:
+    .agents/skills/course-content/LICENSE: sha256:b7a717ad2f8f7e75f44a020b52c4b9199f9d7dd99e2e75f533dd28f3e975ac5a
+    .agents/skills/course-content/SKILL.md: sha256:5ac6e3c6b316c02b142d8e74042e8a617d30aa786e0aad0017680435ae6ae569
+    .agents/skills/course-content/apm.yml: sha256:d6853a7c4b28fa830b8568d453ff6212253d249f795219bbbe51baa5fc49fc4b
+    .agents/skills/course-content/references/package-contract.md: sha256:5479d407424df4752e5a5ea108afe41bdc460af617df7d5d6f6c527aac246df9
+    .agents/skills/course-content/references/reading.md: sha256:efcf7ffb071cf4dddce4de41140ad18f019a7a6734689a9b8e1130bd7793ef1b
+    .agents/skills/course-content/references/structure.md: sha256:33298a5ab10ce4029c2de75eed92d0b7df857fe602aebc73ae5e4ef94a8a10b4
+    .agents/skills/course-content/requirements.txt: sha256:195d92b82f91999cc32a0a29cf4f1969d11a2d4dac95317dd6cad57b61e1add0
+    .agents/skills/course-content/schemas/catalog.schema.json: sha256:db0cf09df25fe97c5d75d9efecba12b75e091cce76b4d236963a0a173660a1f8
+    .agents/skills/course-content/schemas/course-package.schema.json: sha256:2f2bba9c4096d3794587f7feb23088cb445ad46afbed709fdd3f0c14821856db
+    .agents/skills/course-content/scripts/validate_course.py: sha256:46e0decd2b2e59b92db09f9010631867f7e8bcd90af73b62460223c1da8ecc00
+  content_hash: sha256:5cf9f20d49b243f16906f697c8279ea01cdca0a28fb03c7a74a3671c78371493
+  declared_license: MIT
+- repo_url: francesco-kruk/clew-skills
+  name: learner-model
+  host: github.com
+  resolved_commit: 9c8fb3b3754716c4cbf7c961c4a5f269cd003c15
+  resolved_ref: 9c8fb3b3754716c4cbf7c961c4a5f269cd003c15
+  version: 3.0.0
+  virtual_path: skills/learner-model
+  is_virtual: true
+  package_type: hybrid
+  deployed_files:
+  - .agents/skills/learner-model
+  - .agents/skills/learner-model/LICENSE
+  - .agents/skills/learner-model/SKILL.md
+  - .agents/skills/learner-model/apm.yml
+  - .agents/skills/learner-model/references/clarification-gates.md
+  - .agents/skills/learner-model/references/learner-model-spec.md
+  deployed_file_hashes:
+    .agents/skills/learner-model/LICENSE: sha256:b7a717ad2f8f7e75f44a020b52c4b9199f9d7dd99e2e75f533dd28f3e975ac5a
+    .agents/skills/learner-model/SKILL.md: sha256:2a50aa2ff4f6201ec29b3fe4becb1638448b48abdbded75a7a9f5854c5123780
+    .agents/skills/learner-model/apm.yml: sha256:8f3c3e0c3cddc0cc6e2600b5581bd8e615ac2d1d5f0824c828ab1be8fd30e6ec
+    .agents/skills/learner-model/references/clarification-gates.md: sha256:1871218d83f38473165172f4c2ac41b2843d093c0a5667a9cee83db78cd10742
+    .agents/skills/learner-model/references/learner-model-spec.md: sha256:8c223b69a3e7b8612d4002cba277f140a6b61292bd117c2ddba4d75d1a33c8b5
+  content_hash: sha256:a73213f8b3b85fa3c6ebdf556b38aa3b7f39180fa491786d2ecd8240d19310b0
+  declared_license: MIT
 - repo_url: github/awesome-copilot
   name: create-architectural-decision-record
   host: github.com
@@ -153,7 +211,106 @@ dependencies:
   content_hash: sha256:622c48fb0c4642ef3725e782e96a37e645832d674df67f1a9383f3b592c354fe
 deployments:
 - kind: project-relative
-  target: copilot
+  target: agent-skills
+  value: .agents/skills/course-content
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/course-content
+  active_owner: francesco-kruk/clew-skills/skills/course-content
+  content_hash: null
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/course-content/LICENSE
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/course-content
+  active_owner: francesco-kruk/clew-skills/skills/course-content
+  content_hash: sha256:b7a717ad2f8f7e75f44a020b52c4b9199f9d7dd99e2e75f533dd28f3e975ac5a
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/course-content/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/course-content
+  active_owner: francesco-kruk/clew-skills/skills/course-content
+  content_hash: sha256:5ac6e3c6b316c02b142d8e74042e8a617d30aa786e0aad0017680435ae6ae569
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/course-content/apm.yml
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/course-content
+  active_owner: francesco-kruk/clew-skills/skills/course-content
+  content_hash: sha256:d6853a7c4b28fa830b8568d453ff6212253d249f795219bbbe51baa5fc49fc4b
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/course-content/references/package-contract.md
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/course-content
+  active_owner: francesco-kruk/clew-skills/skills/course-content
+  content_hash: sha256:5479d407424df4752e5a5ea108afe41bdc460af617df7d5d6f6c527aac246df9
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/course-content/references/reading.md
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/course-content
+  active_owner: francesco-kruk/clew-skills/skills/course-content
+  content_hash: sha256:efcf7ffb071cf4dddce4de41140ad18f019a7a6734689a9b8e1130bd7793ef1b
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/course-content/references/structure.md
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/course-content
+  active_owner: francesco-kruk/clew-skills/skills/course-content
+  content_hash: sha256:33298a5ab10ce4029c2de75eed92d0b7df857fe602aebc73ae5e4ef94a8a10b4
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/course-content/requirements.txt
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/course-content
+  active_owner: francesco-kruk/clew-skills/skills/course-content
+  content_hash: sha256:195d92b82f91999cc32a0a29cf4f1969d11a2d4dac95317dd6cad57b61e1add0
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/course-content/schemas/catalog.schema.json
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/course-content
+  active_owner: francesco-kruk/clew-skills/skills/course-content
+  content_hash: sha256:db0cf09df25fe97c5d75d9efecba12b75e091cce76b4d236963a0a173660a1f8
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/course-content/schemas/course-package.schema.json
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/course-content
+  active_owner: francesco-kruk/clew-skills/skills/course-content
+  content_hash: sha256:2f2bba9c4096d3794587f7feb23088cb445ad46afbed709fdd3f0c14821856db
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/course-content/scripts/validate_course.py
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/course-content
+  active_owner: francesco-kruk/clew-skills/skills/course-content
+  content_hash: sha256:46e0decd2b2e59b92db09f9010631867f7e8bcd90af73b62460223c1da8ecc00
+- kind: project-relative
+  target: agent-skills
   value: .agents/skills/create-architectural-decision-record
   runtime: null
   scope: project
@@ -162,7 +319,7 @@ deployments:
   active_owner: github/awesome-copilot/skills/create-architectural-decision-record
   content_hash: null
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/create-architectural-decision-record/SKILL.md
   runtime: null
   scope: project
@@ -171,7 +328,7 @@ deployments:
   active_owner: github/awesome-copilot/skills/create-architectural-decision-record
   content_hash: sha256:c11af0c34fa034e36e622ad97f1194824c3cbbe675a8b17cdc0bedc91b188a72
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/defuddle
   runtime: null
   scope: project
@@ -180,7 +337,7 @@ deployments:
   active_owner: kepano/obsidian-skills/skills/defuddle
   content_hash: null
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/defuddle/SKILL.md
   runtime: null
   scope: project
@@ -189,7 +346,7 @@ deployments:
   active_owner: kepano/obsidian-skills/skills/defuddle
   content_hash: sha256:10673a4dc70a0a057612d443243ab7a5aa4abdd4a0fadc3f6eec5fd71ad5a971
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/json-canvas
   runtime: null
   scope: project
@@ -198,7 +355,7 @@ deployments:
   active_owner: kepano/obsidian-skills/skills/json-canvas
   content_hash: null
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/json-canvas/SKILL.md
   runtime: null
   scope: project
@@ -207,7 +364,7 @@ deployments:
   active_owner: kepano/obsidian-skills/skills/json-canvas
   content_hash: sha256:97d1ae0728955c4203922753d5656890e5e4dd371b8306ea11884f9b510f1b85
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/json-canvas/references/EXAMPLES.md
   runtime: null
   scope: project
@@ -216,7 +373,61 @@ deployments:
   active_owner: kepano/obsidian-skills/skills/json-canvas
   content_hash: sha256:f5ce15a4b74643122396265e8c37c828874a4005794de2aee7030662968768eb
 - kind: project-relative
-  target: copilot
+  target: agent-skills
+  value: .agents/skills/learner-model
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/learner-model
+  active_owner: francesco-kruk/clew-skills/skills/learner-model
+  content_hash: null
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/learner-model/LICENSE
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/learner-model
+  active_owner: francesco-kruk/clew-skills/skills/learner-model
+  content_hash: sha256:b7a717ad2f8f7e75f44a020b52c4b9199f9d7dd99e2e75f533dd28f3e975ac5a
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/learner-model/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/learner-model
+  active_owner: francesco-kruk/clew-skills/skills/learner-model
+  content_hash: sha256:2a50aa2ff4f6201ec29b3fe4becb1638448b48abdbded75a7a9f5854c5123780
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/learner-model/apm.yml
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/learner-model
+  active_owner: francesco-kruk/clew-skills/skills/learner-model
+  content_hash: sha256:8f3c3e0c3cddc0cc6e2600b5581bd8e615ac2d1d5f0824c828ab1be8fd30e6ec
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/learner-model/references/clarification-gates.md
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/learner-model
+  active_owner: francesco-kruk/clew-skills/skills/learner-model
+  content_hash: sha256:1871218d83f38473165172f4c2ac41b2843d093c0a5667a9cee83db78cd10742
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/learner-model/references/learner-model-spec.md
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/learner-model
+  active_owner: francesco-kruk/clew-skills/skills/learner-model
+  content_hash: sha256:8c223b69a3e7b8612d4002cba277f140a6b61292bd117c2ddba4d75d1a33c8b5
+- kind: project-relative
+  target: agent-skills
   value: .agents/skills/obsidian-bases
   runtime: null
   scope: project
@@ -225,7 +436,7 @@ deployments:
   active_owner: kepano/obsidian-skills/skills/obsidian-bases
   content_hash: null
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/obsidian-bases/SKILL.md
   runtime: null
   scope: project
@@ -234,7 +445,7 @@ deployments:
   active_owner: kepano/obsidian-skills/skills/obsidian-bases
   content_hash: sha256:c0037f20926c7d8591cdd040365e4c0e4c0c4146386a506f28f241faee9a27d9
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/obsidian-bases/references/FUNCTIONS_REFERENCE.md
   runtime: null
   scope: project
@@ -243,7 +454,7 @@ deployments:
   active_owner: kepano/obsidian-skills/skills/obsidian-bases
   content_hash: sha256:208fd63aead9bca1975626fea52605e6ab9434dc0529d923feb36b18b8877d3b
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/obsidian-cli
   runtime: null
   scope: project
@@ -252,7 +463,7 @@ deployments:
   active_owner: kepano/obsidian-skills/skills/obsidian-cli
   content_hash: null
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/obsidian-cli/SKILL.md
   runtime: null
   scope: project
@@ -261,7 +472,7 @@ deployments:
   active_owner: kepano/obsidian-skills/skills/obsidian-cli
   content_hash: sha256:b54257cdc0e5d04488b35b0c797bfe427b24359f0848d3c73924dcacf8da6358
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/obsidian-markdown
   runtime: null
   scope: project
@@ -270,7 +481,7 @@ deployments:
   active_owner: kepano/obsidian-skills/skills/obsidian-markdown
   content_hash: null
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/obsidian-markdown/SKILL.md
   runtime: null
   scope: project
@@ -279,7 +490,7 @@ deployments:
   active_owner: kepano/obsidian-skills/skills/obsidian-markdown
   content_hash: sha256:7ad72e1f0a9081ed325e76b6402ad5de50a00e63e2341fd403a92f147234a007
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/obsidian-markdown/references/CALLOUTS.md
   runtime: null
   scope: project
@@ -288,7 +499,7 @@ deployments:
   active_owner: kepano/obsidian-skills/skills/obsidian-markdown
   content_hash: sha256:9912ec2e3f8711f65b8ceb82cc19cbffc5e6f8ccf2ab627e18926c522c383d8b
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/obsidian-markdown/references/EMBEDS.md
   runtime: null
   scope: project
@@ -297,7 +508,7 @@ deployments:
   active_owner: kepano/obsidian-skills/skills/obsidian-markdown
   content_hash: sha256:63b6205507e28fb58cf200bc348a2b139e50ae739743e2e6316732148973cb7a
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/obsidian-markdown/references/PROPERTIES.md
   runtime: null
   scope: project
@@ -306,7 +517,7 @@ deployments:
   active_owner: kepano/obsidian-skills/skills/obsidian-markdown
   content_hash: sha256:392953b5838c3ab3df135b5a914f100ae7b95e4501b6a2e5c8dc63da3ac7558b
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator
   runtime: null
   scope: project
@@ -315,7 +526,7 @@ deployments:
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: null
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator/LICENSE.txt
   runtime: null
   scope: project
@@ -324,7 +535,7 @@ deployments:
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: sha256:bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator/SKILL.md
   runtime: null
   scope: project
@@ -333,7 +544,7 @@ deployments:
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: sha256:dcd4803e61e913e6fc27294184cd3a71f09f5e924ff20c8a9a20173e7b3c2bcf
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator/agents/analyzer.md
   runtime: null
   scope: project
@@ -342,7 +553,7 @@ deployments:
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: sha256:bf68f4cac5a56c673a928c2e6d619586c5b93ea364026ab37547772cb45a663a
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator/agents/comparator.md
   runtime: null
   scope: project
@@ -351,7 +562,7 @@ deployments:
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: sha256:fe1fc9787c495d864c5d6eada47396478572325fde1b33a96d78bf4b849b7a3e
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator/agents/grader.md
   runtime: null
   scope: project
@@ -360,7 +571,7 @@ deployments:
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: sha256:57134da0c1a4eea33fbd74a1c9c44aa814f07d6bc64de303edb586f941e5d21a
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator/assets/eval_review.html
   runtime: null
   scope: project
@@ -369,7 +580,7 @@ deployments:
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: sha256:ce477dcc74dc1c0d1d3352646a79167b5a63634e936b1019160025065974e452
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator/eval-viewer/generate_review.py
   runtime: null
   scope: project
@@ -378,7 +589,7 @@ deployments:
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: sha256:fc9d1b9243fe5ab6012ebd579bd76d0035de1b79fd3b969de114defab26478fb
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator/eval-viewer/viewer.html
   runtime: null
   scope: project
@@ -387,7 +598,7 @@ deployments:
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: sha256:a53213426ee1100441d701a3a0d49cda7a842f992d2c36463f4d3cc0258575fa
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator/references/schemas.md
   runtime: null
   scope: project
@@ -396,7 +607,7 @@ deployments:
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: sha256:8e8876180a8989b406a4d3edddf875b04cdfd5805cc8616686d552b11ce4455f
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator/scripts/__init__.py
   runtime: null
   scope: project
@@ -405,7 +616,7 @@ deployments:
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator/scripts/aggregate_benchmark.py
   runtime: null
   scope: project
@@ -414,7 +625,7 @@ deployments:
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: sha256:123ef128ea5ccc01a4b1ac212ef5567f21e9c13d3d240609780beeb3200c49aa
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator/scripts/generate_report.py
   runtime: null
   scope: project
@@ -423,7 +634,7 @@ deployments:
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: sha256:13df7118a3c50c83c4c3250a606d5f2b20b25a3d44cbc392b3d669ec75281453
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator/scripts/improve_description.py
   runtime: null
   scope: project
@@ -432,7 +643,7 @@ deployments:
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: sha256:87d864570220b699fac52da309d2d6efdb060647bfebc74f768128e646accf80
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator/scripts/package_skill.py
   runtime: null
   scope: project
@@ -441,7 +652,7 @@ deployments:
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: sha256:1a33059b0db1ef73375d46d513e5ea81369d2e8838c970597b0d52ddef8d1c0f
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator/scripts/quick_validate.py
   runtime: null
   scope: project
@@ -450,7 +661,7 @@ deployments:
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: sha256:67cf5703402013936c8fb75ad6a1afecd8841d45cc5e606b634eb05825fde365
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator/scripts/run_eval.py
   runtime: null
   scope: project
@@ -459,7 +670,7 @@ deployments:
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: sha256:43e3b8f80dbf69c343967ba77e268fae991d9fa3ed68b32a0ff02532cd48657f
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator/scripts/run_loop.py
   runtime: null
   scope: project
@@ -468,7 +679,7 @@ deployments:
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: sha256:7bd6f674203168520517eec94c55f493c0d154339b061b4d7c0f0dad187d0f21
 - kind: project-relative
-  target: copilot
+  target: agent-skills
   value: .agents/skills/skill-creator/scripts/utils.py
   runtime: null
   scope: project

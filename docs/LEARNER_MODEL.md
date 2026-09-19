@@ -8,7 +8,7 @@ Sources belong in [clew-skills](https://github.com/francesco-kruk/clew-skills),
 not in a second specification here.
 
 Both runtime skills are pinned to `clew-skills` revision
-`9c8fb3b3754716c4cbf7c961c4a5f269cd003c15`. Restore this matching release with **APM 0.28.0** and
+`79c3aefa1817b2e3215df8f070815ef470b1ebdb`. Restore this matching release with **APM 0.28.0** and
 `apm install --frozen`, retaining both `copilot` and `agent-skills` targets.
 
 Memory is one compact `model/learner.md` summary with exactly one

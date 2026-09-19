@@ -73,10 +73,9 @@ outside the installed package, not a supported runtime alternative.
 Preserve attributable evidence, no trait labels, and learner ownership. Stop
 writes when ownership or contract semantics are unclear. Skills are not a
 storage backend or sandbox. Both runtime skills are pinned to `clew-skills`
-revision `9c8fb3b3754716c4cbf7c961c4a5f269cd003c15`; restore the matching package
+revision `79c3aefa1817b2e3215df8f070815ef470b1ebdb`; restore the matching package
 rather than editing generated files to simulate it.
-Until PR #9 merges, use its checkout as described
-in [student setup](README.md#student-setup), not an older `main` checkout.
+Follow [student setup](README.md#student-setup), available on `main`.
 
 ## Hosted Copilot
 

@@ -1,5 +1,5 @@
 lockfile_version: '1'
-generated_at: '2026-09-19T08:58:26.640394+00:00'
+generated_at: '2026-09-19T11:03:48.333931+00:00'
 apm_version: 0.28.0
 dependencies:
 - repo_url: anthropics/skills
@@ -54,8 +54,8 @@ dependencies:
 - repo_url: francesco-kruk/clew-skills
   name: course-content
   host: github.com
-  resolved_commit: 9c8fb3b3754716c4cbf7c961c4a5f269cd003c15
-  resolved_ref: 9c8fb3b3754716c4cbf7c961c4a5f269cd003c15
+  resolved_commit: 79c3aefa1817b2e3215df8f070815ef470b1ebdb
+  resolved_ref: 79c3aefa1817b2e3215df8f070815ef470b1ebdb
   version: 2.0.0
   virtual_path: skills/course-content
   is_virtual: true
@@ -78,18 +78,18 @@ dependencies:
     .agents/skills/course-content/apm.yml: sha256:d6853a7c4b28fa830b8568d453ff6212253d249f795219bbbe51baa5fc49fc4b
     .agents/skills/course-content/references/package-contract.md: sha256:5479d407424df4752e5a5ea108afe41bdc460af617df7d5d6f6c527aac246df9
     .agents/skills/course-content/references/reading.md: sha256:efcf7ffb071cf4dddce4de41140ad18f019a7a6734689a9b8e1130bd7793ef1b
-    .agents/skills/course-content/references/structure.md: sha256:33298a5ab10ce4029c2de75eed92d0b7df857fe602aebc73ae5e4ef94a8a10b4
+    .agents/skills/course-content/references/structure.md: sha256:1c0520a61db4ee9b0bd316899a8aba0f6d7ab12d791c3c3e939749177d6d9275
     .agents/skills/course-content/requirements.txt: sha256:195d92b82f91999cc32a0a29cf4f1969d11a2d4dac95317dd6cad57b61e1add0
     .agents/skills/course-content/schemas/catalog.schema.json: sha256:db0cf09df25fe97c5d75d9efecba12b75e091cce76b4d236963a0a173660a1f8
     .agents/skills/course-content/schemas/course-package.schema.json: sha256:2f2bba9c4096d3794587f7feb23088cb445ad46afbed709fdd3f0c14821856db
     .agents/skills/course-content/scripts/validate_course.py: sha256:46e0decd2b2e59b92db09f9010631867f7e8bcd90af73b62460223c1da8ecc00
-  content_hash: sha256:5cf9f20d49b243f16906f697c8279ea01cdca0a28fb03c7a74a3671c78371493
+  content_hash: sha256:62a744edc13c0eb7c66dfe9f03150039687c6b60087acbd82bb32bc1f3e94d76
   declared_license: MIT
 - repo_url: francesco-kruk/clew-skills
   name: learner-model
   host: github.com
-  resolved_commit: 9c8fb3b3754716c4cbf7c961c4a5f269cd003c15
-  resolved_ref: 9c8fb3b3754716c4cbf7c961c4a5f269cd003c15
+  resolved_commit: 79c3aefa1817b2e3215df8f070815ef470b1ebdb
+  resolved_ref: 79c3aefa1817b2e3215df8f070815ef470b1ebdb
   version: 3.0.0
   virtual_path: skills/learner-model
   is_virtual: true
@@ -272,7 +272,7 @@ deployments:
   owners:
   - francesco-kruk/clew-skills/skills/course-content
   active_owner: francesco-kruk/clew-skills/skills/course-content
-  content_hash: sha256:33298a5ab10ce4029c2de75eed92d0b7df857fe602aebc73ae5e4ef94a8a10b4
+  content_hash: sha256:1c0520a61db4ee9b0bd316899a8aba0f6d7ab12d791c3c3e939749177d6d9275
 - kind: project-relative
   target: agent-skills
   value: .agents/skills/course-content/requirements.txt

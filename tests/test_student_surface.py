@@ -22,11 +22,14 @@ class StudentSurfaceTests(unittest.TestCase):
 
     def test_three_first_party_packages_share_one_immutable_revision(self):
         manifest = (ROOT / "apm.yml").read_text(encoding="utf-8")
-        references = re.findall(r"francesco-kruk/clew-skills/([^\s#]+)#([0-9a-f]{40})\b", manifest)
+        references = re.findall(r"francesco-kruk/clew-skills/([^\s#]+)(?:#([^\s]+))?", manifest)
         self.assertEqual({path for path, _ in references},
                          {"skills/teach", "skills/course-content", "skills/learner-model"})
         self.assertEqual(len(references), 3)
         self.assertEqual(len({revision for _, revision in references}), 1)
+        for path, revision in references:
+            with self.subTest(path=path):
+                self.assertRegex(revision, r"^[0-9a-f]{40}$")
 
     def test_teaching_is_deployed_with_unchanged_reader_and_memory_versions(self):
         for name, version in (("teach", "1.0.0"), ("course-content", "2.0.0"),

@@ -30,6 +30,19 @@ only Python's standard library and the Git executable to inspect private-trackin
 metadata; no pip install or requirements file is needed. Obsidian is optional
 for viewing notes.
 
+**Availability:** this setup is part of
+[PR #9](https://github.com/francesco-kruk/clew/pull/9), not yet merged into `main`.
+To test it before merge, clone the repository and check out the PR head:
+
+```powershell
+git clone https://github.com/francesco-kruk/clew.git
+Set-Location clew
+git fetch origin pull/9/head
+git switch --detach FETCH_HEAD
+```
+
+After PR #9 merges, a current default-branch clone can omit the last two commands.
+
 1. Create your own external vault folder, outside the Clew clone.
 2. Manually copy the **entire portable notes/assets bundle as-is** into a folder
    of your choosing within that vault. Keep its internal paths, names, links,
@@ -44,6 +57,10 @@ apm install --frozen
 python -m src.vault.cli configure --vault "C:\Users\Student\Documents\My Learning Vault"
 python -m src.vault.cli status
 ```
+
+Alternatively, start Copilot in the clone and simply tell it the absolute vault
+path; the agent can run configure/status for you. The host's normal tool and
+filesystem access permissions still apply—supplying a path does not bypass them.
 
 `apm install --frozen` uses both manifest targets, `copilot` and `agent-skills`.
 Both are required for hybrid skill packages. **Do not override with
@@ -139,10 +156,11 @@ recorded in `apm.yml` and `apm.lock.yaml` with `apm install --frozen`. Keep both
 
 The student runtime consists of **`course-content`** and **`learner-model`**.
 Course-content v2 supports portable bounded reading; learner-model v2 supplies
-the evidence-first default and a separate advanced profile. The redesign's
-final immutable package pin is forthcoming; do not treat an older deployment
-as the new contract or invent a commit reference. Restore the matching release
-before using these profiles.
+the evidence-first default and a separate advanced profile. Both are pinned to
+`clew-skills` revision `16f727da7bbffbb9f905eb9a9ac40fa6d12ca27f`.
+Restore that matching pin before using these profiles; an older deployment is
+not the redesigned contract. Student CLI availability remains subject to the
+PR #9 checkout/merge guidance above.
 
 Contributor and Obsidian tools are direct upstream dependencies at their
 existing immutable pins, not a development package:

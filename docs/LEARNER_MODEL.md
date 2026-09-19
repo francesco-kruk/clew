@@ -9,9 +9,11 @@ and [operational skill](../.agents/skills/learner-model/SKILL.md). Restore their
 matching immutable pin with **APM 0.28.0** and `apm install --frozen`, retaining
 both manifest targets (`copilot` and `agent-skills`).
 
-**V2 transition:** the final package pin is forthcoming. The stable specification
-path above becomes the profile entrypoint. Do not treat an older installed
-specification as the redesigned default or invent missing contract details.
+The v2 package is pinned to `clew-skills` revision
+`16f727da7bbffbb9f905eb9a9ac40fa6d12ca27f`. The stable specification path above is
+the profile entrypoint. Restore the matching pin rather than treating an older
+installed specification as the redesigned default. Student CLI availability
+follows the [PR #9 setup guidance](../README.md#student-setup).
 
 The default **`evidence-first-v1`** profile (`schema_version: 1`) uses `model/profile.md`,
 `model/index.md`, and readable evidence for goals, supplied work, observed
@@ -27,8 +29,7 @@ The complete former specification remains separately available as **`advanced-v1
 - [Advanced operations](../.agents/skills/learner-model/references/advanced-operations.md)
 - [Advanced clarification gates](../.agents/skills/learner-model/references/advanced-clarification-gates.md)
 
-These are the confirmed v2 deployment paths; the matching immutable release is
-still pending. Advanced domain indexing, confidence/efficacy,
+These are the v2 deployment paths for the matching pin. Advanced domain indexing, confidence/efficacy,
 scheduling, provenance, stable-ID and append-only/tombstone safeguards and
 undefined-rule gates remain profile-specific, not mandatory default machinery.
 Neither profile constitutes an enforced storage backend.

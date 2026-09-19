@@ -113,8 +113,8 @@ backend, permission bypass, or sandbox.
   canonical profile entrypoint and links the separately retained advanced
   references `advanced-model-spec.md`, `advanced-operations.md`, and
   `advanced-clarification-gates.md` in that same directory. Keep
-  `docs/LEARNER_MODEL.md` as a concise pointer. The paths are confirmed;
-  restoration of the matching final immutable package remains pending.
+  `docs/LEARNER_MODEL.md` as a concise pointer. Restore the matching package
+  pinned to `16f727da7bbffbb9f905eb9a9ac40fa6d12ca27f` before profile operations.
 - **IMP-002**: Publish and restore the matching immutable v2 package before
   profile operations. Update skill guidance and evaluations together; never
   hand-edit generated deployments to bridge a contract mismatch.

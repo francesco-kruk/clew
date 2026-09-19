@@ -67,8 +67,10 @@ do not apply advanced numerical/scheduling rules to default records.
 Preserve provenance, no-trait-label rules, learner ownership, and the selected
 profile's correction/history safeguards. Stop affected writes when the contract
 is missing or unclear. An agent skill is not a storage backend or enforcement
-sandbox. The new immutable package pin is pending; do not edit generated files
-to simulate a matching deployment.
+sandbox. Both runtime skills are pinned to `clew-skills` revision
+`16f727da7bbffbb9f905eb9a9ac40fa6d12ca27f`; restore that matching deployment rather
+than editing generated files. Until PR #9 merges, use its checkout as described
+in [student setup](README.md#student-setup), not an older `main` checkout.
 
 ## Hosted Copilot
 

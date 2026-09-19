@@ -66,8 +66,10 @@ permissions remain applicable. Do not promise local-only inference, hosted
 retention/training/deletion/encryption behavior, or a complete network audit.
 Local correction/tombstoning cannot erase already-sent hosted context.
 
-Runtime dependencies are only `course-content` and `learner-model`; the final
-v2 immutable pin is forthcoming. Contributor/Obsidian tooling uses direct
+Runtime dependencies are only `course-content` and `learner-model`, both pinned
+to `clew-skills` revision `16f727da7bbffbb9f905eb9a9ac40fa6d12ca27f`.
+Until PR #9 merges, student setup requires its checkout rather than older `main`.
+Contributor/Obsidian tooling uses direct
 original upstream pins, not a development package. Restore with **APM 0.28.0**
 and `apm install --frozen`, keeping both `copilot` and `agent-skills` targets.
 `--target copilot` alone silently skips hybrid skills. Preserve LF deployments,

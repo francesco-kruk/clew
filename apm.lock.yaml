@@ -1,5 +1,5 @@
 lockfile_version: '1'
-generated_at: '2026-09-19T11:03:48.333931+00:00'
+generated_at: '2026-09-19T11:58:46.611191+00:00'
 apm_version: 0.28.0
 dependencies:
 - repo_url: anthropics/skills
@@ -54,8 +54,8 @@ dependencies:
 - repo_url: francesco-kruk/clew-skills
   name: course-content
   host: github.com
-  resolved_commit: 79c3aefa1817b2e3215df8f070815ef470b1ebdb
-  resolved_ref: 79c3aefa1817b2e3215df8f070815ef470b1ebdb
+  resolved_commit: 811586f80a06306447602fa8a99af3bca0c1aba0
+  resolved_ref: 811586f80a06306447602fa8a99af3bca0c1aba0
   version: 2.0.0
   virtual_path: skills/course-content
   is_virtual: true
@@ -88,8 +88,8 @@ dependencies:
 - repo_url: francesco-kruk/clew-skills
   name: learner-model
   host: github.com
-  resolved_commit: 79c3aefa1817b2e3215df8f070815ef470b1ebdb
-  resolved_ref: 79c3aefa1817b2e3215df8f070815ef470b1ebdb
+  resolved_commit: 811586f80a06306447602fa8a99af3bca0c1aba0
+  resolved_ref: 811586f80a06306447602fa8a99af3bca0c1aba0
   version: 3.0.0
   virtual_path: skills/learner-model
   is_virtual: true
@@ -108,6 +108,28 @@ dependencies:
     .agents/skills/learner-model/references/clarification-gates.md: sha256:1871218d83f38473165172f4c2ac41b2843d093c0a5667a9cee83db78cd10742
     .agents/skills/learner-model/references/learner-model-spec.md: sha256:8c223b69a3e7b8612d4002cba277f140a6b61292bd117c2ddba4d75d1a33c8b5
   content_hash: sha256:a73213f8b3b85fa3c6ebdf556b38aa3b7f39180fa491786d2ecd8240d19310b0
+  declared_license: MIT
+- repo_url: francesco-kruk/clew-skills
+  name: teach
+  host: github.com
+  resolved_commit: 811586f80a06306447602fa8a99af3bca0c1aba0
+  resolved_ref: 811586f80a06306447602fa8a99af3bca0c1aba0
+  version: 1.0.0
+  virtual_path: skills/teach
+  is_virtual: true
+  package_type: hybrid
+  deployed_files:
+  - .agents/skills/teach
+  - .agents/skills/teach/LICENSE
+  - .agents/skills/teach/SKILL.md
+  - .agents/skills/teach/apm.yml
+  - .agents/skills/teach/references/static-visual.md
+  deployed_file_hashes:
+    .agents/skills/teach/LICENSE: sha256:b7a717ad2f8f7e75f44a020b52c4b9199f9d7dd99e2e75f533dd28f3e975ac5a
+    .agents/skills/teach/SKILL.md: sha256:9b3161bdef520312d767f848ffc6f6cfe9a3ac83483611d84389e008107aaf3e
+    .agents/skills/teach/apm.yml: sha256:d572383964fc8c8569963e32364f2ee65d2a250baa561e25a6cf7bb32b829c89
+    .agents/skills/teach/references/static-visual.md: sha256:d1988a4751aa7527667165b9ba9b33664344e0ad45a9dde43d6cf92229169971
+  content_hash: sha256:630b7137e6f4c4e3d58271e15c58acc4c3c43ace647ad875b3f2e1ce44d2c5ce
   declared_license: MIT
 - repo_url: github/awesome-copilot
   name: create-architectural-decision-record
@@ -687,3 +709,48 @@ deployments:
   - anthropics/skills/skills/skill-creator
   active_owner: anthropics/skills/skills/skill-creator
   content_hash: sha256:3af8ae62c40c73ab712207436a0d9a981e845f25c5a7040229eb189cc8e45bb1
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/teach
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/teach
+  active_owner: francesco-kruk/clew-skills/skills/teach
+  content_hash: null
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/teach/LICENSE
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/teach
+  active_owner: francesco-kruk/clew-skills/skills/teach
+  content_hash: sha256:b7a717ad2f8f7e75f44a020b52c4b9199f9d7dd99e2e75f533dd28f3e975ac5a
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/teach/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/teach
+  active_owner: francesco-kruk/clew-skills/skills/teach
+  content_hash: sha256:9b3161bdef520312d767f848ffc6f6cfe9a3ac83483611d84389e008107aaf3e
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/teach/apm.yml
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/teach
+  active_owner: francesco-kruk/clew-skills/skills/teach
+  content_hash: sha256:d572383964fc8c8569963e32364f2ee65d2a250baa561e25a6cf7bb32b829c89
+- kind: project-relative
+  target: agent-skills
+  value: .agents/skills/teach/references/static-visual.md
+  runtime: null
+  scope: project
+  owners:
+  - francesco-kruk/clew-skills/skills/teach
+  active_owner: francesco-kruk/clew-skills/skills/teach
+  content_hash: sha256:d1988a4751aa7527667165b9ba9b33664344e0ad45a9dde43d6cf92229169971

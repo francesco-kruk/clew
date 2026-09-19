@@ -42,6 +42,14 @@ format, or destination is uncertain. Never infer that an existing `model` or
 
 ## Read, tutor, and retain genuine evidence
 
+Load `teach` for active tutoring, attempted-work feedback, and retries; keep
+the teaching procedure in that installed skill rather than duplicating it here.
+Pure source lookup uses `course-content`; pure memory inspection uses
+read-only `learner-model`. Setup/path-only requests initialize no records.
+Honor no-save and scoped stop-use instructions. Preview useful explanations
+through the existing [static-display path](README.md#static-explanations);
+unavailable visuals or persistence must be reported, not claimed successful.
+
 Use `course-content` v2 for bounded reading of the selected portable notes.
 Follow only relevant links and cite exact source locations. Stop at ambiguity
 or missing context; do not automatically rename, migrate, reorganize, or infer
@@ -72,8 +80,8 @@ outside the installed package, not a supported runtime alternative.
 
 Preserve attributable evidence, no trait labels, and learner ownership. Stop
 writes when ownership or contract semantics are unclear. Skills are not a
-storage backend or sandbox. Both runtime skills are pinned to `clew-skills`
-revision `79c3aefa1817b2e3215df8f070815ef470b1ebdb`; restore the matching package
+storage backend or sandbox. All three runtime skills are pinned to `clew-skills`
+revision `811586f80a06306447602fa8a99af3bca0c1aba0`; restore the matching package
 rather than editing generated files to simulate it.
 Follow [student setup](README.md#student-setup), available on `main`.
 
@@ -100,7 +108,7 @@ require explicit human approval. Do not infer others' agreement. Keep index
 and relationship links consistent. ADR-0001 remains unchanged; Proposed
 ADR-0004 is an intended replacement default, not an accepted supersession.
 
-Runtime skills are only `course-content` and `learner-model`. Skill-creator,
+Runtime skills are only `teach`, `course-content`, and `learner-model`. Skill-creator,
 ADR, Defuddle, Bases, and Obsidian Canvas/Markdown/optional CLI are direct
 upstream dependencies at existing pins, not a development package.
 Use **APM 0.28.0** and `apm install --frozen` with both manifest targets

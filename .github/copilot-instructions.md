@@ -33,6 +33,13 @@ uncertain. Configuration is not a permission bypass or sandbox.
 
 ## Bounded tutoring and continuity
 
+Load `teach` for active tutoring, attempted-work feedback, and retries.
+Pure source lookup uses `course-content`; pure memory inspection uses
+read-only `learner-model`. Setup/path-only requests initialize no records.
+Keep the teaching procedure upstream. Honor no-save and scoped stop-use;
+report unavailable visuals or persistence explicitly. Use the existing
+[static-display path](../README.md#static-explanations), not a new UI.
+
 Use `course-content` v2 to read only the relevant portable notes and linked
 context. Cite sources; surface ambiguity and missing assets. Do not infer
 domains or automatically rename, reorganize, or migrate notes. Teacher notes
@@ -73,9 +80,9 @@ permissions remain applicable. Do not promise local-only inference, hosted
 retention/training/deletion/encryption behavior, or a complete network audit.
 Local correction/deletion cannot erase already-sent hosted context.
 
-Runtime dependencies remain only `course-content` and `learner-model`.
-Both are pinned to `clew-skills` revision
-`79c3aefa1817b2e3215df8f070815ef470b1ebdb`; restore the matching deployment.
+Runtime dependencies remain only `teach`, `course-content`, and `learner-model`.
+All three are pinned to `clew-skills` revision
+`811586f80a06306447602fa8a99af3bca0c1aba0`; restore the matching deployment.
 Contributor/Obsidian tooling uses direct
 original upstream pins, not a development package. Restore with **APM 0.28.0**
 and `apm install --frozen`, keeping both `copilot` and `agent-skills` targets.

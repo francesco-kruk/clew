@@ -7,8 +7,13 @@ and [operational skill](../.agents/skills/learner-model/SKILL.md).
 Sources belong in [clew-skills](https://github.com/francesco-kruk/clew-skills),
 not in a second specification here.
 
-Both runtime skills are pinned to `clew-skills` revision
-`79c3aefa1817b2e3215df8f070815ef470b1ebdb`. Restore this matching release with **APM 0.28.0** and
+The installed `teach` skill composes course reading and this unchanged memory
+contract for attempted-work feedback and retries; it introduces no new storage
+schema. Pure inspection remains read-only. Honor no-save and scoped stop-use;
+read back changed records and links before claiming that evidence was saved.
+
+All three runtime skills are pinned to `clew-skills` revision
+`811586f80a06306447602fa8a99af3bca0c1aba0`. Restore this matching release with **APM 0.28.0** and
 `apm install --frozen`, retaining both `copilot` and `agent-skills` targets.
 
 Memory is one compact `model/learner.md` summary with exactly one

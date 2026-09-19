@@ -16,7 +16,7 @@ remain yours.
 | Repository | Owns |
 | --- | --- |
 | [clew](https://github.com/francesco-kruk/clew) | Student setup, vault location, tutoring instructions, architecture documentation, optional Markdown canvas |
-| [clew-skills](https://github.com/francesco-kruk/clew-skills) | Reusable course-reading and learner-model skills and their canonical contracts |
+| [clew-skills](https://github.com/francesco-kruk/clew-skills) | Reusable teaching, course-reading, and learner-model skills and their canonical contracts |
 | [clew-content](https://github.com/francesco-kruk/clew-content) | Teacher authoring and `digest` conversion into portable notes/assets bundles |
 
 This workspace does not convert PDFs or distribute courses. Obtain a bundle
@@ -63,6 +63,10 @@ filesystem access permissions still apply—supplying a path does not bypass the
 Both are required for hybrid skill packages. **Do not override with
 `--target copilot` alone:** that silently skips first-party skill deployment.
 
+After installing a new skill, start a fresh Copilot session if the current skill
+catalog does not discover `teach`. Successful APM deployment does not imply hot
+registration in an already-running session.
+
 `configure` requires an **absolute, existing external vault**. It does not create
 the vault or any learner records. The clone's ignored `.clew.local.json` stores
 `version: 1` and the canonical vault path, for example:
@@ -101,8 +105,17 @@ reorganize the bundle before reading it.
 
 ## Learning from your notes
 
-Ask, for example: “Use the notes I copied into `Maths\Trigonometry` to explain
-this example, then give me a similar problem.” The course-content skill reads
+For repeatable entry, ask: "Use teach with these notes", selecting the copied
+notes and providing your actual attempt. `teach` composes source reading and
+learning memory: feedback, a relevant static explanation, your actual retry in
+chat, and meaningful evidence saved only within the authorized scope. It waits
+for your response rather than inventing a retry or treating an explanation as
+proof of success. No fixed learning style or durable mastery is inferred.
+
+Active tutoring, attempted-work feedback, and retries use `teach`. Pure source
+lookup stays with `course-content`; pure memory inspection uses read-only
+`learner-model`. Setup or a path alone initializes no learning records.
+The course-content skill reads
 only relevant notes and linked context, cites the source, and reports ambiguity
 or missing assets rather than silently repairing the bundle. It does not infer
 domains or require a metadata migration.
@@ -120,6 +133,13 @@ headings, not mandatory schema sections. Meaningful
 sessions go in `model/sessions/YYYY-MM-DD-topic.md` (use `-2`, and so on, for
 name collisions). Store an original attempt once and link to it; create separate
 artifacts only when useful.
+
+You can say "do not save this interaction" or give a scoped stop-use instruction.
+Tutoring can continue ephemerally if memory is declined or unavailable; the
+agent must not claim it saved anything. Saved-success claims require read-back
+of the changed records and their links. Inspect the original external Markdown
+through an authorized editor, Markdown preview, or bounded file view; do not
+copy private records into this repository for display.
 
 A bare “continue” or inspection is read-only: no new session, evidence, or
 artifact files. Only meaningful learning input, decisions, or results justify
@@ -163,10 +183,11 @@ to invent storage or statistical rules.
 recorded in `apm.yml` and `apm.lock.yaml` with `apm install --frozen`. Keep both
 `copilot` and `agent-skills` targets and preserve the deployment's LF line endings.
 
-The student runtime consists of **`course-content`** and **`learner-model`**.
+The student runtime consists of **`teach`**, **`course-content`**, and **`learner-model`**.
+Teach 1.0.0 orchestrates the conversational loop; it is not a deterministic engine.
 Course-content v2 supports portable bounded reading; learner-model 3.0.0 supplies
-compact learning memory. Both runtime skills are pinned to `clew-skills`
-revision `79c3aefa1817b2e3215df8f070815ef470b1ebdb`.
+compact learning memory. All three runtime skills are pinned to `clew-skills`
+revision `811586f80a06306447602fa8a99af3bca0c1aba0`.
 Restore this matching release before memory operations.
 
 Contributor and Obsidian tools are direct upstream dependencies at their
@@ -195,6 +216,55 @@ previews local Markdown files with equations and images in a canvas-capable
 Copilot host. Its code lives in `.github/extensions/red-markdown/`; restore its
 npm dependencies and reload extensions as described in its installation guide.
 It is not required for student setup.
+
+### Static explanations
+
+For the visual teaching loop, use a canvas-capable Copilot host and the existing
+Red-bordered Markdown preview. Restore its declared dependencies, reload and
+inspect the extension, then discover the live canvas capabilities before opening
+an explanation by absolute path. See the extension's
+[teaching display procedure](.github/extensions/red-markdown/README.md#teaching-display-procedure).
+
+Keep the explanation Markdown and a supported raster image (preferably PNG)
+in the same authorized artifact directory. If copying a supplied image is
+authorized, preserve the source and note its provenance; do not claim a copied
+image was generated. Provide descriptive alt text and a readable explanation.
+Check that a local generation tool is actually available before promising a new
+image; no image generator is required or installed by this workspace.
+
+The renderer does not support raw SVG, Mermaid, interactive teaching controls,
+remote images, or parent-directory image traversal. Do not loosen its asset
+boundary. Reopen the existing panel after saving edits; there is no live watcher.
+Confirm the actual image and text are visible and legible through host observation
+or a human visual check. A successful file write, `get_document`, or panel-open
+response alone is not visual confirmation. Report missing assets or unavailable
+rendering explicitly: a text fallback may continue tutoring but does not pass
+the visual demo.
+
+### Consumer demo readiness
+
+Use authorized synthetic notes and records, never real learner data, for checks.
+This checklist describes acceptance, not a claim that any walkthrough has passed.
+
+1. Restore the three pinned skills with APM 0.28.0 and both manifest targets;
+   verify frozen restoration and existing Python/extension regressions.
+2. Provide an actual incorrect attempt against the selected source. Check a
+   justified error explanation (and a diagnostic question only when needed),
+   a visibly rendered relevant raster, and preview reopening after an edit.
+3. Supply an actual retry. Inspect read-back evidence: original attempt once,
+   source and explanation links, disclosed assistance, concise summary, and an
+   accurate correct, incorrect, pending, or unverified outcome. Source notes
+   must remain unchanged.
+4. Start a genuinely fresh Copilot session without the prior transcript. Select
+   the same vault and a different topic; verify bounded recall cites the saved
+   evidence for a tentative explanation choice and collects the new outcome.
+5. Confirm inspection/bare recall write nothing, no-save and scoped stop-use are
+   honored, and ownership conflicts or write failures never claim saved success.
+
+Text assertions and unit tests do not prove visible rendering or learning
+efficacy. A supplied-image walkthrough does not demonstrate image generation.
+Record missing capabilities and outstanding human checks rather than declaring
+the demo ready from packaging checks alone.
 
 ## Architecture decisions
 

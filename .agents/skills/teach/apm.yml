@@ -1,0 +1,17 @@
+name: teach
+version: 1.0.0
+description: Source-grounded attempt, static visual, actual retry and authorized learning evidence.
+author: Clew contributors
+license: MIT
+type: hybrid
+targets:
+  - agent-skills
+dependencies:
+  apm:
+    - git: parent
+      path: skills/course-content
+    - git: parent
+      path: skills/learner-model
+  mcp: []
+includes: auto
+scripts: {}

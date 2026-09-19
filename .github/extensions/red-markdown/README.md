@@ -73,6 +73,36 @@ panels owned by the original session-scoped provider.
   images produce visible warnings. Invalid equations show KaTeX error output.
 - Rendering is a snapshot on each page request, not a live file watcher.
 
+## Teaching display procedure
+
+Keep teaching in Copilot chat; this is a static, read-only explanation surface,
+not an exercise UI or learner-profile editor.
+
+1. After dependency restoration, call `extensions_reload`, inspect `red-markdown`
+   with `extensions_manage`, and discover its live schema with
+   `list_canvas_capabilities`. A missing dependency or unavailable canvas is an
+   explicit limitation, not successful display.
+2. Select a relevant supported raster, preferably PNG. With permission, copy it
+   beside the explanation Markdown in the agreed external artifact directory,
+   leaving the source unchanged. Cite the source and image provenance; distinguish
+   supplied/copied images from genuinely generated ones. Check any local
+   generation capability before relying on it; this extension generates no images.
+3. Reference the same-directory file, for example
+   `![Both required checks must pass](required-checks.png)`, and include readable
+   explanatory text. Open that Markdown using the discovered `path` input.
+   Do not work around the asset boundary with parent paths, remote images, raw
+   SVG, Mermaid, or arbitrary HTML.
+4. Confirm that the real canvas visibly renders a legible image and explanation
+   using host observation or a human check. File existence, `get_document`, and
+   successful `open_canvas` results alone do not prove visible rendering.
+5. After an authorized edit and save, reopen the same `instanceId` and confirm the
+   updated preview. There is no watcher. Report missing-image warnings and other
+   failures; text-only fallback does not pass visual-demo acceptance.
+
+Private artifacts and learner records stay outside Git. Use an authorized
+editor, this preview, or bounded file reads to inspect records in place rather
+than copying them into the repository.
+
 ## Development
 
 Run `npm test` inside this folder. Tests use temporary fixtures rather than

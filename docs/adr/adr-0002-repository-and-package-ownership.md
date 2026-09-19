@@ -50,11 +50,14 @@ Teacher source notes remain read-only except for an explicit user request.
 Source fidelity and distribution rights remain teacher responsibilities;
 manual copying does not confer rights.
 
-Student runtime skills are only `course-content` and `learner-model`, consumed
+Student runtime skills are only `teach`, `course-content`, and `learner-model`, consumed
 at immutable pins through APM 0.28.0. Contributor skill-creator/ADR/Defuddle/Bases
 and Obsidian Canvas/Markdown/optional CLI tooling use direct upstream dependencies
 at existing pins, not a development package. Generated skill deployments are not
 another source of truth.
+
+`teach` composes the existing reading and memory contracts for the conversational
+student loop; it adds no local runtime, learner schema, or dedicated UI.
 
 Configure an absolute, existing external vault with `python -m src.vault.cli
 configure --vault PATH`; inspect it with `python -m src.vault.cli status`.
